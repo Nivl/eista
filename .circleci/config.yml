@@ -1,0 +1,46 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7
+
+references:
+  node_version: &node_version '14.17.6'
+  webapp_path: &webapp_path webapp
+  webapp_pkg_manager: &webapp_pkg_manager yarn
+
+workflows:
+  webapp:
+    jobs:
+      - node/run:
+          name: 'build'
+          app-dir: *webapp_path
+          pkg-manager: *webapp_pkg_manager
+          version: *node_version
+          yarn-run: build
+      - node/test:
+          name: 'test'
+          app-dir: *webapp_path
+          pkg-manager: *webapp_pkg_manager
+          version: *node_version
+      - node/run:
+          name: 'lint'
+          app-dir: *webapp_path
+          pkg-manager: *webapp_pkg_manager
+          version: *node_version
+          yarn-run: lint
+      - node/run:
+          name: 'build-storybook'
+          app-dir: *webapp_path
+          pkg-manager: *webapp_pkg_manager
+          version: *node_version
+          yarn-run: build-storybook
+      - node/run:
+          name: 'chromatic-snapshots'
+          app-dir: *webapp_path
+          pkg-manager: *webapp_pkg_manager
+          version: *node_version
+          yarn-run: chromatic
+          requires:
+            - build
+            - test
+            - build-storybook
