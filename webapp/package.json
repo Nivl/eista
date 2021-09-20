@@ -25,7 +25,7 @@
     ]
   },
   "resolutions": {
-    "eslint-plugin-react": "7.25.2"
+    "eslint-plugin-react": "7.25.3"
   },
   "resolutions:comments": {
     "eslint-plugin-react": "needed to have the linter working properly everywhere (react-scripts has it's own version)"
@@ -59,7 +59,7 @@
     "chromatic": "5.10.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-config-react-app": "6.0.0",
-    "eslint-plugin-react": "7.25.2",
+    "eslint-plugin-react": "7.25.3",
     "eslint-plugin-react-hooks": "4.2.0",
     "prettier": "2.4.1"
   },
