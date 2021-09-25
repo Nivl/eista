@@ -1,6 +1,8 @@
+import './index.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+
 import Providers from './Providers';
 import reportWebVitals from './reportWebVitals';
 
