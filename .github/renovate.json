@@ -1,13 +1,17 @@
 {
   "extends": [
-    "config:base",
+    ":ignoreModulesAndTests",
     "group:recommended",
-    "group:monorepos"
+    "group:monorepos",
+    "workarounds:all"
   ],
   "dependencyDashboard": true,
   "timezone": "America/Los_Angeles",
   "postUpdateOptions": [
     "yarnDedupeHighest"
   ],
-  "semanticCommitType": "build"
+  "semanticCommitType": "build",
+  "semanticCommits": "enabled",
+  "prHourlyLimit": 0,
+  "rangeStrategy": "pin"
 }
