@@ -8,5 +8,5 @@ export const Default = () => {
 
 export default {
   component: Home,
-  title: 'Home',
+  title: 'pages/Home',
 } as Meta;
