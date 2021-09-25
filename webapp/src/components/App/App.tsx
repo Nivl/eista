@@ -2,9 +2,9 @@ import { Switch, Route } from 'react-router-dom';
 
 import ProtectedRoute from 'components/ProtectedRoute';
 
-import Home from 'page/home';
-import Login from 'page/login';
-import FourOhFour from 'page/404';
+import Home from 'pages/home';
+import Login from 'pages/login';
+import FourOhFour from 'pages/404';
 
 const App = () => (
   <Switch>
