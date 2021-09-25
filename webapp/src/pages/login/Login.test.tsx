@@ -2,8 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { render, screen, act, fireEvent } from '@testing-library/react';
-
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { Redirect as RedirectOriginal } from 'react-router';
 jest.mock('react-router');
 const Redirect = RedirectOriginal as jest.Mock;

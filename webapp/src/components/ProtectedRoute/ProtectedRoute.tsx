@@ -1,6 +1,7 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react';
-import Loading from 'components/design-system/Loading';
 import { Route } from 'react-router-dom';
+
+import Loading from 'components/design-system/Loading';
 
 type Props = {
   component: React.ComponentType<unknown>;
