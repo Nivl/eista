@@ -6,5 +6,5 @@ export const Default = () => <FourOhFour />;
 
 export default {
   component: FourOhFour,
-  title: 'FourOhFour',
+  title: 'pages/FourOhFour',
 } as Meta;
