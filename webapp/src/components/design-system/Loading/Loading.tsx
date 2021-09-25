@@ -1,5 +1,5 @@
-import { Spin } from 'antd';
+import CircularProgress from '@mui/material/CircularProgress';
 
-const Loading = () => <Spin size="large" />;
+const Loading = () => <CircularProgress />;
 
 export default Loading;
