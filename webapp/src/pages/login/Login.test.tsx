@@ -12,8 +12,8 @@ import { useAuth0 as useAuth0Original } from '@auth0/auth0-react';
 jest.mock('@auth0/auth0-react');
 const useAuth0O = useAuth0Original as jest.Mock;
 
-import LoadingOriginal from 'components/Loading';
-jest.mock('components/Loading');
+import LoadingOriginal from 'components/design-system/Loading';
+jest.mock('components/design-system/Loading');
 const Loading = LoadingOriginal as jest.Mock;
 
 import Login from './Login';
