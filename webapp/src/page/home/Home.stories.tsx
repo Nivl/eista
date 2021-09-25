@@ -1,3 +1,5 @@
+import { Meta } from '@storybook/react';
+
 import Home from './Home';
 
 export const Default = () => {
@@ -7,4 +9,4 @@ export const Default = () => {
 export default {
   component: Home,
   title: 'Home',
-};
+} as Meta;
