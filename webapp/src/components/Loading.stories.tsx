@@ -6,5 +6,5 @@ export const Default = () => <Loading />;
 
 export default {
   component: Loading,
-  title: 'components/design-system/Loading',
+  title: 'components/Loading',
 } as Meta;
