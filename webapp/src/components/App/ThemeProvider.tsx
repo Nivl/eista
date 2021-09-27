@@ -2,8 +2,17 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useMemo } from 'react';
 
-const Theme = ({ children }: { children: JSX.Element }) => {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+const Theme = ({
+  scheme,
+  children,
+}: {
+  scheme?: 'dark' | 'light';
+  children: JSX.Element;
+}) => {
+  let prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  if (scheme) {
+    prefersDarkMode = scheme == 'dark';
+  }
 
   const theme = useMemo(
     () =>
