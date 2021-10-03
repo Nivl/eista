@@ -1,37 +1,41 @@
-import CircularProgress from '@mui/material/CircularProgress';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { Box, CircularProgress, Container, Typography } from '@mui/material';
 
 export type Props = {
   hideText?: boolean;
   text?: string;
   isSmall?: boolean;
+  fullPage?: boolean;
 };
 
 const Loading = ({
   hideText = false,
   text = 'Loading...',
   isSmall = false,
+  fullPage = false,
 }: Props) => (
   <Container>
-    <Grid
-      container
-      justifyContent="center"
-      alignItems="center"
-      direction="column"
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexGrow: 1,
+        height: fullPage ? '100vh' : '',
+      }}
     >
-      <Grid item xs={12}>
-        <CircularProgress size={isSmall ? 20 : 40} />
-      </Grid>
+      <CircularProgress size={isSmall ? 20 : 40} />
       {!hideText && !isSmall && (
-        <Grid item xs={12}>
-          <Typography variant="body2" gutterBottom>
-            {text}
-          </Typography>
-        </Grid>
+        <Typography
+          variant="body2"
+          sx={{
+            marginTop: 2,
+          }}
+        >
+          {text}
+        </Typography>
       )}
-    </Grid>
+    </Box>
   </Container>
 );
 
