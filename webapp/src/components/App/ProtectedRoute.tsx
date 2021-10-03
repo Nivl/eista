@@ -1,7 +1,7 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import { Route } from 'react-router-dom';
 
-import Loading from 'components/Loader';
+import Loader from 'components/Loader';
 
 type Props = {
   component: React.ComponentType<unknown>;
@@ -11,7 +11,7 @@ type Props = {
 const ProtectedRoute = ({ component, ...args }: Props) => (
   <Route
     component={withAuthenticationRequired(component, {
-      onRedirecting: () => <Loading />, //eslint-disable-line react/display-name
+      onRedirecting: () => <Loader fullPage={true} />, //eslint-disable-line react/display-name
     })}
     {...args}
   />
