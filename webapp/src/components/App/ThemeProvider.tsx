@@ -1,27 +1,25 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 
-const Theme = ({
-  scheme,
-  children,
-}: {
+const Theme: FC<{
   scheme?: 'dark' | 'light';
-  children: JSX.Element;
-}) => {
-  let prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+}> = ({ scheme, children }) => {
+  let prefersLightkMode = useMediaQuery('(prefers-color-scheme: light)');
+  console.log({ prefersLightkMode });
+
   if (scheme) {
-    prefersDarkMode = scheme == 'dark';
+    prefersLightkMode = scheme == 'light';
   }
 
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
-          mode: prefersDarkMode ? 'dark' : 'light',
+          mode: prefersLightkMode ? 'light' : 'dark',
         },
       }),
-    [prefersDarkMode],
+    [prefersLightkMode],
   );
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
