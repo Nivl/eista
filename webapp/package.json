@@ -7,7 +7,7 @@
     "build": "SKIP_PREFLIGHT_CHECK=true react-scripts build",
     "test": "SKIP_PREFLIGHT_CHECK=true react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
+    "lint": "eslint '{src,.storybook}/**/*.{js,ts,tsx}' --max-warnings=0",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "chromatic": "npx chromatic --exit-zero-on-changes --auto-accept-changes main"
@@ -64,6 +64,7 @@
     "chromatic": "5.10.2",
     "eslint-config-prettier": "8.3.0",
     "eslint-config-react-app": "6.0.0",
+    "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-react": "7.26.1",
     "eslint-plugin-react-hooks": "4.2.0",
     "eslint-plugin-simple-import-sort": "7.0.0",

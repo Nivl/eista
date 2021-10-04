@@ -5,15 +5,20 @@
     "sourceType": "module"
   },
   "plugins": [
-    "simple-import-sort"
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "simple-import-sort",
+    "prettier"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
     "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended",
     "prettier"
   ],
   "settings": {
@@ -45,7 +50,8 @@
     "simple-import-sort/exports": [
       "error"
     ],
-    "@typescript-eslint/explicit-module-boundary-types": 0
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "prettier/prettier": "error"
   },
   "overrides": [
     {
