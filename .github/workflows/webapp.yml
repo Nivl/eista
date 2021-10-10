@@ -24,8 +24,6 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
-        cache: yarn
-        cache-dependency-path: webapp/yarn.lock
     - run: yarn install
     - run: yarn build
 
@@ -36,9 +34,6 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
-        cache: yarn
-        cache-dependency-path: webapp/yarn.lock
-    - run: yarn install
     - run: yarn lint
 
   test:
@@ -48,8 +43,6 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
-        cache: yarn
-        cache-dependency-path: webapp/yarn.lock
     - run: yarn install
     - run: yarn test
 
@@ -60,8 +53,6 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
-        cache: yarn
-        cache-dependency-path: webapp/yarn.lock
     - run: yarn install
     - run: yarn build-storybook
 
@@ -75,9 +66,12 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
-        cache: yarn
-        cache-dependency-path: webapp/yarn.lock
-    - run: yarn install
+    - name: Fix until chromatic < 6 # https://github.com/chromaui/chromatic-cli/issues/166
+      run: |
+        sed -i 's/nodeLinker: pnp/nodeLinker: \"node-modules\"/' .yarnrc.yml
+        yarn install
+        yarn rebuild
+        yarn build
     - name: Publish to Chromatic
       uses: chromaui/action@v1
       with:
