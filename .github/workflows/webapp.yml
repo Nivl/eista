@@ -1,6 +1,14 @@
 name: webapp
 
 on: [push]
+  #  push:
+    # paths:
+    #   - 'webapp/**'
+
+
+defaults:
+  run:
+    working-directory: ./webapp
 
 jobs:
   build:
@@ -10,6 +18,8 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
+        cache: yarn
+        cache-dependency-path: webapp/yarn.lock
     - run: yarn build
 
   lint:
@@ -19,6 +29,8 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
+        cache: yarn
+        cache-dependency-path: webapp/yarn.lock
     - run: yarn lint
 
   test:
@@ -28,6 +40,8 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
+        cache: yarn
+        cache-dependency-path: webapp/yarn.lock
     - run: yarn test
 
   build-storybook:
@@ -37,6 +51,8 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
+        cache: yarn
+        cache-dependency-path: webapp/yarn.lock
     - run: yarn build-storybook
 
   chromatic-snapshots:
@@ -47,4 +63,6 @@ jobs:
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
+        cache: yarn
+        cache-dependency-path: webapp/yarn.lock
     - run: yarn chromatic
