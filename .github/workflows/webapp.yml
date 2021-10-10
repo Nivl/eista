@@ -66,6 +66,7 @@ jobs:
     - name: Fix until chromatic < 6 # https://github.com/chromaui/chromatic-cli/issues/166
       run: |
         sed -i 's/nodeLinker: pnp/nodeLinker: \"node-modules\"/' .yarnrc.yml
+        yarn install
         yarn rebuild
         yarn build
     - name: Publish to Chromatic
