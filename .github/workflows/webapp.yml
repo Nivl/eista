@@ -6,6 +6,8 @@ on:
       - 'webapp/**'
       - '.github/**'
   pull_request:
+    branches:
+      - main
     paths:
       - 'webapp/**'
       - '.github/**'
