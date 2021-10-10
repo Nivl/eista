@@ -70,6 +70,8 @@ jobs:
     needs: [build, test]
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0 # chromatic needs the full git history to run diffs
     - uses: actions/setup-node@v2
       with:
         node-version: lts/*
