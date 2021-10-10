@@ -10,7 +10,8 @@
     "lint": "eslint '{src,.storybook}/**/*.{js,ts,tsx}' --max-warnings=0",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "chromatic": "npx chromatic --exit-zero-on-changes --auto-accept-changes main"
+    "chromatic": "npx chromatic --exit-zero-on-changes --auto-accept-changes main",
+    "chromatic:ci": "sed -i 's/nodeLinker: pnp/nodeLinker: \"node-modules\"/' .yarnrc.yml && yarn rebuild ; yarn rebuild && yarn build && npx chromatic --exit-zero-on-changes --auto-accept-changes main"
   },
   "browserslist": {
     "production": [
