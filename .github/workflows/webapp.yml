@@ -20,6 +20,7 @@ jobs:
         node-version: lts/*
         cache: yarn
         cache-dependency-path: webapp/yarn.lock
+    - run: yarn install
     - run: yarn build
 
   lint:
@@ -31,6 +32,7 @@ jobs:
         node-version: lts/*
         cache: yarn
         cache-dependency-path: webapp/yarn.lock
+    - run: yarn install
     - run: yarn lint
 
   test:
@@ -42,6 +44,7 @@ jobs:
         node-version: lts/*
         cache: yarn
         cache-dependency-path: webapp/yarn.lock
+    - run: yarn install
     - run: yarn test
 
   build-storybook:
@@ -53,6 +56,7 @@ jobs:
         node-version: lts/*
         cache: yarn
         cache-dependency-path: webapp/yarn.lock
+    - run: yarn install
     - run: yarn build-storybook
 
   chromatic-snapshots:
@@ -65,4 +69,5 @@ jobs:
         node-version: lts/*
         cache: yarn
         cache-dependency-path: webapp/yarn.lock
+    - run: yarn install
     - run: yarn chromatic
