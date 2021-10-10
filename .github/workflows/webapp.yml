@@ -2,7 +2,7 @@ name: webapp
 
 on:
   push:
-    paths:
+    paths: # /!\ This will only trigger based on the _previous_ push
       - 'webapp/**'
       - '.github/**'
   pull_request:
