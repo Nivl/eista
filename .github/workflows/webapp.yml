@@ -1,10 +1,14 @@
 name: webapp
 
-on: [push]
-   push:
+on:
+  push:
     paths:
       - 'webapp/**'
-
+      - '.github/**'
+  pull_request:
+    paths:
+      - 'webapp/**'
+      - '.github/**'
 
 defaults:
   run:
