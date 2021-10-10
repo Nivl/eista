@@ -72,7 +72,6 @@ jobs:
         yarn install
         yarn rebuild
         yarn build
-    - run: yarn install
     - name: Publish to Chromatic
       uses: chromaui/action@v1
       with:
