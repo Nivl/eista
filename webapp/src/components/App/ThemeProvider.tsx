@@ -6,8 +6,6 @@ const Theme: FC<{
   scheme?: 'dark' | 'light';
 }> = ({ scheme, children }) => {
   let prefersLightkMode = useMediaQuery('(prefers-color-scheme: light)');
-  console.log({ prefersLightkMode });
-
   if (scheme) {
     prefersLightkMode = scheme == 'light';
   }

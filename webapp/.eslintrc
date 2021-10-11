@@ -51,7 +51,8 @@
       "error"
     ],
     "@typescript-eslint/explicit-module-boundary-types": 0,
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "no-console": "error"
   },
   "overrides": [
     {
