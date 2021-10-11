@@ -1,0 +1,21 @@
+version: "3"
+
+tasks:
+  build: go build -race -v -o ./bin/api github.com/Nivl/eista-api/cmd/api
+
+  api-local-dev:
+    deps: [build]
+    cmds:
+      - ./bin/api
+    sources:
+      - ./**/*.go
+      - go.mod
+
+  start: docker-compose up --build
+
+  deps-upgrade:
+    cmds:
+      - go get -t -u ./...
+      - go mod tidy
+
+  test: go test -race ./...
