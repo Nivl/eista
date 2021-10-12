@@ -1,0 +1,3 @@
+version: 1
+default:
+  limit: 12 months
