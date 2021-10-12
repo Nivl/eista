@@ -5,12 +5,14 @@ on:
     paths: # /!\ This will only trigger based on the _previous_ push
       - 'webapp/**'
       - '.github/**'
+      - '!.github/workflows/api.yml'
   pull_request:
     branches:
       - main
     paths:
       - 'webapp/**'
       - '.github/**'
+      - '!.github/workflows/api.yml'
 
 defaults:
   run:

@@ -1,0 +1,97 @@
+name: api
+
+on:
+  push:
+    paths: # /!\ This will only trigger based on the _previous_ push
+      - 'api/**'
+      - '.github/**'
+      - '!.github/workflows/webapp.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'api/**'
+      - '.github/**'
+      - '!.github/workflows/webapp.yml'
+
+defaults:
+  run:
+    working-directory: ./api
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get Go version
+        id: gover
+        run: echo "::set-output name=value::$(grep 'go 1.' go.mod | cut -d ' ' -f 2)"
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ steps.gover.outputs.value }}
+
+      - name: Build
+        run: go build -race ./...
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get Go version
+        id: gover
+        run: echo "::set-output name=value::$(grep 'go 1.' go.mod | cut -d ' ' -f 2)"
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ steps.gover.outputs.value }}
+
+      - name: Test
+        run: go test -race -timeout 3m -coverprofile coverage.txt ./...
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Get Go version
+        id: gover
+        run: echo "::set-output name=value::$(grep 'go 1.' go.mod | cut -d ' ' -f 2)"
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ steps.gover.outputs.value }}
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.42.1
+          working-directory: ./api
+
+  go-vulnerabilities-scan:
+    name: "Golang Vulnerabilities Scan"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+
+      - name: Generate go.list
+        run: go list -json -m all > ../go.list
+
+      - name: Run Nancy
+        uses: sonatype-nexus-community/nancy-github-action@main
+
+  unmaintained-deps-check:
+    name: "Unmaintained deps check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+
+      - name: Generate go.list
+        run: go list -json -m all > ../go.list
+
+      - name: Run Voorhees
+        uses: Nivl/voorhees-github-action@v1
