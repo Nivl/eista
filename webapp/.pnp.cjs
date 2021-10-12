@@ -76,7 +76,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-router-dom", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.3.0"],
             ["react-scripts", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:4.0.3"],
             ["typescript", "patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=32657b"],
-            ["web-vitals", "npm:2.1.1"]
+            ["web-vitals", "npm:2.1.2"]
           ],
           "linkType": "SOFT",
         }]
@@ -15229,7 +15229,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-router-dom", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.3.0"],
             ["react-scripts", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:4.0.3"],
             ["typescript", "patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=32657b"],
-            ["web-vitals", "npm:2.1.1"]
+            ["web-vitals", "npm:2.1.2"]
           ],
           "linkType": "SOFT",
         }]
@@ -29285,10 +29285,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["web-vitals", [
-        ["npm:2.1.1", {
-          "packageLocation": "./.yarn/cache/web-vitals-npm-2.1.1-745737c523-1bc9ec8574.zip/node_modules/web-vitals/",
+        ["npm:2.1.2", {
+          "packageLocation": "./.yarn/cache/web-vitals-npm-2.1.2-913c691cae-488c93a514.zip/node_modules/web-vitals/",
           "packageDependencies": [
-            ["web-vitals", "npm:2.1.1"]
+            ["web-vitals", "npm:2.1.2"]
           ],
           "linkType": "HARD",
         }]
