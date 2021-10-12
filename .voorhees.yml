@@ -1,0 +1,7 @@
+version: 1
+
+default:
+  limit: 12 months
+
+rules:
+  github.com/stretchr/testify: 24 months
