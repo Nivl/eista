@@ -35,6 +35,7 @@ type Config struct {
 }
 
 type ResolverRoot interface {
+	Mutation() MutationResolver
 	Query() QueryResolver
 }
 
@@ -46,11 +47,24 @@ type ComplexityRoot struct {
 		Status func(childComplexity int) int
 	}
 
+	Mutation struct {
+		CreatePlaidLinkToken    func(childComplexity int) int
+		PersistPlaidPublicToken func(childComplexity int, input model.PlaidPublicToken) int
+	}
+
+	PlaidLinkToken struct {
+		Token func(childComplexity int) int
+	}
+
 	Query struct {
 		Health func(childComplexity int) int
 	}
 }
 
+type MutationResolver interface {
+	CreatePlaidLinkToken(ctx context.Context) (*model.PlaidLinkToken, error)
+	PersistPlaidPublicToken(ctx context.Context, input model.PlaidPublicToken) (bool, error)
+}
 type QueryResolver interface {
 	Health(ctx context.Context) (*model.Health, error)
 }
@@ -77,6 +91,32 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Health.Status(childComplexity), true
 
+	case "Mutation.createPlaidLinkToken":
+		if e.complexity.Mutation.CreatePlaidLinkToken == nil {
+			break
+		}
+
+		return e.complexity.Mutation.CreatePlaidLinkToken(childComplexity), true
+
+	case "Mutation.persistPlaidPublicToken":
+		if e.complexity.Mutation.PersistPlaidPublicToken == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_persistPlaidPublicToken_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.PersistPlaidPublicToken(childComplexity, args["input"].(model.PlaidPublicToken)), true
+
+	case "PlaidLinkToken.token":
+		if e.complexity.PlaidLinkToken.Token == nil {
+			break
+		}
+
+		return e.complexity.PlaidLinkToken.Token(childComplexity), true
+
 	case "Query.health":
 		if e.complexity.Query.Health == nil {
 			break
@@ -101,6 +141,20 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 			}
 			first = false
 			data := ec._Query(ctx, rc.Operation.SelectionSet)
+			var buf bytes.Buffer
+			data.MarshalGQL(&buf)
+
+			return &graphql.Response{
+				Data: buf.Bytes(),
+			}
+		}
+	case ast.Mutation:
+		return func(ctx context.Context) *graphql.Response {
+			if !first {
+				return nil
+			}
+			first = false
+			data := ec._Mutation(ctx, rc.Operation.SelectionSet)
 			var buf bytes.Buffer
 			data.MarshalGQL(&buf)
 
@@ -134,16 +188,26 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "graph/schema.graphqls", Input: `# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
-
-type Health {
+	{Name: "graph/schema.graphqls", Input: `type Health {
   status: String!
 }
 
 type Query {
   health: Health!
+}
+
+type PlaidLinkToken {
+  token: String!
+}
+
+input PlaidPublicToken {
+  token: String!
+}
+
+type Mutation {
+  # Plaid
+  createPlaidLinkToken: PlaidLinkToken!
+  persistPlaidPublicToken(input: PlaidPublicToken!): Boolean!
 }
 `, BuiltIn: false},
 }
@@ -152,6 +216,21 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 // endregion ************************** generated!.gotpl **************************
 
 // region    ***************************** args.gotpl *****************************
+
+func (ec *executionContext) field_Mutation_persistPlaidPublicToken_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.PlaidPublicToken
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNPlaidPublicToken2githubᚗcomᚋNivlᚋeistaᚑapiᚋgraphᚋmodelᚐPlaidPublicToken(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
 
 func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
@@ -225,6 +304,118 @@ func (ec *executionContext) _Health_status(ctx context.Context, field graphql.Co
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return obj.Status, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_createPlaidLinkToken(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().CreatePlaidLinkToken(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*model.PlaidLinkToken)
+	fc.Result = res
+	return ec.marshalNPlaidLinkToken2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋgraphᚋmodelᚐPlaidLinkToken(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_persistPlaidPublicToken(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_persistPlaidPublicToken_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().PersistPlaidPublicToken(rctx, args["input"].(model.PlaidPublicToken))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _PlaidLinkToken_token(ctx context.Context, field graphql.CollectedField, obj *model.PlaidLinkToken) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "PlaidLinkToken",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Token, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1469,6 +1660,29 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
+func (ec *executionContext) unmarshalInputPlaidPublicToken(ctx context.Context, obj interface{}) (model.PlaidPublicToken, error) {
+	var it model.PlaidPublicToken
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	for k, v := range asMap {
+		switch k {
+		case "token":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("token"))
+			it.Token, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 // endregion **************************** input.gotpl *****************************
 
 // region    ************************** interface.gotpl ***************************
@@ -1490,6 +1704,69 @@ func (ec *executionContext) _Health(ctx context.Context, sel ast.SelectionSet, o
 			out.Values[i] = graphql.MarshalString("Health")
 		case "status":
 			out.Values[i] = ec._Health_status(ctx, field, obj)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var mutationImplementors = []string{"Mutation"}
+
+func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, mutationImplementors)
+
+	ctx = graphql.WithFieldContext(ctx, &graphql.FieldContext{
+		Object: "Mutation",
+	})
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("Mutation")
+		case "createPlaidLinkToken":
+			out.Values[i] = ec._Mutation_createPlaidLinkToken(ctx, field)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "persistPlaidPublicToken":
+			out.Values[i] = ec._Mutation_persistPlaidPublicToken(ctx, field)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
+
+var plaidLinkTokenImplementors = []string{"PlaidLinkToken"}
+
+func (ec *executionContext) _PlaidLinkToken(ctx context.Context, sel ast.SelectionSet, obj *model.PlaidLinkToken) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, plaidLinkTokenImplementors)
+
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("PlaidLinkToken")
+		case "token":
+			out.Values[i] = ec._PlaidLinkToken_token(ctx, field, obj)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
@@ -1825,6 +2102,25 @@ func (ec *executionContext) marshalNHealth2ᚖgithubᚗcomᚋNivlᚋeistaᚑapi�
 		return graphql.Null
 	}
 	return ec._Health(ctx, sel, v)
+}
+
+func (ec *executionContext) marshalNPlaidLinkToken2githubᚗcomᚋNivlᚋeistaᚑapiᚋgraphᚋmodelᚐPlaidLinkToken(ctx context.Context, sel ast.SelectionSet, v model.PlaidLinkToken) graphql.Marshaler {
+	return ec._PlaidLinkToken(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNPlaidLinkToken2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋgraphᚋmodelᚐPlaidLinkToken(ctx context.Context, sel ast.SelectionSet, v *model.PlaidLinkToken) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._PlaidLinkToken(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNPlaidPublicToken2githubᚗcomᚋNivlᚋeistaᚑapiᚋgraphᚋmodelᚐPlaidPublicToken(ctx context.Context, v interface{}) (model.PlaidPublicToken, error) {
+	res, err := ec.unmarshalInputPlaidPublicToken(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalNString2string(ctx context.Context, v interface{}) (string, error) {

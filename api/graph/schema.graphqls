@@ -1,11 +1,21 @@
-# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
-
 type Health {
   status: String!
 }
 
 type Query {
   health: Health!
+}
+
+type PlaidLinkToken {
+  token: String!
+}
+
+input PlaidPublicToken {
+  token: String!
+}
+
+type Mutation {
+  # Plaid
+  createPlaidLinkToken: PlaidLinkToken!
+  persistPlaidPublicToken(input: PlaidPublicToken!): Boolean!
 }
