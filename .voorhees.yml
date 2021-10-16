@@ -4,4 +4,4 @@ default:
   limit: 12 months
 
 rules:
-  github.com/stretchr/testify: 24 months
+  github.com/vektah/gqlparser/v2: 60 months #  that's from gqlgen, we can't do much about it

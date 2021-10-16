@@ -1,46 +1,27 @@
 package main
 
 import (
-	"context"
-	"errors"
 	"log"
 	"net/http"
 	"os"
-	"os/signal"
-	"syscall"
-	"time"
 
-	"github.com/Nivl/eista-api/services/health/handlers"
-
-	"github.com/gin-gonic/gin"
+	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/playground"
+	"github.com/Nivl/eista-api/graph"
+	"github.com/Nivl/eista-api/graph/generated"
 )
 
 func main() {
-	r := gin.Default()
-	r.GET("/health", handlers.Check)
-
-	srv := &http.Server{
-		Addr:    ":5000",
-		Handler: r,
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "5000"
 	}
 
-	go func() {
-		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
-			log.Fatalf("listen: %s\n", err)
-		}
-	}()
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
 
-	quit := make(chan os.Signal, 1)
-	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
-	<-quit
-	log.Println("Shutting down server...")
+	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	http.Handle("/query", srv)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	if err := srv.Shutdown(ctx); err != nil {
-		cancel()
-		log.Fatal("Server forced to shutdown:", err)
-	}
-
-	log.Println("Server exiting")
-	cancel()
+	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

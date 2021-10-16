@@ -13,6 +13,14 @@ tasks:
 
   start: docker-compose up --build
 
+  lint: golangci-lint run ./...
+
+  generate:
+    cmds:
+      - go get github.com/99designs/gqlgen/cmd
+      - go generate ./...
+      - go mod tidy
+
   deps-upgrade:
     cmds:
       - go get -t -u ./...
