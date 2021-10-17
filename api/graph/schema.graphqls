@@ -1,11 +1,25 @@
-# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
-
 type Health {
   status: String!
 }
 
+type Me {
+  id: ID!
+  name: String!
+  email: String!
+}
+
 type Query {
   health: Health!
+
+  me: Me
+}
+
+input NewUser {
+  name: String!
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  createUser(userData: NewUser): Me
 }
