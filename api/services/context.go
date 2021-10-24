@@ -1,4 +1,4 @@
-package service
+package services
 
 import (
 	"context"
@@ -8,6 +8,7 @@ import (
 
 // Context represents the context needed by all the requests
 type Context struct {
+	DB   DB
 	User *user.User
-	ctx  context.Context
+	Ctx  context.Context
 }

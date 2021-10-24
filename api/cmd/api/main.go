@@ -10,6 +10,8 @@ import (
 	"github.com/Nivl/eista-api/graph"
 	"github.com/Nivl/eista-api/graph/generated"
 	"github.com/go-chi/chi"
+	_ "github.com/jackc/pgx/v4"
+	"github.com/jmoiron/sqlx"
 )
 
 func main() {
@@ -18,9 +20,23 @@ func main() {
 		port = "5000"
 	}
 
+	postgresURL := os.Getenv("EISTA_POSTGRES_URL")
+	if postgresURL == "" {
+		log.Fatalln("EISTA_POSTGRES_URL not set")
+	}
+
+	db, err := sqlx.Connect("postgres", postgresURL)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	resolvers := &graph.Resolver{
+		DB: db,
+	}
+
 	router := chi.NewRouter()
 	router.Use(graph.UserTokenMiddleware())
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolvers}))
 
 	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	router.Handle("/query", srv)

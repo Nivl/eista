@@ -13,6 +13,7 @@ import (
 )
 
 func (r *mutationResolver) CreateUser(ctx context.Context, userData *model.NewUser) (*model.Me, error) {
+	r.
 	return usermutations.CreateUser()
 }
 

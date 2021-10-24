@@ -6,6 +6,7 @@ tasks:
   api-local-dev:
     deps: [build]
     cmds:
+      - migrate -database $EISTA_POSTGRES_URL -path database/migrations up
       - ./bin/api
     sources:
       - ./**/*.go
