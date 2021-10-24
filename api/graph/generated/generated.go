@@ -13,6 +13,7 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	"github.com/Nivl/eista-api/graph/model"
+	"github.com/Nivl/eista-api/services/user/payload"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -64,11 +65,11 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	CreateUser(ctx context.Context, userData *model.NewUser) (*model.Me, error)
+	CreateUser(ctx context.Context, userData *model.NewUser) (*payload.Me, error)
 }
 type QueryResolver interface {
 	Health(ctx context.Context) (*model.Health, error)
-	Me(ctx context.Context) (*model.Me, error)
+	Me(ctx context.Context) (*payload.Me, error)
 }
 
 type executableSchema struct {
@@ -216,7 +217,6 @@ type Me {
 
 type Query {
   health: Health!
-
   me: Me
 }
 
@@ -340,7 +340,7 @@ func (ec *executionContext) _Health_status(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Me_id(ctx context.Context, field graphql.CollectedField, obj *model.Me) (ret graphql.Marshaler) {
+func (ec *executionContext) _Me_id(ctx context.Context, field graphql.CollectedField, obj *payload.Me) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -375,7 +375,7 @@ func (ec *executionContext) _Me_id(ctx context.Context, field graphql.CollectedF
 	return ec.marshalNID2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Me_name(ctx context.Context, field graphql.CollectedField, obj *model.Me) (ret graphql.Marshaler) {
+func (ec *executionContext) _Me_name(ctx context.Context, field graphql.CollectedField, obj *payload.Me) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -410,7 +410,7 @@ func (ec *executionContext) _Me_name(ctx context.Context, field graphql.Collecte
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Me_email(ctx context.Context, field graphql.CollectedField, obj *model.Me) (ret graphql.Marshaler) {
+func (ec *executionContext) _Me_email(ctx context.Context, field graphql.CollectedField, obj *payload.Me) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -479,9 +479,9 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Me)
+	res := resTmp.(*payload.Me)
 	fc.Result = res
-	return ec.marshalOMe2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋgraphᚋmodelᚐMe(ctx, field.Selections, res)
+	return ec.marshalOMe2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐMe(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_health(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -546,9 +546,9 @@ func (ec *executionContext) _Query_me(ctx context.Context, field graphql.Collect
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Me)
+	res := resTmp.(*payload.Me)
 	fc.Result = res
-	return ec.marshalOMe2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋgraphᚋmodelᚐMe(ctx, field.Selections, res)
+	return ec.marshalOMe2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐMe(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1820,7 +1820,7 @@ func (ec *executionContext) _Health(ctx context.Context, sel ast.SelectionSet, o
 
 var meImplementors = []string{"Me"}
 
-func (ec *executionContext) _Me(ctx context.Context, sel ast.SelectionSet, obj *model.Me) graphql.Marshaler {
+func (ec *executionContext) _Me(ctx context.Context, sel ast.SelectionSet, obj *payload.Me) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, meImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -2528,7 +2528,7 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return graphql.MarshalBoolean(*v)
 }
 
-func (ec *executionContext) marshalOMe2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋgraphᚋmodelᚐMe(ctx context.Context, sel ast.SelectionSet, v *model.Me) graphql.Marshaler {
+func (ec *executionContext) marshalOMe2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐMe(ctx context.Context, sel ast.SelectionSet, v *payload.Me) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

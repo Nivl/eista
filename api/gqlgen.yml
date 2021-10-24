@@ -43,6 +43,9 @@ autobind:
 # modelgen, the others will be allowed when binding to fields. Configure them to
 # your liking
 models:
+  Me:
+    model: github.com/Nivl/eista-api/services/user/payload.Me
+
   ID:
     model:
       - github.com/99designs/gqlgen/graphql.ID

@@ -10,7 +10,6 @@ type Me {
 
 type Query {
   health: Health!
-
   me: Me
 }
 
