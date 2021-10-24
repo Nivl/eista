@@ -13,6 +13,7 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	"github.com/Nivl/eista-api/graph/model"
+	"github.com/Nivl/eista-api/services/user/mutations"
 	"github.com/Nivl/eista-api/services/user/payload"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
@@ -55,7 +56,7 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreateUser func(childComplexity int, userData *model.NewUser) int
+		CreateUser func(childComplexity int, userData *mutations.CreateUserInput) int
 	}
 
 	Query struct {
@@ -65,7 +66,7 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	CreateUser(ctx context.Context, userData *model.NewUser) (*payload.Me, error)
+	CreateUser(ctx context.Context, userData *mutations.CreateUserInput) (*payload.Me, error)
 }
 type QueryResolver interface {
 	Health(ctx context.Context) (*model.Health, error)
@@ -125,7 +126,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateUser(childComplexity, args["userData"].(*model.NewUser)), true
+		return e.complexity.Mutation.CreateUser(childComplexity, args["userData"].(*mutations.CreateUserInput)), true
 
 	case "Query.health":
 		if e.complexity.Query.Health == nil {
@@ -240,10 +241,10 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_createUser_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.NewUser
+	var arg0 *mutations.CreateUserInput
 	if tmp, ok := rawArgs["userData"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userData"))
-		arg0, err = ec.unmarshalONewUser2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋgraphᚋmodelᚐNewUser(ctx, tmp)
+		arg0, err = ec.unmarshalONewUser2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋmutationsᚐCreateUserInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -470,7 +471,7 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateUser(rctx, args["userData"].(*model.NewUser))
+		return ec.resolvers.Mutation().CreateUser(rctx, args["userData"].(*mutations.CreateUserInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1744,8 +1745,8 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputNewUser(ctx context.Context, obj interface{}) (model.NewUser, error) {
-	var it model.NewUser
+func (ec *executionContext) unmarshalInputNewUser(ctx context.Context, obj interface{}) (mutations.CreateUserInput, error) {
+	var it mutations.CreateUserInput
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -2535,7 +2536,7 @@ func (ec *executionContext) marshalOMe2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋse
 	return ec._Me(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalONewUser2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋgraphᚋmodelᚐNewUser(ctx context.Context, v interface{}) (*model.NewUser, error) {
+func (ec *executionContext) unmarshalONewUser2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋmutationsᚐCreateUserInput(ctx context.Context, v interface{}) (*mutations.CreateUserInput, error) {
 	if v == nil {
 		return nil, nil
 	}

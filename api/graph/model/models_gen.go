@@ -5,9 +5,3 @@ package model
 type Health struct {
 	Status string `json:"status"`
 }
-
-type NewUser struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}

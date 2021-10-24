@@ -19,6 +19,6 @@ type CreateUserResponse interface{}
 
 // CreateUser creates a new user
 // The current user must be logged out
-func CreateUser(c *services.Context, input CreateUserInput) (*payload.Me, error) {
+func CreateUser(c *services.Context, input *CreateUserInput) (*payload.Me, error) {
 	panic(fmt.Errorf("not implemented"))
 }

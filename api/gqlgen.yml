@@ -45,6 +45,8 @@ autobind:
 models:
   Me:
     model: github.com/Nivl/eista-api/services/user/payload.Me
+  NewUser:
+    model: github.com/Nivl/eista-api/services/user/mutations.CreateUserInput
 
   ID:
     model:
