@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,7 +11,7 @@ import (
 	"github.com/Nivl/eista-api/graph"
 	"github.com/Nivl/eista-api/graph/generated"
 	"github.com/go-chi/chi"
-	_ "github.com/jackc/pgx/v4"
+	_ "github.com/jackc/pgx/v4/stdlib"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -25,7 +26,8 @@ func main() {
 		log.Fatalln("EISTA_POSTGRES_URL not set")
 	}
 
-	db, err := sqlx.Connect("postgres", postgresURL)
+	fmt.Println(postgresURL)
+	db, err := sqlx.Connect("pgx", postgresURL)
 	if err != nil {
 		log.Fatalln(err)
 	}

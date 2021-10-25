@@ -5,11 +5,10 @@ COPY . /app
 
 # Install the deps
 RUN curl -sL https://taskfile.dev/install.sh | sh
+RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 
 # build the apps
 RUN cd /app && task build
-
-RUN go get github.com/rubenv/sql-migrate/...
 
 # Set binary as entrypoint
 CMD /app/bin/api

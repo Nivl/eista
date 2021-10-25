@@ -11,9 +11,6 @@ services:
       - ./:/app
     depends_on:
       - database
-    environment:
-      - PORT=5000
-      - EISTA_POSTGRES_URL=postgres://pguser:pguser@eista_api_postgres/api-eista?sslmode=disable
     working_dir: /app
     command:
       [
