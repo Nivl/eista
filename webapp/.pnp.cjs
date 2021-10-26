@@ -54,7 +54,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:16.11.6"],
             ["@types/react", "npm:17.0.33"],
             ["@types/react-dom", "npm:17.0.10"],
-            ["@types/react-router-dom", "npm:5.3.1"],
+            ["@types/react-router-dom", "npm:5.3.2"],
             ["@typescript-eslint/eslint-plugin", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.2.0"],
             ["@typescript-eslint/parser", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.2.0"],
             ["chromatic", "npm:6.0.4"],
@@ -9761,10 +9761,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/react-router-dom", [
-        ["npm:5.3.1", {
-          "packageLocation": "./.yarn/cache/@types-react-router-dom-npm-5.3.1-ac4e931eb2-44621f53c1.zip/node_modules/@types/react-router-dom/",
+        ["npm:5.3.2", {
+          "packageLocation": "./.yarn/cache/@types-react-router-dom-npm-5.3.2-85c77b2709-90f052dc5a.zip/node_modules/@types/react-router-dom/",
           "packageDependencies": [
-            ["@types/react-router-dom", "npm:5.3.1"],
+            ["@types/react-router-dom", "npm:5.3.2"],
             ["@types/history", "npm:4.7.9"],
             ["@types/react", "npm:17.0.33"],
             ["@types/react-router", "npm:5.1.16"]
@@ -14738,7 +14738,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:16.11.6"],
             ["@types/react", "npm:17.0.33"],
             ["@types/react-dom", "npm:17.0.10"],
-            ["@types/react-router-dom", "npm:5.3.1"],
+            ["@types/react-router-dom", "npm:5.3.2"],
             ["@typescript-eslint/eslint-plugin", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.2.0"],
             ["@typescript-eslint/parser", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.2.0"],
             ["chromatic", "npm:6.0.4"],
