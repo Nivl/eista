@@ -46,6 +46,9 @@ type CreateUserResponse interface{}
 // CreateUser creates a new user
 // The current user must be logged out
 func CreateUser(c *services.Context, input *CreateUserInput) error {
+	if c.User != nil {
+		return services.NewForbiddenError("user is already logged in")
+	}
 	if err := input.Validate(); err != nil {
 		return err
 	}

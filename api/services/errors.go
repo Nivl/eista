@@ -14,6 +14,9 @@ const (
 	// AuthenticationError indicates that the error has been caused by a
 	// user not being authenticated.
 	AuthenticationError ErrorType = "AuthenticationError"
+	// ForbiddenError indicates that the error has been caused by a
+	// user having access to a specific resource.
+	ForbiddenError ErrorType = "ForbiddenError"
 )
 
 // Error represents an error that the service may return.
@@ -49,6 +52,14 @@ func NewConflictError(field, message string) *Error {
 func NewAuthenticationError(message string) *Error {
 	return &Error{
 		typ:     AuthenticationError,
+		message: message,
+	}
+}
+
+// NewForbiddenError returns a error representing a permission error.
+func NewForbiddenError(message string) *Error {
+	return &Error{
+		typ:     ForbiddenError,
 		message: message,
 	}
 }

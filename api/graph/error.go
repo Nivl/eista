@@ -33,6 +33,8 @@ func OnError(ctx context.Context, e error) *gqlerror.Error {
 			err.Extensions["code"] = "BAD_USER_INPUT"
 		case services.AuthenticationError:
 			err.Extensions["code"] = "UNAUTHENTICATED"
+		case services.ForbiddenError:
+			err.Extensions["code"] = "FORBIDDEN"
 		}
 
 		// We're adding the impacted field to the path if there's
