@@ -16,7 +16,7 @@ func CreateContext(ctx context.Context, r *Resolver) (*services.Context, error) 
 	}
 
 	authHeader, ok := ctx.Value(ctxKeyHTTPAuth).(string)
-	if ok {
+	if ok && authHeader != "" {
 		// the token has the following format:
 		// base64("userID:sessionToken")
 		// we need to decode it and split it so we can check the data in
