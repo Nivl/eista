@@ -13,12 +13,16 @@ import (
 	"github.com/Nivl/eista-api/services/user/payload"
 )
 
-func (r *mutationResolver) CreateUser(ctx context.Context, userData *mutations.CreateUserInput) (*payload.Me, error) {
+func (r *mutationResolver) CreateUser(ctx context.Context, userData mutations.CreateUserInput) (bool, error) {
 	c, err := CreateContext(ctx, r.Resolver)
 	if err != nil {
-		return nil, err
+		return false, err
 	}
-	return mutations.CreateUser(c, userData)
+	err = mutations.CreateUser(c, &userData)
+	if err != nil {
+		return false, fmt.Errorf("could not create new user: %w", err)
+	}
+	return true, nil
 }
 
 func (r *queryResolver) Health(ctx context.Context) (*model.Health, error) {
@@ -37,5 +41,7 @@ func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResol
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
-type mutationResolver struct{ *Resolver }
-type queryResolver struct{ *Resolver }
+type (
+	mutationResolver struct{ *Resolver }
+	queryResolver    struct{ *Resolver }
+)

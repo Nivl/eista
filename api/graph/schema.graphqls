@@ -20,5 +20,5 @@ input NewUser {
 }
 
 type Mutation {
-  createUser(userData: NewUser): Me
+  createUser(userData: NewUser!): Boolean!
 }
