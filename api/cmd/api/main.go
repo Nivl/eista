@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -26,7 +25,6 @@ func main() {
 		log.Fatalln("EISTA_POSTGRES_URL not set")
 	}
 
-	fmt.Println(postgresURL)
 	db, err := sqlx.Connect("pgx", postgresURL)
 	if err != nil {
 		log.Fatalln(err)
@@ -39,10 +37,12 @@ func main() {
 	router := chi.NewRouter()
 	router.Use(graph.UserTokenMiddleware())
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolvers}))
+	srv.SetErrorPresenter(graph.OnError)
+	srv.SetRecoverFunc(graph.OnPanic)
 
 	router.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	router.Handle("/query", srv)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
