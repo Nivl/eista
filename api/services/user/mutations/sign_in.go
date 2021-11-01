@@ -53,7 +53,8 @@ func SignIn(c *services.Context, input *SignInInput) (*payload.Session, error) {
 		SELECT *
 		FROM users
 		WHERE
-			email=$1`
+			email=$1
+			AND deleted_at IS NULL`
 	err := c.DB.GetContext(c.Ctx, &user, query, email)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {

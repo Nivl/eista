@@ -37,12 +37,15 @@ func CreateContext(ctx context.Context, r *Resolver) (*services.Context, error) 
 			LEFT JOIN user_sessions us
 				ON u.id = us.user_id
 			WHERE u.id=$1
-				AND us.token=$2;`
+				AND us.token=$2
+				AND us.deleted_at IS NULL
+				AND u.deleted_at IS NULL`
 		err = r.DB.GetContext(ctx, &c.User, query, uidAndToken[0], uidAndToken[1])
 		if err != nil {
 			// TODO(melvin): return custom error to user and log real error
 			return nil, err
 		}
+		c.SessionToken = uidAndToken[1]
 	}
 	return c, nil
 }
