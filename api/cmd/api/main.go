@@ -31,7 +31,9 @@ func main() {
 	}
 
 	resolvers := &graph.Resolver{
-		DB: db,
+		// Unsafe allows us to have models that don't contain all the fields
+		// that are in the database
+		DB: db.Unsafe(),
 	}
 
 	router := chi.NewRouter()
