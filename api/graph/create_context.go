@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/Nivl/eista-api/services"
+	"github.com/Nivl/eista-api/services/user/models"
 )
 
 func CreateContext(ctx context.Context, r *Resolver) (*services.Context, error) {
@@ -28,9 +29,9 @@ func CreateContext(ctx context.Context, r *Resolver) (*services.Context, error) 
 		}
 		uidAndToken := strings.Split(string(rawUIDAndToken), ":")
 		if len(uidAndToken) != 2 {
-			// TODO(melvin): return custom error to user and log real error
 			return nil, errors.New("Invalid format")
 		}
+		var user models.User
 		query := `
 			SELECT u.*
 			FROM users u
@@ -40,11 +41,13 @@ func CreateContext(ctx context.Context, r *Resolver) (*services.Context, error) 
 				AND us.token=$2
 				AND us.deleted_at IS NULL
 				AND u.deleted_at IS NULL`
-		err = r.DB.GetContext(ctx, &c.User, query, uidAndToken[0], uidAndToken[1])
+		err = r.DB.GetContext(ctx, &user, query, uidAndToken[0], uidAndToken[1])
 		if err != nil {
 			// TODO(melvin): return custom error to user and log real error
+			// We probably always want to return a "invalid token" error
 			return nil, err
 		}
+		c.User = &user
 		c.SessionToken = uidAndToken[1]
 	}
 	return c, nil

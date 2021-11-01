@@ -58,6 +58,7 @@ type ComplexityRoot struct {
 	Mutation struct {
 		CreateUser func(childComplexity int, userData mutations.CreateUserInput) int
 		SignIn     func(childComplexity int, credentials mutations.SignInInput) int
+		SignOut    func(childComplexity int) int
 	}
 
 	Query struct {
@@ -73,6 +74,7 @@ type ComplexityRoot struct {
 type MutationResolver interface {
 	CreateUser(ctx context.Context, userData mutations.CreateUserInput) (bool, error)
 	SignIn(ctx context.Context, credentials mutations.SignInInput) (*payload.Session, error)
+	SignOut(ctx context.Context) (bool, error)
 }
 type QueryResolver interface {
 	Health(ctx context.Context) (*model.Health, error)
@@ -145,6 +147,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.SignIn(childComplexity, args["credentials"].(mutations.SignInInput)), true
+
+	case "Mutation.signOut":
+		if e.complexity.Mutation.SignOut == nil {
+			break
+		}
+
+		return e.complexity.Mutation.SignOut(childComplexity), true
 
 	case "Query.health":
 		if e.complexity.Query.Health == nil {
@@ -264,6 +273,7 @@ type Session {
 type Mutation {
   createUser(userData: NewUser!): Boolean!
   signIn(credentials: Credentials!): Session
+  signOut: Boolean!
 }
 `, BuiltIn: false},
 }
@@ -575,6 +585,41 @@ func (ec *executionContext) _Mutation_signIn(ctx context.Context, field graphql.
 	res := resTmp.(*payload.Session)
 	fc.Result = res
 	return ec.marshalOSession2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐSession(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_signOut(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().SignOut(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_health(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2036,6 +2081,11 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			}
 		case "signIn":
 			out.Values[i] = ec._Mutation_signIn(ctx, field)
+		case "signOut":
+			out.Values[i] = ec._Mutation_signOut(ctx, field)
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}

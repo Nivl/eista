@@ -38,6 +38,18 @@ func (r *mutationResolver) SignIn(ctx context.Context, credentials mutations.Sig
 	return resp, nil
 }
 
+func (r *mutationResolver) SignOut(ctx context.Context) (bool, error) {
+	c, err := CreateContext(ctx, r.Resolver)
+	if err != nil {
+		return false, err
+	}
+	err = mutations.SignOut(c)
+	if err != nil {
+		return false, fmt.Errorf("could not sign user out: %w", err)
+	}
+	return true, nil
+}
+
 func (r *queryResolver) Health(ctx context.Context) (*model.Health, error) {
 	return &model.Health{
 		Status: "healthy",

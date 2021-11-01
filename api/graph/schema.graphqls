@@ -31,4 +31,5 @@ type Session {
 type Mutation {
   createUser(userData: NewUser!): Boolean!
   signIn(credentials: Credentials!): Session
+  signOut: Boolean!
 }
