@@ -11,6 +11,7 @@ import (
 	"github.com/Nivl/eista-api/graph/model"
 	"github.com/Nivl/eista-api/services/user/mutations"
 	"github.com/Nivl/eista-api/services/user/payload"
+	"github.com/Nivl/eista-api/services/user/queries"
 )
 
 func (r *mutationResolver) CreateUser(ctx context.Context, userData mutations.CreateUserInput) (bool, error) {
@@ -32,7 +33,15 @@ func (r *queryResolver) Health(ctx context.Context) (*model.Health, error) {
 }
 
 func (r *queryResolver) Me(ctx context.Context) (*payload.Me, error) {
-	panic(fmt.Errorf("not implemented"))
+	c, err := CreateContext(ctx, r.Resolver)
+	if err != nil {
+		return nil, err
+	}
+	pld, err := queries.Me(c)
+	if err != nil {
+		return nil, fmt.Errorf("could not get current user: %w", err)
+	}
+	return pld, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
