@@ -26,6 +26,18 @@ func (r *mutationResolver) CreateUser(ctx context.Context, userData mutations.Cr
 	return true, nil
 }
 
+func (r *mutationResolver) SignIn(ctx context.Context, credentials mutations.SignInInput) (*payload.Session, error) {
+	c, err := CreateContext(ctx, r.Resolver)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := mutations.SignIn(c, &credentials)
+	if err != nil {
+		return nil, fmt.Errorf("could not sign user in: %w", err)
+	}
+	return resp, nil
+}
+
 func (r *queryResolver) Health(ctx context.Context) (*model.Health, error) {
 	return &model.Health{
 		Status: "healthy",

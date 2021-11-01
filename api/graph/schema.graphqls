@@ -19,6 +19,16 @@ input NewUser {
   password: String!
 }
 
+input Credentials {
+  email: String!
+  password: String!
+}
+
+type Session {
+  token: String!
+}
+
 type Mutation {
   createUser(userData: NewUser!): Boolean!
+  signIn(credentials: Credentials!): Session
 }

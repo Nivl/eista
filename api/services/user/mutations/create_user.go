@@ -40,9 +40,6 @@ func (input *CreateUserInput) Validate() error {
 	return nil
 }
 
-// CreateUserResponse represents the response of the operation
-type CreateUserResponse interface{}
-
 // CreateUser creates a new user
 // The current user must be logged out
 func CreateUser(c *services.Context, input *CreateUserInput) error {

@@ -47,6 +47,10 @@ models:
     model: github.com/Nivl/eista-api/services/user/payload.Me
   NewUser:
     model: github.com/Nivl/eista-api/services/user/mutations.CreateUserInput
+  Credentials:
+    model: github.com/Nivl/eista-api/services/user/mutations.SignInInput
+  Session:
+    model: github.com/Nivl/eista-api/services/user/payload.Session
 
   ID:
     model:
