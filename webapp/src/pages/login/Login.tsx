@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 import Loading from 'components/Loader';
 
@@ -7,7 +7,7 @@ const Login = () => {
   const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
   if (isAuthenticated) {
-    return <Redirect to="/" />;
+    return <Navigate to="/" />;
   }
   if (isLoading) {
     return <Loading />;

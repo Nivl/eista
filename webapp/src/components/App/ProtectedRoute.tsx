@@ -8,13 +8,12 @@ type Props = {
   [x: string]: unknown;
 };
 
-const ProtectedRoute = ({ component, ...args }: Props) => (
-  <Route
-    component={withAuthenticationRequired(component, {
-      onRedirecting: () => <Loader fullPage={true} />, //eslint-disable-line react/display-name
-    })}
-    {...args}
-  />
-);
+const ProtectedRoute = ({ component, ...args }: Props) => {
+  const WrappedComponent = withAuthenticationRequired(component, {
+    onRedirecting: () => <Loader fullPage={true} />, //eslint-disable-line react/display-name
+  });
+
+  return <Route element={<WrappedComponent />} {...args} />;
+};
 
 export default ProtectedRoute;
