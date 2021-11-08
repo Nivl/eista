@@ -8,7 +8,6 @@ import MeContext from 'contexts/me';
 
 const getMe = async () => {
   const { me } = await request(
-    '/me',
     gql`
       query {
         me {
@@ -32,7 +31,6 @@ const useMeBackend = () => {
     retry: false,
     staleTime: 1000 * 60 * 60 * 24,
   });
-
   return { data, isLoading, isError, error };
 };
 

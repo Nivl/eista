@@ -12,6 +12,7 @@ import (
 	"github.com/go-chi/chi"
 	_ "github.com/jackc/pgx/v4/stdlib"
 	"github.com/jmoiron/sqlx"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -37,6 +38,13 @@ func main() {
 	}
 
 	router := chi.NewRouter()
+	router.Use(cors.New(cors.Options{
+		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowedHeaders:   []string{"Origin", "Accept", "Content-Type", "X-Requested-With", "Authorization"},
+		AllowedMethods:   []string{"POST", "GET"},
+		AllowCredentials: true,
+		Debug:            true,
+	}).Handler)
 	router.Use(graph.UserTokenMiddleware())
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolvers}))
 	srv.SetErrorPresenter(graph.OnError)

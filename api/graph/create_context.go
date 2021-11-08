@@ -2,12 +2,13 @@ package graph
 
 import (
 	"context"
-	"encoding/base64"
+	"database/sql"
 	"errors"
 	"strings"
 
 	"github.com/Nivl/eista-api/services"
 	"github.com/Nivl/eista-api/services/user/models"
+	"github.com/google/uuid"
 )
 
 func CreateContext(ctx context.Context, r *Resolver) (*services.Context, error) {
@@ -19,17 +20,13 @@ func CreateContext(ctx context.Context, r *Resolver) (*services.Context, error) 
 	authHeader, ok := ctx.Value(ctxKeyHTTPAuth).(string)
 	if ok && authHeader != "" {
 		// the token has the following format:
-		// base64("userID:sessionToken")
-		// we need to decode it and split it so we can check the data in
-		// the database to see if the user is using	the right token
-		rawUIDAndToken, err := base64.StdEncoding.DecodeString(authHeader)
-		if err != nil {
-			// TODO(melvin): return custom error to user and log real error
-			return nil, err
+		// Bearer sessionToken
+		if !strings.HasPrefix(authHeader, "Bearer ") {
+			return nil, errors.New("Invalid authorization format")
 		}
-		uidAndToken := strings.Split(string(rawUIDAndToken), ":")
-		if len(uidAndToken) != 2 {
-			return nil, errors.New("Invalid format")
+		sessionToken := strings.TrimPrefix(authHeader, "Bearer ")
+		if _, err := uuid.Parse(sessionToken); err != nil {
+			return nil, errors.New("Invalid authorization format")
 		}
 		var user models.User
 		query := `
@@ -37,18 +34,20 @@ func CreateContext(ctx context.Context, r *Resolver) (*services.Context, error) 
 			FROM users u
 			LEFT JOIN user_sessions us
 				ON u.id = us.user_id
-			WHERE u.id=$1
-				AND us.token=$2
+			WHERE us.token=$1
 				AND us.deleted_at IS NULL
 				AND u.deleted_at IS NULL`
-		err = r.DB.GetContext(ctx, &user, query, uidAndToken[0], uidAndToken[1])
+		err := r.DB.GetContext(ctx, &user, query, sessionToken)
 		if err != nil {
+			if errors.Is(err, sql.ErrNoRows) {
+				return nil, services.NewAuthenticationError("token invalid or expired")
+			}
 			// TODO(melvin): return custom error to user and log real error
 			// We probably always want to return a "invalid token" error
 			return nil, err
 		}
 		c.User = &user
-		c.SessionToken = uidAndToken[1]
+		c.SessionToken = sessionToken
 	}
 	return c, nil
 }
