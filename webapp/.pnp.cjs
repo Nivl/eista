@@ -57,7 +57,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-router-dom", "npm:5.3.2"],
             ["@typescript-eslint/eslint-plugin", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.3.1"],
             ["@typescript-eslint/parser", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.3.1"],
-            ["chromatic", "npm:6.0.5"],
+            ["chromatic", "npm:6.0.6"],
             ["components", "link:./src/components::locator=eista%40workspace%3A."],
             ["eslint", "npm:8.2.0"],
             ["eslint-config-prettier", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:8.3.0"],
@@ -12808,10 +12808,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["chromatic", [
-        ["npm:6.0.5", {
-          "packageLocation": "./.yarn/cache/chromatic-npm-6.0.5-d3e5287ad7-eb9a40f75d.zip/node_modules/chromatic/",
+        ["npm:6.0.6", {
+          "packageLocation": "./.yarn/cache/chromatic-npm-6.0.6-2bcb36dccb-21f80732d1.zip/node_modules/chromatic/",
           "packageDependencies": [
-            ["chromatic", "npm:6.0.5"]
+            ["chromatic", "npm:6.0.6"]
           ],
           "linkType": "HARD",
         }]
@@ -14741,7 +14741,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-router-dom", "npm:5.3.2"],
             ["@typescript-eslint/eslint-plugin", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.3.1"],
             ["@typescript-eslint/parser", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.3.1"],
-            ["chromatic", "npm:6.0.5"],
+            ["chromatic", "npm:6.0.6"],
             ["components", "link:./src/components::locator=eista%40workspace%3A."],
             ["eslint", "npm:8.2.0"],
             ["eslint-config-prettier", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:8.3.0"],
