@@ -1,17 +1,21 @@
-import { Route } from 'react-router-dom';
+import { FC, useContext } from 'react';
+import { Navigate } from 'react-router-dom';
 
-import useMe from 'hooks/useMe';
+import Loader from 'components/Loader';
+import MeContext from 'contexts/MeContext';
 
-//import Loader from 'components/Loader';
+const ProtectedRoute: FC = ({ children }) => {
+  const { me, isLoading } = useContext(MeContext);
 
-type Props = {
-  component: React.ComponentType<unknown>;
-  [x: string]: unknown;
-};
+  if (isLoading) {
+    return <Loader fullPage={true} />;
+  }
 
-const ProtectedRoute = ({ component, ...args }: Props) => {
-  console.log(useMe());
-  return <Route component={component} {...args} />;
+  if (!me) {
+    return <Navigate to="/login" state={{ from: location }} />;
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;

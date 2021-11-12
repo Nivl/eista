@@ -52,7 +52,13 @@
     ],
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "prettier/prettier": "warn",
-    "no-console": "warn"
+    "no-console": "warn",
+    "no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ]
   },
   "overrides": [
     {
