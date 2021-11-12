@@ -1,19 +1,21 @@
-import { useAuth0 } from '@auth0/auth0-react';
+import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import Loading from 'components/Loader';
+import MeContext from 'contexts/MeContext';
 
 const Login = () => {
-  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  const { me, isLoading } = useContext(MeContext);
 
-  if (isAuthenticated) {
-    return <Navigate to="/" replace={true} />;
-  }
   if (isLoading) {
     return <Loading />;
   }
 
-  return <button onClick={() => loginWithRedirect()}>Login / Sign Up</button>;
+  if (me) {
+    return <Navigate to="/" replace={true} />;
+  }
+
+  return <button>Login / Sign Up</button>;
 };
 
 export default Login;

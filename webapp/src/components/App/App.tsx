@@ -1,4 +1,3 @@
-import { Auth0Provider } from '@auth0/auth0-react';
 import { CssBaseline } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -17,24 +16,18 @@ const App = () => (
       <MeProvider>
         <CssBaseline />
         <Router>
-          <Auth0Provider
-            domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
-            clientId={process.env.REACT_APP_AUTH0_CLIENTID || ''}
-            redirectUri={window.location.origin}
-          >
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/login" element={<Login />} />
-              <Route path="*" element={<FourOhFour />} />
-            </Routes>
-          </Auth0Provider>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<FourOhFour />} />
+          </Routes>
         </Router>
       </MeProvider>
     </ThemeProvider>
