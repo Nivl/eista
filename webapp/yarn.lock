@@ -4188,7 +4188,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:7.29.0, @types/eslint@npm:^7.2.6":
+"@types/eslint@npm:8.2.0":
+  version: 8.2.0
+  resolution: "@types/eslint@npm:8.2.0"
+  dependencies:
+    "@types/estree": "*"
+    "@types/json-schema": "*"
+  checksum: 18f37790afc57412c74c9a0ef9a8cc44c1237a3f3d70e3e4e3daad38ed501f1a70395ff3955d3e4b481a5d04e6819ad2c377cd287c7315b3b633f0f1bda7b4a2
+  languageName: node
+  linkType: hard
+
+"@types/eslint@npm:^7.2.6":
   version: 7.29.0
   resolution: "@types/eslint@npm:7.29.0"
   dependencies:
@@ -8481,7 +8491,7 @@ __metadata:
     "@testing-library/jest-dom": 5.15.0
     "@testing-library/react": 12.1.2
     "@testing-library/user-event": 13.5.0
-    "@types/eslint": 7.29.0
+    "@types/eslint": 8.2.0
     "@types/jest": 27.0.3
     "@types/node": 16.11.8
     "@types/react": 17.0.35
