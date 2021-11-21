@@ -12,7 +12,7 @@ const ProtectedRoute: FC = ({ children }) => {
   }
 
   if (!me) {
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to="/login" />;
   }
 
   return <>{children}</>;

@@ -3,8 +3,8 @@ import { createContext } from 'react';
 import { FC, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
-import { Me } from '../backend/types';
 import request from 'backend/request';
+import { Me } from 'backend/types';
 
 const getMe = async () => {
   const { me } = await request(

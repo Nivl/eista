@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 
-const request = (query: string) => {
+const request = (query: string, variables: unknown = {}) => {
   const url = `${process.env.REACT_APP_API_URL}/query`;
   const graphQLClient = new GraphQLClient(url);
 
@@ -9,7 +9,7 @@ const request = (query: string) => {
     graphQLClient.setHeader('Authorization', `Bearer ${token}`);
   }
 
-  return graphQLClient.request(query);
+  return graphQLClient.request(query, variables);
 };
 
 export default request;
