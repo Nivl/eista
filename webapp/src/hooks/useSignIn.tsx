@@ -29,7 +29,7 @@ const signIn = async (variables: Payload) => {
   return data.token as string;
 };
 
-const useSignin = () => {
+const useSignIn = () => {
   const mutation = useMutation(signIn);
 
   return {
@@ -41,4 +41,4 @@ const useSignin = () => {
   };
 };
 
-export default useSignin;
+export default useSignIn;
