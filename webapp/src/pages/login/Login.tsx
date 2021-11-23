@@ -1,33 +1,67 @@
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Grid, Link, TextField, Typography } from '@mui/material';
-import { useContext, useState } from 'react';
-import { Link as RouterLink, Navigate } from 'react-router-dom';
-import { useForm } from "react-hook-form";
+import { useContext, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link as RouterLink, Navigate, useNavigate } from 'react-router-dom';
 
-import useSignIn from 'hooks/useSignIn';
+import { isGraphQLError } from 'backend/types';
 import Loading from 'components/Loader';
 import Page from 'components/Page';
 import MeContext from 'contexts/MeContext';
+import useSignIn, { Input as SignInInput } from 'hooks/useSignIn';
+
+type ServerErrors = {
+  [key: string]: string[];
+};
 
 const Login = () => {
+  const navigate = useNavigate();
   const { me, isLoading: isPageLoading } = useContext(MeContext);
-  const [isCheckingData, setIsCheckingData] = useState(false);
+  const {
+    isLoading: isSigningUp,
+    isSuccess: signUpSuccess,
+    error: signUpError,
+    data: signUpResult,
+    signIn,
+  } = useSignIn();
 
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (result: unknown) => {console.log({result})};
+  // Hooks to parse the server errors
+  const [serverError, setServerError] = useState<ServerErrors>({});
+  useEffect(() => {
+    if (signUpError && isGraphQLError(signUpError)) {
+      const errors: ServerErrors = {};
+      signUpError.response.errors.forEach(e => {
+        if (!errors[e.extensions.field]) {
+          errors[e.extensions.field] = [];
+        }
+        errors[e.extensions.field].push(e.message);
+      });
+      setServerError(errors);
+    }
+  }, [signUpError]);
 
-  const {isLoading, isSuccess, error, data, signIn} = useSignIn()
+  useEffect(() => {
+    if (signUpSuccess && signUpResult) {
+      window.localStorage.setItem('api_access_token', signUpResult);
+      navigate('/');
+    }
+  }, [navigate, signUpSuccess, signUpResult]);
 
-  console.log({isLoading, isSuccess, error, data})
+  const { register, handleSubmit, formState } = useForm({
+    mode: 'onChange',
+  });
+  const { errors: formErrors, isValid: formIsValid } = formState;
 
-
+  const onSubmit = (result: SignInInput) => {
+    signIn(result);
+  };
 
   if (me) {
     return <Navigate to="/" replace={true} />;
   }
 
   if (isPageLoading) {
-    return <Loading />;
+    return <Loading fullPage />;
   }
 
   return (
@@ -47,36 +81,82 @@ const Login = () => {
             <Typography variant="h3">Sign In</Typography>
           </Grid>
 
+          {serverError['_'] && (
+            <Grid item>
+              {serverError['_'].map(e => (
+                <Typography
+                  key={e}
+                  variant="body2"
+                  sx={{
+                    color: 'error.main',
+                  }}
+                >
+                  {e}
+                </Typography>
+              ))}
+            </Grid>
+          )}
+
           <Grid item>
-            <TextField fullWidth {...register("email")} id="email" label="E-mail" variant="outlined" />
+            <TextField
+              fullWidth
+              {...register('email', {
+                required: true,
+                maxLength: 255,
+                pattern: /^.+@.+$/i,
+              })}
+              error={!!formErrors.email}
+              id="email"
+              label="E-mail"
+              variant="outlined"
+              helperText={
+                (formErrors.email &&
+                  ((formErrors.email.type == 'required' &&
+                    'Please enter an email address') ||
+                    (formErrors.email.type == 'pattern' &&
+                      'Please enter a valid email address') ||
+                    (formErrors.email.type == 'maxLength' &&
+                      'E-mail address should be less or equal to 255 chars') ||
+                    'default')) ||
+                (serverError['email'] && serverError['email'][0])
+              }
+            />
           </Grid>
 
           <Grid item>
             <TextField
               fullWidth
-              {...register("password")}
+              {...register('password', {
+                required: true,
+                maxLength: 255,
+              })}
+              error={!!formErrors.password}
               id="password"
               label="Password"
               variant="outlined"
+              helperText={
+                (formErrors.password &&
+                  ((formErrors.password.type == 'maxLength' &&
+                    'password should be less or equal to 255 chars') ||
+                    'default')) ||
+                (serverError['password'] && serverError['password'][0])
+              }
             />
           </Grid>
 
           <Grid item>
-            {!isCheckingData ? (
+            {!isSigningUp ? (
               <Button
+                disabled={formIsValid ? false : true}
                 fullWidth
                 type="submit"
                 variant="contained"
-                onClick={() => {
-                  setIsCheckingData(true)
-                  handleSubmit(onSubmit)()}}
+                onClick={handleSubmit(onSubmit)}
               >
                 Sign in
               </Button>
             ) : (
-              <LoadingButton fullWidth loading variant="contained">
-                Submit
-              </LoadingButton>
+              <LoadingButton fullWidth loading variant="contained" />
             )}
           </Grid>
 

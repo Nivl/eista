@@ -2,8 +2,9 @@ import { gql } from 'graphql-request';
 import { useMutation } from 'react-query';
 
 import request from 'backend/request';
+import { GraphQLError } from 'backend/types';
 
-type Input = {
+export type Input = {
   email: string;
   password: string;
 };
@@ -30,7 +31,7 @@ const signIn = async (variables: Payload) => {
 };
 
 const useSignIn = () => {
-  const mutation = useMutation(signIn);
+  const mutation = useMutation<string, Error | GraphQLError, Payload>(signIn);
 
   return {
     isLoading: mutation.isLoading,
