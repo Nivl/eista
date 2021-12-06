@@ -18,7 +18,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { me, isLoading: isPageLoading } = useContext(MeContext);
   const {
-    isLoading: isSigningUp,
+    isLoading: isSigningIn,
     isSuccess: signUpSuccess,
     error: signUpError,
     data: signUpResult,
@@ -147,7 +147,7 @@ const Login = () => {
           </Grid>
 
           <Grid item>
-            {!isSigningUp ? (
+            {!isSigningIn ? (
               <Button
                 disabled={formIsValid ? false : true}
                 fullWidth
