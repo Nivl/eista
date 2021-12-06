@@ -9,6 +9,7 @@ import { MeProvider } from 'contexts/MeContext';
 import FourOhFour from 'pages/404';
 import Home from 'pages/home';
 import Login from 'pages/login';
+import SignUp from 'pages/signup';
 
 const App = () => (
   <QueryClientProvider>
@@ -26,6 +27,7 @@ const App = () => (
               }
             />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="*" element={<FourOhFour />} />
           </Routes>
         </Router>

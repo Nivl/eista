@@ -13,11 +13,11 @@ type Payload = {
   credentials: Input;
 };
 
-const signIn = async (variables: Payload) => {
+const signUp = async (variables: Payload) => {
   const data = await request(
     gql`
-      mutation signIn($credentials: Credentials!) {
-        signIn(credentials: $credentials) {
+      mutation signUp($credentials: Credentials!) {
+        signUp(credentials: $credentials) {
           token
         }
       }
@@ -28,16 +28,16 @@ const signIn = async (variables: Payload) => {
   return data.token as string;
 };
 
-const useSignIn = () => {
-  const mutation = useMutation<string, Error | GraphQLError, Payload>(signIn);
+const useSignUp = () => {
+  const mutation = useMutation<string, Error | GraphQLError, Payload>(signUp);
 
   return {
     isLoading: mutation.isLoading,
     error: mutation.error,
     isSuccess: mutation.isSuccess,
     data: mutation.data,
-    signIn: (input: Input) => mutation.mutate({ credentials: input }),
+    signUp: (input: Input) => mutation.mutate({ credentials: input }),
   };
 };
 
-export default useSignIn;
+export default useSignUp;
