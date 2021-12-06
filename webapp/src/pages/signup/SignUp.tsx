@@ -1,7 +1,7 @@
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Grid, Link, TextField, Typography } from '@mui/material';
-import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { useForm, Validate } from 'react-hook-form';
+import { useContext, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link as RouterLink, Navigate, useNavigate } from 'react-router-dom';
 
 import { isGraphQLError } from 'backend/types';
@@ -47,11 +47,15 @@ const SignUp = () => {
     }
   }, [navigate, signUpSuccess, signUpResult]);
 
-  const { register, handleSubmit, formState, watch } = useForm({
+  const { register, handleSubmit, formState, watch, trigger } = useForm({
     mode: 'onChange',
   });
   const { errors: formErrors, isValid: formIsValid } = formState;
   const password = watch('password');
+
+  useEffect(() => {
+    trigger('passwordAgain');
+  }, [trigger, password]);
 
   const onSubmit = (result: SignUpInput) => {
     signUp(result);
@@ -115,7 +119,7 @@ const SignUp = () => {
                     'Please enter a name') ||
                     (formErrors.name.type == 'maxLength' &&
                       'Name should be less or equal to 255 chars') ||
-                    'default')) ||
+                    'Invalid')) ||
                 (serverError['name'] && serverError['name'][0])
               }
             />
@@ -141,7 +145,7 @@ const SignUp = () => {
                       'Please enter a valid email address') ||
                     (formErrors.email.type == 'maxLength' &&
                       'E-mail address should be less or equal to 255 chars') ||
-                    'default')) ||
+                    'Invalid')) ||
                 (serverError['email'] && serverError['email'][0])
               }
             />
@@ -161,8 +165,10 @@ const SignUp = () => {
               helperText={
                 (formErrors.password &&
                   ((formErrors.password.type == 'maxLength' &&
-                    'password should be less or equal to 255 chars') ||
-                    'default')) ||
+                    'Password should be less or equal to 255 chars') ||
+                    (formErrors.passwordAgain.type == 'required' &&
+                      'Required') ||
+                    'Invalid')) ||
                 (serverError['password'] && serverError['password'][0])
               }
             />
@@ -172,11 +178,10 @@ const SignUp = () => {
             <TextField
               fullWidth
               {...register('passwordAgain', {
-                required: true,
                 maxLength: 255,
                 validate: {
                   match: (passwordAgain: string) =>
-                    passwordAgain === password
+                    !passwordAgain || passwordAgain === password
                       ? undefined
                       : 'Passwords do not match',
                 },
@@ -188,10 +193,11 @@ const SignUp = () => {
               helperText={
                 formErrors.passwordAgain &&
                 ((formErrors.passwordAgain.type == 'maxLength' &&
-                  'password should be less or equal to 255 chars') ||
+                  'Password should be less or equal to 255 chars') ||
+                  (formErrors.passwordAgain.type == 'required' && 'Required') ||
                   (formErrors.passwordAgain.type == 'match' &&
                     "Password don't match") ||
-                  'default')
+                  'Invalid')
               }
             />
           </Grid>

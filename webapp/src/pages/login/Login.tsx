@@ -117,7 +117,7 @@ const Login = () => {
                       'Please enter a valid email address') ||
                     (formErrors.email.type == 'maxLength' &&
                       'E-mail address should be less or equal to 255 chars') ||
-                    'default')) ||
+                    'Invalid')) ||
                 (serverError['email'] && serverError['email'][0])
               }
             />
@@ -138,7 +138,9 @@ const Login = () => {
                 (formErrors.password &&
                   ((formErrors.password.type == 'maxLength' &&
                     'password should be less or equal to 255 chars') ||
-                    'default')) ||
+                    (formErrors.passwordAgain.type == 'required' &&
+                      'Required') ||
+                    'Invalid')) ||
                 (serverError['password'] && serverError['password'][0])
               }
             />
