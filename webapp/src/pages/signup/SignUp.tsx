@@ -164,10 +164,9 @@ const SignUp = () => {
               variant="outlined"
               helperText={
                 (formErrors.password &&
-                  ((formErrors.password.type == 'maxLength' &&
-                    'Password should be less or equal to 255 chars') ||
-                    (formErrors.passwordAgain.type == 'required' &&
-                      'Required') ||
+                  ((formErrors.password.type == 'required' && 'Required') ||
+                    (formErrors.password.type == 'maxLength' &&
+                      'Password should be less or equal to 255 chars') ||
                     'Invalid')) ||
                 (serverError['password'] && serverError['password'][0])
               }
