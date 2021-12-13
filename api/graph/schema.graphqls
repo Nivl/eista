@@ -28,8 +28,13 @@ type Session {
   token: String!
 }
 
+type SignedInUser {
+  session: Session!
+  me: Me!
+}
+
 type Mutation {
-  createUser(userData: NewUser!): Boolean!
-  signIn(credentials: Credentials!): Session
+  createUser(newUser: NewUser!): Boolean!
+  signIn(credentials: Credentials!): SignedInUser
   signOut: Boolean!
 }

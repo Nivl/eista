@@ -7,36 +7,32 @@ import { GraphQLError } from 'backend/types';
 export type Input = {
   email: string;
   password: string;
+  name: string;
 };
 
 type Payload = {
-  credentials: Input;
+  newUser: Input;
 };
 
 const signUp = async (variables: Payload) => {
-  const data = await request(
+  await request(
     gql`
-      mutation signUp($credentials: Credentials!) {
-        signUp(credentials: $credentials) {
-          token
-        }
+      mutation createUser($newUser: NewUser!) {
+        createUser(newUser: $newUser)
       }
     `,
     variables,
   );
-
-  return data.token as string;
 };
 
 const useSignUp = () => {
-  const mutation = useMutation<string, Error | GraphQLError, Payload>(signUp);
+  const mutation = useMutation<void, Error | GraphQLError, Payload>(signUp);
 
   return {
     isLoading: mutation.isLoading,
     error: mutation.error,
     isSuccess: mutation.isSuccess,
-    data: mutation.data,
-    signUp: (input: Input) => mutation.mutate({ credentials: input }),
+    signUp: (input: Input) => mutation.mutateAsync({ newUser: input }),
   };
 };
 

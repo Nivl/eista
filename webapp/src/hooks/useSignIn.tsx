@@ -1,8 +1,10 @@
 import { gql } from 'graphql-request';
+import { useContext, useEffect } from 'react';
 import { useMutation } from 'react-query';
 
 import request from 'backend/request';
-import { GraphQLError } from 'backend/types';
+import { GraphQLError, Me, Session } from 'backend/types';
+import MeContext from 'contexts/MeContext';
 
 export type Input = {
   email: string;
@@ -13,30 +15,57 @@ type Payload = {
   credentials: Input;
 };
 
+type Response = {
+  me: Me;
+  session: Session;
+};
+
 const signIn = async (variables: Payload) => {
-  const data = await request(
+  const { signIn } = await request(
     gql`
       mutation signIn($credentials: Credentials!) {
         signIn(credentials: $credentials) {
-          token
+          me {
+            id
+            email
+            name
+          }
+          session {
+            token
+          }
         }
       }
     `,
     variables,
   );
 
-  return data.token as string;
+  return signIn as Response;
 };
 
 const useSignIn = () => {
-  const mutation = useMutation<string, Error | GraphQLError, Payload>(signIn);
+  const { setMe } = useContext(MeContext);
+  const { isLoading, data, isSuccess, mutateAsync, error } = useMutation<
+    Response,
+    Error | GraphQLError,
+    Payload
+  >(signIn);
+
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem('token', data.session.token);
+      setMe(data.me);
+    }
+  }, [data, setMe]);
 
   return {
-    isLoading: mutation.isLoading,
-    error: mutation.error,
-    isSuccess: mutation.isSuccess,
-    data: mutation.data,
-    signIn: (input: Input) => mutation.mutate({ credentials: input }),
+    isLoading: isLoading,
+    error: error,
+    isSuccess,
+    data: data?.me,
+    signIn: async (input: Input) => {
+      const res = await mutateAsync({ credentials: input });
+      return res.me;
+    },
   };
 };
 

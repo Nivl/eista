@@ -35,9 +35,9 @@ func (input *SignInInput) Validate() error {
 
 // SignIn controls that the user credentials are valid then creates and
 // persists a new user session
-func SignIn(c *services.Context, input *SignInInput) (*payload.Session, error) {
+func SignIn(c *services.Context, input *SignInInput) (*payload.SignedInUser, error) {
 	if c.User != nil {
-		return nil, services.NewForbiddenError("user is already logged in")
+		return nil, services.NewForbiddenError("User is already logged in")
 	}
 	if err := input.Validate(); err != nil {
 		return nil, err
@@ -58,14 +58,14 @@ func SignIn(c *services.Context, input *SignInInput) (*payload.Session, error) {
 	err := c.DB.GetContext(c.Ctx, &user, query, email)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
-			return nil, services.NewValidationError("_", "invalid email or password")
+			return nil, services.NewValidationError("_", "Invalid email or password")
 		}
 		return nil, fmt.Errorf("could not get user: %w", err)
 	}
 	// With the hashed password we can now check if the provided one is valid
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password))
 	if err != nil {
-		return nil, services.NewValidationError("_", "invalid email or password")
+		return nil, services.NewValidationError("_", "Invalid email or password")
 	}
 
 	// We can now create a new Session and return it to the user
@@ -84,7 +84,5 @@ func SignIn(c *services.Context, input *SignInInput) (*payload.Session, error) {
 		return nil, fmt.Errorf("could not create session: %w", err)
 	}
 
-	return &payload.Session{
-		Token: token,
-	}, nil
+	return payload.NewSignedInUser(&user, token), nil
 }

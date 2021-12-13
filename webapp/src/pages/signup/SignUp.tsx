@@ -8,6 +8,7 @@ import { isGraphQLError } from 'backend/types';
 import Loading from 'components/Loader';
 import Page from 'components/Page';
 import MeContext from 'contexts/MeContext';
+import useSignIn, { Input as SignInInput } from 'hooks/useSignIn';
 import useSignUp, { Input as SignUpInput } from 'hooks/useSignUp';
 
 type ServerErrors = {
@@ -17,13 +18,9 @@ type ServerErrors = {
 const SignUp = () => {
   const navigate = useNavigate();
   const { me, isLoading: isPageLoading } = useContext(MeContext);
-  const {
-    isLoading: isSigningUp,
-    isSuccess: signUpSuccess,
-    error: signUpError,
-    data: signUpResult,
-    signUp,
-  } = useSignUp();
+  const { isLoading: isSigningUp, error: signUpError, signUp } = useSignUp();
+  // We automatically sign in the user after sign up
+  const { isLoading: isSigningIn, signIn } = useSignIn();
 
   // Hooks to parse the server errors
   const [serverError, setServerError] = useState<ServerErrors>({});
@@ -31,21 +28,15 @@ const SignUp = () => {
     if (signUpError && isGraphQLError(signUpError)) {
       const errors: ServerErrors = {};
       signUpError.response.errors.forEach(e => {
-        if (!errors[e.extensions.field]) {
-          errors[e.extensions.field] = [];
+        const field = e.extensions?.field ?? '_';
+        if (!errors[field]) {
+          errors[field] = [];
         }
-        errors[e.extensions.field].push(e.message);
+        errors[field].push(e.message);
       });
       setServerError(errors);
     }
   }, [signUpError]);
-
-  useEffect(() => {
-    if (signUpSuccess && signUpResult) {
-      window.localStorage.setItem('api_access_token', signUpResult);
-      navigate('/');
-    }
-  }, [navigate, signUpSuccess, signUpResult]);
 
   const { register, handleSubmit, formState, watch, trigger } = useForm({
     mode: 'onChange',
@@ -57,8 +48,26 @@ const SignUp = () => {
     trigger('passwordAgain');
   }, [trigger, password]);
 
-  const onSubmit = (result: SignUpInput) => {
-    signUp(result);
+  const onSubmit = async (result: SignUpInput) => {
+    try {
+      await signUp({
+        email: result.email,
+        password: result.password,
+        name: result.name,
+      });
+    } catch (_) {
+      return;
+    }
+
+    try {
+      await signIn({ email: result.email, password: result.password });
+      navigate('/');
+    } catch (error) {
+      // TODO(melvin): Report error somewhere
+      console.error('auto sign in error', { error });
+      // In case of error we'll let the user try again manually
+      navigate('/login');
+    }
   };
 
   if (me) {
@@ -162,6 +171,7 @@ const SignUp = () => {
               id="password"
               label="Password"
               variant="outlined"
+              type="password"
               helperText={
                 (formErrors.password &&
                   ((formErrors.password.type == 'required' && 'Required') ||
@@ -189,6 +199,7 @@ const SignUp = () => {
               id="password-again"
               label="Password Again"
               variant="outlined"
+              type="password"
               helperText={
                 formErrors.passwordAgain &&
                 ((formErrors.passwordAgain.type == 'maxLength' &&
@@ -202,7 +213,7 @@ const SignUp = () => {
           </Grid>
 
           <Grid item>
-            {!isSigningUp ? (
+            {!isSigningUp && !isSigningIn ? (
               <Button
                 disabled={formIsValid ? false : true}
                 fullWidth

@@ -17,43 +17,39 @@ type ServerErrors = {
 const Login = () => {
   const navigate = useNavigate();
   const { me, isLoading: isPageLoading } = useContext(MeContext);
-  const {
-    isLoading: isSigningIn,
-    isSuccess: signUpSuccess,
-    error: signUpError,
-    data: signUpResult,
-    signIn,
-  } = useSignIn();
+  const { isLoading: isSigningIn, error: signInError, signIn } = useSignIn();
 
   // Hooks to parse the server errors
   const [serverError, setServerError] = useState<ServerErrors>({});
   useEffect(() => {
-    if (signUpError && isGraphQLError(signUpError)) {
-      const errors: ServerErrors = {};
-      signUpError.response.errors.forEach(e => {
-        if (!errors[e.extensions.field]) {
-          errors[e.extensions.field] = [];
+    const errors: ServerErrors = {};
+    if (signInError && isGraphQLError(signInError)) {
+      signInError.response.errors.forEach(e => {
+        const field = e.extensions?.field ?? '_';
+        if (!errors[field]) {
+          errors[field] = [];
         }
-        errors[e.extensions.field].push(e.message);
+        errors[field].push(e.message);
       });
-      setServerError(errors);
+    } else if (signInError) {
+      errors['_'] = [signInError.message ?? 'Unknown server error'];
     }
-  }, [signUpError]);
 
-  useEffect(() => {
-    if (signUpSuccess && signUpResult) {
-      window.localStorage.setItem('api_access_token', signUpResult);
-      navigate('/');
-    }
-  }, [navigate, signUpSuccess, signUpResult]);
+    setServerError(errors);
+  }, [signInError]);
 
   const { register, handleSubmit, formState } = useForm({
     mode: 'onChange',
   });
   const { errors: formErrors, isValid: formIsValid } = formState;
 
-  const onSubmit = (result: SignInInput) => {
-    signIn(result);
+  const onSubmit = async (result: SignInInput) => {
+    try {
+      await signIn(result);
+      navigate('/');
+    } catch (_) {
+      // we ignore the error because it is handled by the hook
+    }
   };
 
   if (me) {
@@ -134,6 +130,7 @@ const Login = () => {
               id="password"
               label="Password"
               variant="outlined"
+              type="password"
               helperText={
                 (formErrors.password &&
                   ((formErrors.password.type == 'maxLength' &&

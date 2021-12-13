@@ -51,6 +51,8 @@ models:
     model: github.com/Nivl/eista-api/services/user/mutations.SignInInput
   Session:
     model: github.com/Nivl/eista-api/services/user/payload.Session
+  SignedInUser:
+    model: github.com/Nivl/eista-api/services/user/payload.SignedInUser
 
   ID:
     model:

@@ -4,10 +4,14 @@ export type Me = {
   name: string;
 };
 
+export type Session = {
+  token: string;
+};
+
 type ActualError = {
   message: string;
   path: string[];
-  extensions: {
+  extensions?: {
     code: string;
     field: string;
   };
