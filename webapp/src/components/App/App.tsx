@@ -8,6 +8,7 @@ import ThemeProvider from './ThemeProvider';
 import FourOhFour from 'pages/404';
 import Home from 'pages/home';
 import Login from 'pages/login';
+import Setup from 'pages/setup';
 
 const App = () => (
   <ThemeProvider>
@@ -21,6 +22,7 @@ const App = () => (
         <Switch>
           <ProtectedRoute exact path="/" component={Home} />
           <Route path="/login" component={Login} />
+          <Route path="/setup" component={Setup} />
           <Route path="*" component={FourOhFour} />
         </Switch>
       </Auth0Provider>

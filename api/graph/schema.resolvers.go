@@ -8,7 +8,23 @@ import (
 
 	"github.com/Nivl/eista-api/graph/generated"
 	"github.com/Nivl/eista-api/graph/model"
+	"github.com/plaid/plaid-go/plaid"
 )
+
+func (r *mutationResolver) CreatePlaidLinkToken(ctx context.Context) (*model.PlaidLinkToken, error) {
+	plaiResp, _, err := r.Plaid.PlaidApi.LinkTokenCreate(ctx).Execute()
+	if err != nil {
+		return nil, err
+	}
+	return &model.PlaidLinkToken{
+		Token: plaiResp.LinkToken,
+	}, nil
+}
+
+func (r *mutationResolver) PersistPlaidPublicToken(ctx context.Context, input model.PlaidPublicToken) (bool, error) {
+	req := r.Plaid.PlaidApi.ItemPublicTokenExchange(ctx)
+	req.ItemPublicTokenExchangeRequest(plaid.ItemPublicTokenExchangeRequest{})
+}
 
 func (r *queryResolver) Health(ctx context.Context) (*model.Health, error) {
 	return &model.Health{
@@ -16,7 +32,13 @@ func (r *queryResolver) Health(ctx context.Context) (*model.Health, error) {
 	}, nil
 }
 
+// Mutation returns generated.MutationResolver implementation.
+func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
+
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
-type queryResolver struct{ *Resolver }
+type (
+	mutationResolver struct{ *Resolver }
+	queryResolver    struct{ *Resolver }
+)

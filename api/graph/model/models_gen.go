@@ -5,3 +5,11 @@ package model
 type Health struct {
 	Status string `json:"status"`
 }
+
+type PlaidLinkToken struct {
+	Token string `json:"token"`
+}
+
+type PlaidPublicToken struct {
+	Token string `json:"token"`
+}

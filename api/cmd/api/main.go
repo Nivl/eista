@@ -9,6 +9,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/Nivl/eista-api/graph"
 	"github.com/Nivl/eista-api/graph/generated"
+	"github.com/plaid/plaid-go/plaid"
 )
 
 func main() {
@@ -17,7 +18,18 @@ func main() {
 		port = "5000"
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	configuration := plaid.NewConfiguration()
+	client := plaid.NewAPIClient(configuration)
+
+	resolver := &graph.Resolver{
+		Plaid: client,
+	}
+
+	srv := handler.NewDefaultServer(
+		generated.NewExecutableSchema(
+			generated.Config{Resolvers: resolver},
+		),
+	)
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
