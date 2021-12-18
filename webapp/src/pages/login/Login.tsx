@@ -135,8 +135,7 @@ const Login = () => {
                 (formErrors.password &&
                   ((formErrors.password.type == 'maxLength' &&
                     'password should be less or equal to 255 chars') ||
-                    (formErrors.passwordAgain.type == 'required' &&
-                      'Required') ||
+                    (formErrors.password.type == 'required' && 'Required') ||
                     'Invalid')) ||
                 (serverError['password'] && serverError['password'][0])
               }
@@ -162,7 +161,7 @@ const Login = () => {
           <Grid item sx={{ textAlign: 'center' }}>
             Don&apos;t have an account?{' '}
             <Link to="/signup" component={RouterLink} underline="hover">
-              Sign up
+              Sign Up
             </Link>
             .
           </Grid>
