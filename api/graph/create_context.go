@@ -11,22 +11,24 @@ import (
 	"github.com/google/uuid"
 )
 
+// CreateContext creates a Context used to interact with the
+// services
 func CreateContext(ctx context.Context, r *Resolver) (*services.Context, error) {
 	c := &services.Context{
 		Ctx: ctx,
 		DB:  r.DB,
 	}
 
-	authHeader, ok := ctx.Value(ctxKeyHTTPAuth).(string)
+	authHeader, ok := ctx.Value(ctxKeyHTTPAuth{}).(string)
 	if ok && authHeader != "" {
 		// the token has the following format:
 		// Bearer sessionToken
 		if !strings.HasPrefix(authHeader, "Bearer ") {
-			return nil, errors.New("Invalid authorization format")
+			return nil, services.NewAuthenticationError("Invalid authorization format")
 		}
 		sessionToken := strings.TrimPrefix(authHeader, "Bearer ")
 		if _, err := uuid.Parse(sessionToken); err != nil {
-			return nil, errors.New("Invalid authorization format")
+			return nil, services.NewAuthenticationError("Invalid authorization format")
 		}
 		var user models.User
 		query := `
