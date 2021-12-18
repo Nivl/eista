@@ -8,7 +8,7 @@ import { isGraphQLError } from 'backend/types';
 import Loading from 'components/Loader';
 import Page from 'components/Page';
 import MeContext from 'contexts/MeContext';
-import useSignIn, { Input as SignInInput } from 'hooks/useSignIn';
+import useSignIn from 'hooks/useSignIn';
 import useSignUp, { Input as SignUpInput } from 'hooks/useSignUp';
 
 type ServerErrors = {
@@ -64,7 +64,6 @@ const SignUp = () => {
       navigate('/');
     } catch (error) {
       // TODO(melvin): Report error somewhere
-      console.error('auto sign in error', { error });
       // In case of error we'll let the user try again manually
       navigate('/login');
     }
