@@ -224,7 +224,9 @@ const SignUp = () => {
                 Sign Up
               </Button>
             ) : (
-              <LoadingButton fullWidth loading variant="contained" />
+              <LoadingButton fullWidth loading variant="contained">
+                Loading
+              </LoadingButton>
             )}
           </Grid>
 
