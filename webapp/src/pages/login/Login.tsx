@@ -161,7 +161,7 @@ const Login = () => {
 
           <Grid item sx={{ textAlign: 'center' }}>
             Don&apos;t have an account?{' '}
-            <Link to="/sign-up" component={RouterLink} underline="hover">
+            <Link to="/signup" component={RouterLink} underline="hover">
               Sign up
             </Link>
             .
