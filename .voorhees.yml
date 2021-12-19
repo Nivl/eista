@@ -4,4 +4,5 @@ default:
   limit: 12 months
 
 rules:
-  github.com/vektah/gqlparser/v2: 60 months #  that's from gqlgen, we can't do much about it
+  github.com/vektah/gqlparser/v2: skip #  that's from gqlgen, we can't do much about it
+  github.com/jackc/pgerrcode: skip #  Only contains postgres err codes
