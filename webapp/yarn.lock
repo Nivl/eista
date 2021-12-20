@@ -8800,7 +8800,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     react-hook-form: 7.22.2
-    react-query: 3.32.1
+    react-query: 3.34.5
     react-router-dom: 6.2.1
     react-scripts: 4.0.3
     typescript: 4.5.4
@@ -16747,9 +16747,9 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-query@npm:3.32.1":
-  version: 3.32.1
-  resolution: "react-query@npm:3.32.1"
+"react-query@npm:3.34.5":
+  version: 3.34.5
+  resolution: "react-query@npm:3.34.5"
   dependencies:
     "@babel/runtime": ^7.5.5
     broadcast-channel: ^3.4.1
@@ -16761,7 +16761,7 @@ fsevents@^1.2.7:
       optional: true
     react-native:
       optional: true
-  checksum: b076a34bcc4d14bd9fcf0262b04b43376fc95383935d19534207fc754a5f1832f83b82c965e7613d07837f4b8a4b269ea1bfb5b75474b8230950ccaefd6c9ef0
+  checksum: c33b7b438863fa405a229c35a5dd972f9a9c6e1702eb27a1d54b96428b0046af6aebe29cfaa5c0f807e4fd1b3562a1d46f67151b9eeea032adf61fd96374bcee
   languageName: node
   linkType: hard
 
