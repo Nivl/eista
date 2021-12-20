@@ -74,7 +74,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["hooks", "link:./src/hooks::locator=eista%40workspace%3A."],
             ["identity-obj-proxy", "npm:3.0.0"],
             ["pages", "link:./src/pages::locator=eista%40workspace%3A."],
-            ["prettier", "npm:2.5.0"],
+            ["prettier", "npm:2.5.1"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:17.0.2"],
             ["react-hook-form", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.20.2"],
@@ -15221,7 +15221,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["hooks", "link:./src/hooks::locator=eista%40workspace%3A."],
             ["identity-obj-proxy", "npm:3.0.0"],
             ["pages", "link:./src/pages::locator=eista%40workspace%3A."],
-            ["prettier", "npm:2.5.0"],
+            ["prettier", "npm:2.5.1"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:17.0.2"],
             ["react-hook-form", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.20.2"],
@@ -16069,7 +16069,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/prettier", null],
             ["eslint", "npm:8.3.0"],
             ["eslint-config-prettier", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:8.3.0"],
-            ["prettier", "npm:2.5.0"],
+            ["prettier", "npm:2.5.1"],
             ["prettier-linter-helpers", "npm:1.0.0"]
           ],
           "packagePeers": [
@@ -23837,10 +23837,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:2.5.0", {
-          "packageLocation": "./.yarn/cache/prettier-npm-2.5.0-f1121aaab1-aad1b35b73.zip/node_modules/prettier/",
+        ["npm:2.5.1", {
+          "packageLocation": "./.yarn/cache/prettier-npm-2.5.1-58b195b509-21b9408476.zip/node_modules/prettier/",
           "packageDependencies": [
-            ["prettier", "npm:2.5.0"]
+            ["prettier", "npm:2.5.1"]
           ],
           "linkType": "HARD",
         }]
