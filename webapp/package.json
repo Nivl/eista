@@ -41,7 +41,7 @@
     "react-query": "3.32.1",
     "react-router-dom": "6.0.2",
     "react-scripts": "4.0.3",
-    "typescript": "4.5.2",
+    "typescript": "4.5.4",
     "utils": "link:./src/utils",
     "web-vitals": "2.1.2"
   },
