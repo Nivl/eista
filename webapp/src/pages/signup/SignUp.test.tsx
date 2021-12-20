@@ -32,8 +32,6 @@ import useSignUpOriginal from 'hooks/useSignUp';
 jest.mock('hooks/useSignUp');
 const useSignUp = useSignUpOriginal as jest.Mock;
 
-import { isNullishCoalesce } from 'typescript';
-
 import SignUp from './SignUp';
 
 describe('signUp', () => {
