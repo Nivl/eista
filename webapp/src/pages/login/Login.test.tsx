@@ -356,6 +356,40 @@ describe('Login', () => {
     expect(mockNavigate).not.toBeCalled();
   });
 
+  it('Should hide the login button when logging in', async () => {
+    const signInFunc = jest.fn();
+    const setMe = jest.fn();
+    useSignIn.mockReturnValue({
+      isLoading: true,
+      error: null,
+      signIn: signInFunc,
+    });
+
+    act(() => {
+      render(<Login />, {
+        wrapper: wrapper({
+          meProvider: {
+            me: null,
+            isLoading: false,
+            isError: false,
+            setMe: setMe,
+          },
+        }),
+      });
+    });
+
+    await waitFor(() =>
+      expect(
+        screen.queryByRole('button', { name: 'Sign In' }),
+      ).not.toBeInTheDocument(),
+    );
+
+    // Nothing else should have happened
+    expect(signInFunc).not.toBeCalled();
+    expect(setMe).not.toBeCalled();
+    expect(mockNavigate).not.toBeCalled();
+  });
+
   it('Should login the user and redirect to the home page', async () => {
     const signInFunc = jest.fn().mockResolvedValue({
       id: '1e5b95e3-ab0f-4b34-a25d-b272bd7575a7',
