@@ -1,5 +1,7 @@
 version: "3"
 
+dotenv: ['.env']
+
 tasks:
   build: go build -race -v -o ./bin/api github.com/Nivl/eista-api/cmd/api
 
@@ -12,6 +14,13 @@ tasks:
       - go.mod
 
   start: docker-compose up --build
+
+  migrate:
+    cmds:
+      - docker-compose exec api migrate -database ${EISTA_POSTGRES_URL} -path database/migrations {{.CMD}}
+    vars:
+      CMD: up
+
 
   lint: golangci-lint run ./...
 

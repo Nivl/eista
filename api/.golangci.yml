@@ -1,7 +1,8 @@
 run:
   deadline: 10m
   skip-dirs:
-    - graph
+    - graph/generated
+    - graph/model
 
 issues:
   max-same-issues: 0

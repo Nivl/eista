@@ -43,6 +43,17 @@ autobind:
 # modelgen, the others will be allowed when binding to fields. Configure them to
 # your liking
 models:
+  Me:
+    model: github.com/Nivl/eista-api/services/user/payload.Me
+  NewUser:
+    model: github.com/Nivl/eista-api/services/user/mutations.CreateUserInput
+  Credentials:
+    model: github.com/Nivl/eista-api/services/user/mutations.SignInInput
+  Session:
+    model: github.com/Nivl/eista-api/services/user/payload.Session
+  SignedInUser:
+    model: github.com/Nivl/eista-api/services/user/payload.SignedInUser
+
   ID:
     model:
       - github.com/99designs/gqlgen/graphql.ID

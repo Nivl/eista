@@ -28,7 +28,7 @@
   },
   "rules": {
     "simple-import-sort/imports": [
-      "error",
+      "warn",
       {
         "groups": [
           [
@@ -42,17 +42,23 @@
           ],
           [
             "^\\.",
-            "^(components|hooks|pages)"
+            "^(backend|components|contexts|hooks|pages)"
           ]
         ]
       }
     ],
     "simple-import-sort/exports": [
-      "error"
+      "warn"
     ],
     "@typescript-eslint/explicit-module-boundary-types": 0,
-    "prettier/prettier": "error",
-    "no-console": "error"
+    "prettier/prettier": "warn",
+    "no-console": "warn",
+    "no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ]
   },
   "overrides": [
     {

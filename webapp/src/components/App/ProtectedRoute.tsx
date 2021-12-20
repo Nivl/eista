@@ -1,20 +1,21 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react';
-import { Route } from 'react-router-dom';
+import { FC, useContext } from 'react';
+import { Navigate } from 'react-router-dom';
 
 import Loader from 'components/Loader';
+import MeContext from 'contexts/MeContext';
 
-type Props = {
-  component: React.ComponentType<unknown>;
-  [x: string]: unknown;
+const ProtectedRoute: FC = ({ children }) => {
+  const { me, isLoading } = useContext(MeContext);
+
+  if (isLoading) {
+    return <Loader fullPage={true} />;
+  }
+
+  if (!me) {
+    return <Navigate to="/login" />;
+  }
+
+  return <>{children}</>;
 };
-
-const ProtectedRoute = ({ component, ...args }: Props) => (
-  <Route
-    component={withAuthenticationRequired(component, {
-      onRedirecting: () => <Loader fullPage={true} />, //eslint-disable-line react/display-name
-    })}
-    {...args}
-  />
-);
 
 export default ProtectedRoute;
