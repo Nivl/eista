@@ -69,7 +69,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.27.1"],
             ["eslint-plugin-react-hooks", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:4.3.0"],
             ["eslint-plugin-simple-import-sort", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.0.0"],
-            ["graphql", "npm:16.0.1"],
+            ["graphql", "npm:16.2.0"],
             ["graphql-request", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.7.0"],
             ["hooks", "link:./src/hooks::locator=eista%40workspace%3A."],
             ["identity-obj-proxy", "npm:3.0.0"],
@@ -15216,7 +15216,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.27.1"],
             ["eslint-plugin-react-hooks", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:4.3.0"],
             ["eslint-plugin-simple-import-sort", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.0.0"],
-            ["graphql", "npm:16.0.1"],
+            ["graphql", "npm:16.2.0"],
             ["graphql-request", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.7.0"],
             ["hooks", "link:./src/hooks::locator=eista%40workspace%3A."],
             ["identity-obj-proxy", "npm:3.0.0"],
@@ -17827,10 +17827,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["graphql", [
-        ["npm:16.0.1", {
-          "packageLocation": "./.yarn/cache/graphql-npm-16.0.1-7f178cf40c-e2fbddc78a.zip/node_modules/graphql/",
+        ["npm:16.2.0", {
+          "packageLocation": "./.yarn/cache/graphql-npm-16.2.0-441b615dc9-204b5c9991.zip/node_modules/graphql/",
           "packageDependencies": [
-            ["graphql", "npm:16.0.1"]
+            ["graphql", "npm:16.2.0"]
           ],
           "linkType": "HARD",
         }]
@@ -17851,7 +17851,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cross-fetch", "npm:3.1.4"],
             ["extract-files", "npm:9.0.0"],
             ["form-data", "npm:3.0.1"],
-            ["graphql", "npm:16.0.1"]
+            ["graphql", "npm:16.2.0"]
           ],
           "packagePeers": [
             "@types/graphql",

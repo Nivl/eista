@@ -72,7 +72,7 @@
     "eslint-plugin-react": "7.27.1",
     "eslint-plugin-react-hooks": "4.3.0",
     "eslint-plugin-simple-import-sort": "7.0.0",
-    "graphql": "16.0.1",
+    "graphql": "16.2.0",
     "identity-obj-proxy": "3.0.0",
     "prettier": "2.5.1"
   },
