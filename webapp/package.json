@@ -26,9 +26,9 @@
   "dependencies": {
     "@emotion/react": "11.7.0",
     "@emotion/styled": "11.6.0",
-    "@mui/icons-material": "5.2.0",
+    "@mui/icons-material": "5.2.4",
     "@mui/lab": "5.0.0-alpha.60",
-    "@mui/material": "5.2.1",
+    "@mui/material": "5.2.4",
     "backend": "link:./src/backend",
     "components": "link:./src/components",
     "contexts": "link:./src/contexts",
