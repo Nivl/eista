@@ -6,6 +6,14 @@ import { useQuery } from 'react-query';
 import request from 'backend/request';
 import { Me } from 'backend/types';
 
+export interface MeContextInterface {
+  me: Me | null;
+  isLoading: boolean;
+  isError: boolean;
+  error?: unknown;
+  setMe: (_: Me | null) => void;
+}
+
 const getMe = async () => {
   const { me } = await request(
     gql`
@@ -38,13 +46,15 @@ export const MeProvider: FC = ({ children }) => {
     }
   }, [data]);
 
-  return (
-    <MeContext.Provider
-      value={{ me: data || me, setMe, isLoading, isError, error }}
-    >
-      {children}
-    </MeContext.Provider>
-  );
+  const toProvide: MeContextInterface = {
+    me: data || me,
+    setMe,
+    isLoading,
+    isError,
+    error,
+  };
+
+  return <MeContext.Provider value={toProvide}>{children}</MeContext.Provider>;
 };
 
 const MeContext = createContext<{

@@ -82,6 +82,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-router-dom", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:6.0.2"],
             ["react-scripts", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:4.0.3"],
             ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"],
+            ["utils", "link:./src/utils::locator=eista%40workspace%3A."],
             ["web-vitals", "npm:2.1.2"]
           ],
           "linkType": "SOFT",
@@ -15345,6 +15346,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-router-dom", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:6.0.2"],
             ["react-scripts", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:4.0.3"],
             ["typescript", "patch:typescript@npm%3A4.5.2#~builtin<compat/typescript>::version=4.5.2&hash=493e53"],
+            ["utils", "link:./src/utils::locator=eista%40workspace%3A."],
             ["web-vitals", "npm:2.1.2"]
           ],
           "linkType": "SOFT",
@@ -28521,6 +28523,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["utila", "npm:0.4.0"]
           ],
           "linkType": "HARD",
+        }]
+      ]],
+      ["utils", [
+        ["link:./src/utils::locator=eista%40workspace%3A.", {
+          "packageLocation": "./src/utils/",
+          "packageDependencies": [
+            ["utils", "link:./src/utils::locator=eista%40workspace%3A."]
+          ],
+          "linkType": "SOFT",
+          "discardFromLookup": true
         }]
       ]],
       ["utils-merge", [

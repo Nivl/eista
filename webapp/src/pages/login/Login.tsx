@@ -48,7 +48,7 @@ const Login = () => {
       await signIn(result);
       navigate('/');
     } catch (_) {
-      // we ignore the error because it is handled by the hook
+      // we ignore the error because it is handled by the useSignIn hook
     }
   };
 
@@ -151,7 +151,7 @@ const Login = () => {
                 variant="contained"
                 onClick={handleSubmit(onSubmit)}
               >
-                Sign in
+                Sign In
               </Button>
             ) : (
               <LoadingButton fullWidth loading variant="contained">

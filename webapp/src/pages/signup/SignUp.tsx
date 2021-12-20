@@ -56,6 +56,8 @@ const SignUp = () => {
         name: result.name,
       });
     } catch (_) {
+      // we can just return here, because the sign up error will be handled
+      // by the useSignUp hook
       return;
     }
 

@@ -8933,6 +8933,7 @@ __metadata:
     react-router-dom: 6.0.2
     react-scripts: 4.0.3
     typescript: 4.5.2
+    utils: "link:./src/utils"
     web-vitals: 2.1.2
   languageName: unknown
   linkType: soft
@@ -19910,6 +19911,12 @@ resolve@^2.0.0-next.3:
   checksum: c81095493225ecfc28add49c106ca4f09cdf56bc66731aa8dabc2edbbccb1e1bfe2de6a115e5c6a380d3ea166d1636410b62ef216bb07b3feb1cfde1d95d5080
   languageName: node
   linkType: hard
+
+"utils@link:./src/utils::locator=eista%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "utils@link:./src/utils::locator=eista%40workspace%3A."
+  languageName: node
+  linkType: soft
 
 "uuid-browser@npm:^3.1.0":
   version: 3.1.0
