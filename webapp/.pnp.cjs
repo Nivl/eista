@@ -58,7 +58,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.7.0"],
             ["@typescript-eslint/parser", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.7.0"],
             ["backend", "link:./src/backend::locator=eista%40workspace%3A."],
-            ["chromatic", "npm:6.0.6"],
+            ["chromatic", "npm:6.2.3"],
             ["components", "link:./src/components::locator=eista%40workspace%3A."],
             ["contexts", "link:./src/contexts::locator=eista%40workspace%3A."],
             ["eslint", "npm:8.5.0"],
@@ -13258,10 +13258,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["chromatic", [
-        ["npm:6.0.6", {
-          "packageLocation": "./.yarn/cache/chromatic-npm-6.0.6-2bcb36dccb-21f80732d1.zip/node_modules/chromatic/",
+        ["npm:6.2.3", {
+          "packageLocation": "./.yarn/cache/chromatic-npm-6.2.3-b3c27b2550-b7e8a7b630.zip/node_modules/chromatic/",
           "packageDependencies": [
-            ["chromatic", "npm:6.0.6"]
+            ["chromatic", "npm:6.2.3"]
           ],
           "linkType": "HARD",
         }]
@@ -15212,7 +15212,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/eslint-plugin", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.7.0"],
             ["@typescript-eslint/parser", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:5.7.0"],
             ["backend", "link:./src/backend::locator=eista%40workspace%3A."],
-            ["chromatic", "npm:6.0.6"],
+            ["chromatic", "npm:6.2.3"],
             ["components", "link:./src/components::locator=eista%40workspace%3A."],
             ["contexts", "link:./src/contexts::locator=eista%40workspace%3A."],
             ["eslint", "npm:8.5.0"],
