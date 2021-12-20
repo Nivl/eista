@@ -4644,10 +4644,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:16.11.10":
-  version: 16.11.10
-  resolution: "@types/node@npm:16.11.10"
-  checksum: 9c79419c5c3d92d5825bffa30f3668533f598d8b63a73ea7fc24e47f162bdbed92b0f8e4f4261cc3314b39cee050e303366d2aa154abc95c63a572a110b8c160
+"@types/node@npm:*, @types/node@npm:16.11.14":
+  version: 16.11.14
+  resolution: "@types/node@npm:16.11.14"
+  checksum: 0bd4333fb4e56532db7f5174732268b18089913ddbb0e97957228e64f9fe3babf9923c77ce6f07d3d354445cfbb8d31b95c1f8be3c0f7426308bd8b93d3aaa02
   languageName: node
   linkType: hard
 
@@ -8773,7 +8773,7 @@ __metadata:
     "@testing-library/user-event": 13.5.0
     "@types/eslint": 8.2.0
     "@types/jest": 27.0.3
-    "@types/node": 16.11.10
+    "@types/node": 16.11.14
     "@types/react": 17.0.37
     "@types/react-dom": 17.0.11
     "@types/testing-library__jest-dom": 5.14.2
