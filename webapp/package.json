@@ -32,7 +32,7 @@
     "backend": "link:./src/backend",
     "components": "link:./src/components",
     "contexts": "link:./src/contexts",
-    "graphql-request": "3.6.1",
+    "graphql-request": "3.7.0",
     "hooks": "link:./src/hooks",
     "pages": "link:./src/pages",
     "react": "17.0.2",

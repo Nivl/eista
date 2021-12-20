@@ -70,7 +70,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:4.3.0"],
             ["eslint-plugin-simple-import-sort", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.0.0"],
             ["graphql", "npm:16.0.1"],
-            ["graphql-request", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.6.1"],
+            ["graphql-request", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.7.0"],
             ["hooks", "link:./src/hooks::locator=eista%40workspace%3A."],
             ["identity-obj-proxy", "npm:3.0.0"],
             ["pages", "link:./src/pages::locator=eista%40workspace%3A."],
@@ -15217,7 +15217,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:4.3.0"],
             ["eslint-plugin-simple-import-sort", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.0.0"],
             ["graphql", "npm:16.0.1"],
-            ["graphql-request", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.6.1"],
+            ["graphql-request", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.7.0"],
             ["hooks", "link:./src/hooks::locator=eista%40workspace%3A."],
             ["identity-obj-proxy", "npm:3.0.0"],
             ["pages", "link:./src/pages::locator=eista%40workspace%3A."],
@@ -17836,17 +17836,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["graphql-request", [
-        ["npm:3.6.1", {
-          "packageLocation": "./.yarn/cache/graphql-request-npm-3.6.1-15c8b32d7e-15e98c2976.zip/node_modules/graphql-request/",
+        ["npm:3.7.0", {
+          "packageLocation": "./.yarn/cache/graphql-request-npm-3.7.0-0479d981ec-db3800cc4e.zip/node_modules/graphql-request/",
           "packageDependencies": [
-            ["graphql-request", "npm:3.6.1"]
+            ["graphql-request", "npm:3.7.0"]
           ],
           "linkType": "SOFT",
         }],
-        ["virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.6.1", {
-          "packageLocation": "./.yarn/__virtual__/graphql-request-virtual-8bcc33924f/0/cache/graphql-request-npm-3.6.1-15c8b32d7e-15e98c2976.zip/node_modules/graphql-request/",
+        ["virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.7.0", {
+          "packageLocation": "./.yarn/__virtual__/graphql-request-virtual-f2d319368d/0/cache/graphql-request-npm-3.7.0-0479d981ec-db3800cc4e.zip/node_modules/graphql-request/",
           "packageDependencies": [
-            ["graphql-request", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.6.1"],
+            ["graphql-request", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.7.0"],
             ["@types/graphql", null],
             ["cross-fetch", "npm:3.1.4"],
             ["extract-files", "npm:9.0.0"],
