@@ -8699,7 +8699,7 @@ __metadata:
     prettier: 2.5.1
     react: 17.0.2
     react-dom: 17.0.2
-    react-hook-form: 7.22.3
+    react-hook-form: 7.22.4
     react-query: 3.34.5
     react-router-dom: 6.2.1
     react-scripts: 4.0.3
@@ -16569,12 +16569,12 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.22.3":
-  version: 7.22.3
-  resolution: "react-hook-form@npm:7.22.3"
+"react-hook-form@npm:7.22.4":
+  version: 7.22.4
+  resolution: "react-hook-form@npm:7.22.4"
   peerDependencies:
     react: ^16.8.0 || ^17
-  checksum: ea95034df3f6cefe0d58cc328605898dbc2864618918e1182e07dbd497999afe3927093675ef06ac70f68827c793f99c176915eb41b7d8d578eba3fd88e10773
+  checksum: 9d30bdfa9df56b26c96d572cf95b3d18516f625e06187c8c4bf9481e79325ae0282cf1a97cf686d6971b07e09ab04692985007051b15d334c86146222d7ebabf
   languageName: node
   linkType: hard
 
