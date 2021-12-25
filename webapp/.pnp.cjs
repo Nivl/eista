@@ -77,7 +77,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier", "npm:2.5.1"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:17.0.2"],
-            ["react-hook-form", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.22.4"],
+            ["react-hook-form", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.22.5"],
             ["react-query", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.34.6"],
             ["react-router-dom", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:6.2.1"],
             ["react-scripts", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:4.0.3"],
@@ -13890,7 +13890,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prettier", "npm:2.5.1"],
             ["react", "npm:17.0.2"],
             ["react-dom", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:17.0.2"],
-            ["react-hook-form", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.22.4"],
+            ["react-hook-form", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.22.5"],
             ["react-query", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:3.34.6"],
             ["react-router-dom", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:6.2.1"],
             ["react-scripts", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:4.0.3"],
@@ -23295,17 +23295,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["react-hook-form", [
-        ["npm:7.22.4", {
-          "packageLocation": "./.yarn/cache/react-hook-form-npm-7.22.4-6bf70609b5-9d30bdfa9d.zip/node_modules/react-hook-form/",
+        ["npm:7.22.5", {
+          "packageLocation": "./.yarn/cache/react-hook-form-npm-7.22.5-fd27583dae-73c76e132f.zip/node_modules/react-hook-form/",
           "packageDependencies": [
-            ["react-hook-form", "npm:7.22.4"]
+            ["react-hook-form", "npm:7.22.5"]
           ],
           "linkType": "SOFT",
         }],
-        ["virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.22.4", {
-          "packageLocation": "./.yarn/__virtual__/react-hook-form-virtual-dfbcdcceb1/0/cache/react-hook-form-npm-7.22.4-6bf70609b5-9d30bdfa9d.zip/node_modules/react-hook-form/",
+        ["virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.22.5", {
+          "packageLocation": "./.yarn/__virtual__/react-hook-form-virtual-ede5b4c84c/0/cache/react-hook-form-npm-7.22.5-fd27583dae-73c76e132f.zip/node_modules/react-hook-form/",
           "packageDependencies": [
-            ["react-hook-form", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.22.4"],
+            ["react-hook-form", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:7.22.5"],
             ["@types/react", "npm:17.0.38"],
             ["react", "npm:17.0.2"]
           ],
