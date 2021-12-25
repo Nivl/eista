@@ -4,7 +4,7 @@ const request = (query: string, variables: unknown = {}) => {
   const url = `${process.env.REACT_APP_API_URL}/query`;
   const graphQLClient = new GraphQLClient(url);
 
-  const token = window.localStorage.getItem('api_access_token');
+  const token = window.localStorage.getItem('user_access_token');
   if (token) {
     graphQLClient.setHeader('Authorization', `Bearer ${token}`);
   }
