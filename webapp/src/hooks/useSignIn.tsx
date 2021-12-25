@@ -52,7 +52,7 @@ const useSignIn = () => {
 
   useEffect(() => {
     if (data) {
-      localStorage.setItem('token', data.session.token);
+      localStorage.setItem('user_access_token', data.session.token);
       setMe(data.me);
     }
   }, [data, setMe]);
