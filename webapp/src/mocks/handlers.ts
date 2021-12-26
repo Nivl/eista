@@ -1,10 +1,10 @@
 import { graphql } from 'msw';
 
-import { defaultUser, userFromToken } from './users';
+import { userFromToken, users } from './users';
 
 export const handlers = [
   graphql.mutation('signIn', (req, res, ctx) => {
-    const user = userFromToken(localStorage.getItem('user_access_token'));
+    let user = userFromToken(localStorage.getItem('user_access_token'));
     if (user) {
       return res(
         ctx.errors([
@@ -16,7 +16,24 @@ export const handlers = [
       );
     }
 
-    return res(ctx.data({ me: defaultUser.me, token: defaultUser.token }));
+    const email = req?.body?.variables?.credentials?.email;
+    user = users.find(user => user.me.email === email);
+    if (!user) {
+      return res(
+        ctx.errors([
+          {
+            message: 'Invalid email or password',
+            errorType: 'ValidationError',
+          },
+        ]),
+      );
+    }
+
+    return res(
+      ctx.data({
+        signIn: { me: user.me, session: { token: user.token } },
+      }),
+    );
   }),
 
   graphql.mutation('signUp', (req, res, ctx) => {

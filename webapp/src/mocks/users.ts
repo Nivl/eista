@@ -14,7 +14,7 @@ export const defaultUser: testUser = {
   token: '094b9bc8-012a-4308-923d-0047b1e9702f',
 };
 
-const users = [defaultUser];
+export const users = [defaultUser];
 
 export const userFromToken = (token: string | null): testUser | undefined =>
   users.find(user => user.token === token);
