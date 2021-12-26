@@ -17,7 +17,7 @@ export interface MeContextInterface {
 const getMe = async () => {
   const { me } = await request(
     gql`
-      query {
+      query me {
         me {
           id
           email
