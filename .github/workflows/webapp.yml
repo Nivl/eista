@@ -56,7 +56,8 @@ jobs:
     - name: Cypress run
       uses: cypress-io/github-action@v2
       with:
-        project: ./webapp
+        # project: ./webapp
+        working-directory: webapp
         install-command: yarn install
         command: yarn run test:e2e:ci
         build: yarn build
