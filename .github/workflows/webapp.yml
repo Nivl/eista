@@ -56,10 +56,11 @@ jobs:
     - name: Cypress run
       uses: cypress-io/github-action@v2
       with:
-        install-command: yarn --frozen-lockfile
+        install-command : yarn install
+        command: yarn run test:e2e:ci
         build: yarn build
         start: yarn start
-        env: host=api.dev.local,port=4222
+      env:
         # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
