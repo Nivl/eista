@@ -32,4 +32,6 @@ yarn-error.log*
 
 build-storybook.log
 
+cypress/videos
+
 TODO
