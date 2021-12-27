@@ -5,7 +5,9 @@ describe('Sign Up', () => {
   });
 
   it('should sign the user up', () => {
+    cy.url().should('be.equal', `${Cypress.config('baseUrl')}/login`);
     cy.findByText('Sign Up').click();
+    cy.url().should('be.equal', `${Cypress.config('baseUrl')}/signup`);
     cy.get('#name').clear();
     cy.get('#name').type('John Doe');
     cy.get('#email').clear();

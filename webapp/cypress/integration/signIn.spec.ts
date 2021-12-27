@@ -27,4 +27,12 @@ describe('Sign In', () => {
     );
     cy.url().should('be.equal', `${Cypress.config('baseUrl')}/login`);
   });
+
+  it('allow user to go back and forth with Sign Up', () => {
+    cy.url().should('be.equal', `${Cypress.config('baseUrl')}/login`);
+    cy.findByText('Sign Up').click();
+    cy.url().should('be.equal', `${Cypress.config('baseUrl')}/signup`);
+    cy.findByText('Sign In').click();
+    cy.url().should('be.equal', `${Cypress.config('baseUrl')}/login`);
+  });
 });
