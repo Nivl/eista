@@ -8,12 +8,12 @@ export type Session = {
   token: string;
 };
 
-type ActualError = {
+export type ActualError = {
   message: string;
   path: string[];
   extensions?: {
-    code: string;
-    field: string;
+    code?: string;
+    field?: string;
   };
 };
 

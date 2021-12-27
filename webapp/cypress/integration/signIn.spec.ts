@@ -14,8 +14,8 @@ describe('Sign In', () => {
     cy.url().should('be.equal', `${Cypress.config('baseUrl')}/`);
   });
 
-  /* ==== Test Created with Cypress Studio ==== */
   it('Fail on invalid login', function () {
+    cy.url().should('be.equal', `${Cypress.config('baseUrl')}/login`);
     cy.get('#email').clear();
     cy.get('#email').type('unknown@domain.tld');
     cy.get('#password').clear();
@@ -25,5 +25,6 @@ describe('Sign In', () => {
       'have.text',
       'Invalid email or password',
     );
+    cy.url().should('be.equal', `${Cypress.config('baseUrl')}/login`);
   });
 });
