@@ -56,8 +56,8 @@ jobs:
     - name: Cypress run
       uses: cypress-io/github-action@v2
       with:
-        project : ./webapp
-        install-command : yarn install
+        project: ./webapp
+        install-command: yarn install
         command: yarn run test:e2e:ci
         build: yarn build
         start: yarn start
@@ -70,6 +70,7 @@ jobs:
       with:
         name: cypress-screenshots
         path: cypress/screenshots
+
     # Test run video was always captured, so this action uses "always()" condition
     - uses: actions/upload-artifact@v2
       if: always()
