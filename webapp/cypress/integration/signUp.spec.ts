@@ -5,7 +5,7 @@ describe('Sign Up', () => {
   });
 
   it('should sign the user up', () => {
-    cy.get('.css-10omzie-MuiGrid-root > .MuiTypography-root').click();
+    cy.findByText('Sign Up').click();
     cy.get('#name').clear();
     cy.get('#name').type('John Doe');
     cy.get('#email').clear();
