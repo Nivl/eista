@@ -1,11 +1,6 @@
 name: webapp
 
 on:
-  push:
-    paths: # /!\ This will only trigger based on the _previous_ push
-      - 'webapp/**'
-      - '.github/**'
-      - '!.github/workflows/api.yml'
   pull_request:
     branches:
       - main
