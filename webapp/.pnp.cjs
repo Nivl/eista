@@ -51,7 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/react", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:12.1.2"],
             ["@testing-library/user-event", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:13.5.0"],
             ["@types/eslint", "npm:8.2.1"],
-            ["@types/jest", "npm:27.0.3"],
+            ["@types/jest", "npm:27.4.0"],
             ["@types/node", "npm:16.11.17"],
             ["@types/react", "npm:17.0.38"],
             ["@types/react-dom", "npm:17.0.11"],
@@ -8867,10 +8867,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/jest", [
-        ["npm:27.0.3", {
-          "packageLocation": "./.yarn/cache/@types-jest-npm-27.0.3-c4c49cbce2-3683a99458.zip/node_modules/@types/jest/",
+        ["npm:27.4.0", {
+          "packageLocation": "./.yarn/cache/@types-jest-npm-27.4.0-33755263ec-d2350267f9.zip/node_modules/@types/jest/",
           "packageDependencies": [
-            ["@types/jest", "npm:27.0.3"],
+            ["@types/jest", "npm:27.4.0"],
             ["jest-diff", "npm:27.2.4"],
             ["pretty-format", "npm:27.2.4"]
           ],
@@ -9171,7 +9171,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-testing-library__jest-dom-npm-5.14.2-639cce59b8-e08715a565.zip/node_modules/@types/testing-library__jest-dom/",
           "packageDependencies": [
             ["@types/testing-library__jest-dom", "npm:5.14.2"],
-            ["@types/jest", "npm:27.0.3"]
+            ["@types/jest", "npm:27.4.0"]
           ],
           "linkType": "HARD",
         }]
@@ -14386,7 +14386,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@testing-library/react", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:12.1.2"],
             ["@testing-library/user-event", "virtual:a15fd35880354fa663faccd5ec5c19e17ffcf30bc9e46ffe59bcd45c566cda84699bab5561341bfe5fb8636b6a97e1c18b905b54bca628c4f9da1b7185647391#npm:13.5.0"],
             ["@types/eslint", "npm:8.2.1"],
-            ["@types/jest", "npm:27.0.3"],
+            ["@types/jest", "npm:27.4.0"],
             ["@types/node", "npm:16.11.17"],
             ["@types/react", "npm:17.0.38"],
             ["@types/react-dom", "npm:17.0.11"],
