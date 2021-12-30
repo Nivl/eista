@@ -1,11 +1,6 @@
 name: api
 
 on:
-  push:
-    paths: # /!\ This will only trigger based on the _previous_ push
-      - 'api/**'
-      - '.github/**'
-      - '!.github/workflows/webapp.yml'
   pull_request:
     branches:
       - main
@@ -20,7 +15,6 @@ defaults:
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -36,7 +30,6 @@ jobs:
         run: go build -race ./...
 
   test:
-    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -52,7 +45,6 @@ jobs:
         run: go test -race -timeout 3m -coverprofile coverage.txt ./...
 
   lint:
-    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
