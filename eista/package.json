@@ -1,0 +1,65 @@
+{
+  "name": "eista",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@emotion/react": "11.7.1",
+    "@emotion/styled": "11.6.0",
+    "@mui/icons-material": "5.2.5",
+    "@mui/lab": "5.0.0-alpha.62",
+    "@mui/material": "5.2.6",
+    "backend": "link:./src/backend",
+    "components": "link:./src/components",
+    "contexts": "link:./src/contexts",
+    "graphql-request": "3.7.0",
+    "hooks": "link:./src/hooks",
+    "next": "12.0.4",
+    "pages": "link:./src/pages",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-hook-form": "7.22.5",
+    "react-query": "3.34.7",
+    "utils": "link:./src/utils"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8",
+    "@types/node": "16.11.17",
+    "@types/prettier": "^2",
+    "@types/react": "17.0.38",
+    "@types/react-dom": "17.0.11",
+    "@typescript-eslint/eslint-plugin": "5.8.1",
+    "@typescript-eslint/parser": "5.8.1",
+    "@yarnpkg/sdks": "2.6.0-rc.1",
+    "eslint": "<8.0.0",
+    "eslint-config-next": "12.0.7",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.25.3",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-simple-import-sort": "7.0.0",
+    "graphql": "16.2.0",
+    "msw": "0.36.3",
+    "prettier": "2.5.1",
+    "typescript": "4.5.4"
+  },
+  "packageManager": "yarn@3.1.1",
+  "msw": {
+    "workerDirectory": "public"
+  }
+}
