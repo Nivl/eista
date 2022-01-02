@@ -1,6 +1,6 @@
+import ThemeProvider from 'providers/ThemeProvider';
 import { FC } from 'react';
 
-import ThemeProvider from 'components/App/ThemeProvider';
 import MeContext, { MeContextInterface } from 'contexts/MeContext';
 
 // wrapper returns a react FC that wraps the component with the all

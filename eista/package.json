@@ -32,6 +32,7 @@
     "hooks": "link:./src/hooks",
     "next": "12.0.7",
     "pages": "link:./src/pages",
+    "providers": "link:./src/providers",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "7.22.5",

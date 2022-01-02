@@ -5,7 +5,7 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import { wrapper } from 'utils/test-utils';
+import { wrapper } from 'providers/TestProvider';
 
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => {
