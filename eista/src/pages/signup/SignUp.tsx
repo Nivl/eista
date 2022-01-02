@@ -1,11 +1,11 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, Grid, Link, TextField, Typography } from '@mui/material';
-import RouterLink from 'next/link';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { isGraphQLError } from 'backend/types';
+import Link from 'components/Link';
 import Loading from 'components/Loader';
 import Page from 'components/Page';
 import MeContext from 'contexts/MeContext';
@@ -234,11 +234,7 @@ const SignUp = () => {
           </Grid>
 
           <Grid item sx={{ textAlign: 'center' }}>
-            Don&apos;t have an account?{' '}
-            <Link href="/login" component={RouterLink} underline="hover">
-              Sign In
-            </Link>
-            .
+            Don&apos;t have an account? <Link href="/login">Sign In</Link>.
           </Grid>
         </Grid>
       </Box>
