@@ -1,10 +1,11 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link as RouterLink, Navigate, useNavigate } from 'react-router-dom';
 
 import { isGraphQLError } from 'backend/types';
+import Link from 'components/Link';
 import Loading from 'components/Loader';
 import Page from 'components/Page';
 import MeContext from 'contexts/MeContext';
@@ -16,7 +17,7 @@ type ServerErrors = {
 };
 
 const SignUp = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { me, isLoading: isPageLoading } = useContext(MeContext);
   const { isLoading: isSigningUp, error: signUpError, signUp } = useSignUp();
   // We automatically sign in the user after sign up
@@ -63,16 +64,17 @@ const SignUp = () => {
 
     try {
       await signIn({ email: result.email, password: result.password });
-      navigate('/');
+      router.push('/');
     } catch (error) {
       // TODO(melvin): Report error somewhere
       // In case of error we'll let the user try again manually
-      navigate('/login');
+      router.push('/login');
     }
   };
 
   if (me) {
-    return <Navigate to="/" replace={true} />;
+    router.replace('/');
+    return <Loading fullPage />;
   }
 
   if (isPageLoading) {
@@ -232,11 +234,7 @@ const SignUp = () => {
           </Grid>
 
           <Grid item sx={{ textAlign: 'center' }}>
-            Don&apos;t have an account?{' '}
-            <Link to="/login" component={RouterLink} underline="hover">
-              Sign In
-            </Link>
-            .
+            Don&apos;t have an account? <Link href="/login">Sign In</Link>.
           </Grid>
         </Grid>
       </Box>
