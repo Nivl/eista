@@ -8,7 +8,9 @@
     "lint": "next lint",
     "test": "jest",
     "test:e2e": "cypress open",
-    "test:e2e:ci": "cypress run"
+    "test:e2e:ci": "cypress run",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "browserslist": {
     "production": [
@@ -43,6 +45,11 @@
     "utils": "link:./src/utils"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "6.4.9",
+    "@storybook/addon-essentials": "6.4.9",
+    "@storybook/addon-links": "6.4.9",
+    "@storybook/node-logger": "6.4.9",
+    "@storybook/react": "6.4.9",
     "@testing-library/cypress": "8.0.2",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
