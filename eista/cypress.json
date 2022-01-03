@@ -1,5 +1,0 @@
-{
-    "experimentalStudio": true,
-    "baseUrl": "http://localhost:3000",
-    "nodeVersion": "bundled"
-}

@@ -1,7 +1,7 @@
 import { GraphQLClient } from 'graphql-request';
 
 const request = (query: string, variables: unknown = {}) => {
-  const url = `${process.env.REACT_APP_API_URL}/query`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/query`;
   const graphQLClient = new GraphQLClient(url);
 
   const token = window.localStorage.getItem('user_access_token');

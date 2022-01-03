@@ -1,10 +1,11 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, Button, Grid, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link as RouterLink, Navigate, useNavigate } from 'react-router-dom';
 
 import { isGraphQLError } from 'backend/types';
+import Link from 'components/Link';
 import Loading from 'components/Loader';
 import Page from 'components/Page';
 import MeContext from 'contexts/MeContext';
@@ -15,7 +16,7 @@ type ServerErrors = {
 };
 
 const Login = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { me, isLoading: isPageLoading } = useContext(MeContext);
   const { isLoading: isSigningIn, error: signInError, signIn } = useSignIn();
 
@@ -46,14 +47,15 @@ const Login = () => {
   const onSubmit = async (result: SignInInput) => {
     try {
       await signIn(result);
-      navigate('/');
+      router.push('/');
     } catch (_) {
       // we ignore the error because it is handled by the useSignIn hook
     }
   };
 
   if (me) {
-    return <Navigate to="/" replace={true} />;
+    router.replace('/');
+    return <Loading fullPage />;
   }
 
   if (isPageLoading) {
@@ -161,11 +163,7 @@ const Login = () => {
           </Grid>
 
           <Grid item sx={{ textAlign: 'center' }}>
-            Don&apos;t have an account?{' '}
-            <Link to="/signup" component={RouterLink} underline="hover">
-              Sign Up
-            </Link>
-            .
+            Don&apos;t have an account? <Link href="/signup">Sign Up</Link>.
           </Grid>
         </Grid>
       </Box>
