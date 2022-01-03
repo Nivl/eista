@@ -7,33 +7,36 @@ import {
 } from '@testing-library/react';
 import { wrapper } from 'providers/TestProvider';
 
-const mockNavigate = jest.fn();
-jest.mock('react-router-dom', () => {
+const mockRouter = {
+  replace: jest.fn(),
+  push: jest.fn(),
+  mockReset: () => {
+    mockRouter.push.mockReset();
+    mockRouter.replace.mockReset();
+  },
+};
+jest.mock('next/router', () => {
   // Require the original module to not be mocked...
-  const originalModule = jest.requireActual('react-router-dom');
-
+  const originalModule = jest.requireActual('next/router');
   return {
     __esModule: true,
     ...originalModule,
-    useNavigate: () => mockNavigate,
-    Navigate: () => <div data-testid="redirect" />,
+    useRouter: () => mockRouter,
   };
 });
 
 import LoadingOriginal from 'components/Loader';
 jest.mock('components/Loader');
-const Loading = LoadingOriginal as jest.Mock;
+const Loading = jest.mocked(LoadingOriginal, true);
 
 import useSignInOriginal from 'hooks/useSignIn';
 jest.mock('hooks/useSignIn');
-const useSignIn = useSignInOriginal as jest.Mock;
+const useSignIn = jest.mocked(useSignInOriginal, true);
 
 import Login from './Login';
 
 describe('Login', () => {
   beforeEach(() => {
-    useSignIn.mockReset();
-    mockNavigate.mockReset();
     Loading.mockReturnValue(<div data-testid="loading" />);
   });
 
@@ -42,8 +45,10 @@ describe('Login', () => {
     const setMe = jest.fn();
     useSignIn.mockReturnValue({
       isLoading: false,
+      isSuccess: false,
       error: null,
       signIn: signInFunc,
+      data: undefined,
     });
 
     act(() => {
@@ -60,9 +65,7 @@ describe('Login', () => {
     });
 
     // We're not expecting any early returns
-    await waitFor(() =>
-      expect(screen.queryByTestId('redirect')).not.toBeInTheDocument(),
-    );
+    await waitFor(() => expect(mockRouter.replace).not.toBeCalled());
 
     // make sure the loader got displayed
     await waitFor(() =>
@@ -76,7 +79,7 @@ describe('Login', () => {
     );
     expect(signInFunc).not.toBeCalled();
     expect(setMe).not.toBeCalled();
-    expect(mockNavigate).not.toBeCalled();
+    expect(mockRouter.push).not.toBeCalled();
   });
 
   it('Should redirect if user already logged in', async () => {
@@ -84,8 +87,10 @@ describe('Login', () => {
     const setMe = jest.fn();
     useSignIn.mockReturnValue({
       isLoading: false,
+      isSuccess: false,
       error: null,
       signIn: signInFunc,
+      data: undefined,
     });
 
     act(() => {
@@ -93,14 +98,14 @@ describe('Login', () => {
     });
 
     // make sure the redirect happened
+    await waitFor(() => expect(mockRouter.replace).toBeCalledWith('/'));
+
+    // We display a loader while the user is being redirected
     await waitFor(() =>
-      expect(screen.queryByTestId('redirect')).toBeInTheDocument(),
+      expect(screen.queryByTestId('loading')).toBeInTheDocument(),
     );
 
     // Nothing else should have happened
-    await waitFor(() =>
-      expect(screen.queryByTestId('loading')).not.toBeInTheDocument(),
-    );
     await waitFor(() =>
       expect(
         screen.queryByRole('button', { name: 'Sign In' }),
@@ -108,7 +113,7 @@ describe('Login', () => {
     );
     expect(signInFunc).not.toBeCalled();
     expect(setMe).not.toBeCalled();
-    expect(mockNavigate).not.toBeCalled();
+    expect(mockRouter.push).not.toBeCalled();
   });
 
   it('Should display a form if user not logged in', async () => {
@@ -118,6 +123,8 @@ describe('Login', () => {
       isLoading: false,
       error: null,
       signIn: signInFunc,
+      isSuccess: false,
+      data: undefined,
     });
 
     act(() => {
@@ -137,9 +144,7 @@ describe('Login', () => {
     await waitFor(() =>
       expect(screen.queryByTestId('loading')).not.toBeInTheDocument(),
     );
-    await waitFor(() =>
-      expect(screen.queryByTestId('redirect')).not.toBeInTheDocument(),
-    );
+    await waitFor(() => expect(mockRouter.replace).not.toBeCalled());
 
     // We're expecting a form to be rendered with a disabled
     // submit button
@@ -150,7 +155,7 @@ describe('Login', () => {
     // Nothing else should have happened
     expect(signInFunc).not.toBeCalled();
     expect(setMe).not.toBeCalled();
-    expect(mockNavigate).not.toBeCalled();
+    expect(mockRouter.push).not.toBeCalled();
   });
 
   it('Should enable the CTA when the form is valid', async () => {
@@ -160,6 +165,8 @@ describe('Login', () => {
       isLoading: false,
       error: null,
       signIn: signInFunc,
+      isSuccess: false,
+      data: undefined,
     });
 
     act(() => {
@@ -199,7 +206,8 @@ describe('Login', () => {
     // Nothing else should have happened
     expect(signInFunc).not.toBeCalled();
     expect(setMe).not.toBeCalled();
-    expect(mockNavigate).not.toBeCalled();
+    expect(mockRouter.push).not.toBeCalled();
+    expect(mockRouter.replace).not.toBeCalled();
   });
 
   it('Should show errors if the email is invalid', async () => {
@@ -209,6 +217,8 @@ describe('Login', () => {
       isLoading: false,
       error: null,
       signIn: signInFunc,
+      isSuccess: false,
+      data: undefined,
     });
 
     act(() => {
@@ -267,7 +277,8 @@ describe('Login', () => {
     // Nothing else should have happened
     expect(signInFunc).not.toBeCalled();
     expect(setMe).not.toBeCalled();
-    expect(mockNavigate).not.toBeCalled();
+    expect(mockRouter.push).not.toBeCalled();
+    expect(mockRouter.replace).not.toBeCalled();
   });
 
   it('Should show errors if the password is invalid', async () => {
@@ -277,6 +288,8 @@ describe('Login', () => {
       isLoading: false,
       error: null,
       signIn: signInFunc,
+      isSuccess: false,
+      data: undefined,
     });
 
     act(() => {
@@ -321,7 +334,8 @@ describe('Login', () => {
     // Nothing else should have happened
     expect(signInFunc).not.toBeCalled();
     expect(setMe).not.toBeCalled();
-    expect(mockNavigate).not.toBeCalled();
+    expect(mockRouter.push).not.toBeCalled();
+    expect(mockRouter.replace).not.toBeCalled();
   });
 
   it('Should display a server error if there is one', async () => {
@@ -329,8 +343,12 @@ describe('Login', () => {
     const setMe = jest.fn();
     useSignIn.mockReturnValue({
       isLoading: false,
-      error: { response: { errors: [{ message: 'Invalid email/password' }] } },
+      error: {
+        response: { errors: [{ message: 'Invalid email/password', path: [] }] },
+      },
       signIn: signInFunc,
+      isSuccess: false,
+      data: undefined,
     });
 
     act(() => {
@@ -353,7 +371,8 @@ describe('Login', () => {
     // Nothing else should have happened
     expect(signInFunc).not.toBeCalled();
     expect(setMe).not.toBeCalled();
-    expect(mockNavigate).not.toBeCalled();
+    expect(mockRouter.push).not.toBeCalled();
+    expect(mockRouter.replace).not.toBeCalled();
   });
 
   it('Should hide the login button when logging in', async () => {
@@ -363,6 +382,8 @@ describe('Login', () => {
       isLoading: true,
       error: null,
       signIn: signInFunc,
+      isSuccess: false,
+      data: undefined,
     });
 
     act(() => {
@@ -387,7 +408,8 @@ describe('Login', () => {
     // Nothing else should have happened
     expect(signInFunc).not.toBeCalled();
     expect(setMe).not.toBeCalled();
-    expect(mockNavigate).not.toBeCalled();
+    expect(mockRouter.push).not.toBeCalled();
+    expect(mockRouter.replace).not.toBeCalled();
   });
 
   it('Should login the user and redirect to the home page', async () => {
@@ -401,6 +423,8 @@ describe('Login', () => {
       isLoading: false,
       error: null,
       signIn: signInFunc,
+      isSuccess: true,
+      data: undefined,
     });
 
     act(() => {
@@ -439,7 +463,8 @@ describe('Login', () => {
 
     // Actual validation
     await waitFor(() => expect(signInFunc).toBeCalledTimes(1));
-    await waitFor(() => expect(mockNavigate).toBeCalledWith('/'));
+    await waitFor(() => expect(mockRouter.push).toBeCalledWith('/'));
+    expect(mockRouter.replace).not.toBeCalled();
   });
 
   it('Should not crash on server error', async () => {
@@ -457,6 +482,8 @@ describe('Login', () => {
       isLoading: false,
       error: null,
       signIn: signInFunc,
+      isSuccess: false,
+      data: undefined,
     });
 
     act(() => {
@@ -495,7 +522,8 @@ describe('Login', () => {
 
     // Actual validation
     await waitFor(() => expect(signInFunc).toBeCalledTimes(1));
-    await waitFor(() => expect(mockNavigate).not.toBeCalled());
+    expect(mockRouter.push).not.toBeCalled();
+    expect(mockRouter.replace).not.toBeCalled();
 
     // Let's try again, it should pass
     await waitFor(() => expect(cta).toBeEnabled());
@@ -503,6 +531,6 @@ describe('Login', () => {
       fireEvent.click(cta as HTMLElement);
     });
     await waitFor(() => expect(signInFunc).toBeCalledTimes(2));
-    await waitFor(() => expect(mockNavigate).toBeCalledWith('/'));
+    await waitFor(() => expect(mockRouter.push).toBeCalledWith('/'));
   });
 });
