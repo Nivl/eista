@@ -6,7 +6,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "test:e2e": "cypress open",
+    "test:e2e:ci": "cypress run"
   },
   "browserslist": {
     "production": [
@@ -41,6 +43,7 @@
     "utils": "link:./src/utils"
   },
   "devDependencies": {
+    "@testing-library/cypress": "8.0.2",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
     "@testing-library/user-event": "13.5.0",
@@ -55,6 +58,7 @@
     "@typescript-eslint/parser": "5.8.1",
     "@yarnpkg/sdks": "2.6.0-rc.1",
     "babel-jest": "27.4.5",
+    "cypress": "9.2.0",
     "eslint": "8.6.0",
     "eslint-config-next": "12.0.7",
     "eslint-config-prettier": "8.3.0",
