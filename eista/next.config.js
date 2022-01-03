@@ -2,6 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   eslint: {
-    dirs: ['pages', 'src'],
+    dirs: ['pages', 'src', 'cypress', '.storybook'],
   },
 };
