@@ -2,22 +2,32 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { FC, useMemo } from 'react';
 
+import useLocalStorage from 'hooks/useLocalStorage';
+
 const Theme: FC<{
   scheme?: 'dark' | 'light';
 }> = ({ scheme, children }) => {
-  let prefersLightkMode = useMediaQuery('(prefers-color-scheme: light)');
+  let prefersLightMode = useMediaQuery('(prefers-color-scheme: light)');
+
   if (scheme) {
-    prefersLightkMode = scheme == 'light';
+    prefersLightMode = scheme === 'light';
+  }
+
+  const [forcedScheme] = useLocalStorage<string>('theme', undefined, {
+    subscribe: true,
+  });
+  if (forcedScheme === 'dark' || forcedScheme === 'light') {
+    prefersLightMode = forcedScheme === 'light';
   }
 
   const theme = useMemo(
     () =>
       createTheme({
         palette: {
-          mode: prefersLightkMode ? 'light' : 'dark',
+          mode: prefersLightMode ? 'light' : 'dark',
         },
       }),
-    [prefersLightkMode],
+    [prefersLightMode],
   );
 
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
