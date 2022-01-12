@@ -25,6 +25,14 @@ const Theme: FC<{
       createTheme({
         palette: {
           mode: prefersLightMode ? 'light' : 'dark',
+          ...(prefersLightMode
+            ? {}
+            : {
+                primary: {
+                  main: '#9869c3',
+                  dark: '#7134a9',
+                },
+              }),
         },
       }),
     [prefersLightMode],
