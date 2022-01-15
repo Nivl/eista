@@ -45,11 +45,11 @@
     "utils": "link:./src/utils"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "6.4.10",
-    "@storybook/addon-essentials": "6.4.10",
-    "@storybook/addon-links": "6.4.12",
-    "@storybook/node-logger": "6.4.12",
-    "@storybook/react": "6.4.10",
+    "@storybook/addon-actions": "6.4.13",
+    "@storybook/addon-essentials": "6.4.13",
+    "@storybook/addon-links": "6.4.13",
+    "@storybook/node-logger": "6.4.13",
+    "@storybook/react": "6.4.13",
     "@testing-library/cypress": "8.0.2",
     "@testing-library/jest-dom": "5.16.1",
     "@testing-library/react": "12.1.2",
