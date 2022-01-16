@@ -3,7 +3,7 @@ module github.com/Nivl/eista-api
 go 1.16
 
 require (
-	github.com/99designs/gqlgen v0.15.0
+	github.com/99designs/gqlgen v0.15.1
 	github.com/go-chi/chi v1.5.4
 	github.com/google/uuid v1.3.0
 	github.com/jackc/pgconn v1.10.1
