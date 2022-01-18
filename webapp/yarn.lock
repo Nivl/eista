@@ -7732,7 +7732,7 @@ __metadata:
     providers: "link:./src/providers"
     react: 17.0.2
     react-dom: 17.0.2
-    react-hook-form: 7.24.0
+    react-hook-form: 7.24.1
     react-query: 3.34.8
     typescript: 4.5.4
     utils: "link:./src/utils"
@@ -14250,12 +14250,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:7.24.0":
-  version: 7.24.0
-  resolution: "react-hook-form@npm:7.24.0"
+"react-hook-form@npm:7.24.1":
+  version: 7.24.1
+  resolution: "react-hook-form@npm:7.24.1"
   peerDependencies:
     react: ^16.8.0 || ^17
-  checksum: 6df7b33c7e8023fadd7cf7415f975497d55866b0d5ae32f9735def3e2c7eb1455989f997e726b84e878d895e8ae0901db337f78eb9bb8edc3a146b7858b7d805
+  checksum: 2c2dce2e503d2a2e680af553b3df2f7df3fa95e4a5837fbe2c84e9cb3eebaf67011ee83f939884671b6d3e14e160ce2fea1b20b78c7e480d49f2ed1514b4365a
   languageName: node
   linkType: hard
 
