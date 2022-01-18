@@ -49,13 +49,16 @@ const SignUp = () => {
     trigger('passwordAgain');
   }, [trigger, password]);
 
-  const onSubmit = async (result: SignUpInput) => {
+  const onSubmit = async (result: { [key: string]: unknown }) => {
+    const { email, password, name } = result as SignUpInput;
+    if (!email || !password || !name) {
+      // TODO(melvin): we fucked up the form, we can't recover from that error.
+      // Need to log the error somewhere.
+      return;
+    }
+
     try {
-      await signUp({
-        email: result.email,
-        password: result.password,
-        name: result.name,
-      });
+      await signUp({ email, password, name });
     } catch (_) {
       // we can just return here, because the sign up error will be handled
       // by the useSignUp hook
@@ -63,7 +66,7 @@ const SignUp = () => {
     }
 
     try {
-      await signIn({ email: result.email, password: result.password });
+      await signIn({ email, password });
       router.push('/');
     } catch (error) {
       // TODO(melvin): Report error somewhere
