@@ -44,9 +44,16 @@ const Login = () => {
   });
   const { errors: formErrors, isValid: formIsValid } = formState;
 
-  const onSubmit = async (result: SignInInput) => {
+  const onSubmit = async (result: { [key: string]: unknown }) => {
+    const { email, password } = result;
+    if (!email || !password) {
+      // TODO(melvin): we fucked up the form, we can't recover from that error.
+      // Need to log the error somewhere.
+      return;
+    }
+
     try {
-      await signIn(result);
+      await signIn(result as SignInInput);
       router.push('/');
     } catch (_) {
       // we ignore the error because it is handled by the useSignIn hook
