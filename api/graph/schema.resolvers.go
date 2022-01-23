@@ -1,4 +1,3 @@
-// Package graph contains everything that is needed to start the graphql server.
 package graph
 
 // This file will be automatically regenerated based on the schema, any resolver implementations
@@ -13,11 +12,6 @@ import (
 	"github.com/Nivl/eista-api/services/user/mutations"
 	"github.com/Nivl/eista-api/services/user/payload"
 	"github.com/Nivl/eista-api/services/user/queries"
-)
-
-type (
-	mutationResolver struct{ *Resolver }
-	queryResolver    struct{ *Resolver }
 )
 
 func (r *mutationResolver) CreateUser(ctx context.Context, newUser mutations.CreateUserInput) (bool, error) {
@@ -79,3 +73,6 @@ func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResol
 
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
+
+type mutationResolver struct{ *Resolver }
+type queryResolver struct{ *Resolver }

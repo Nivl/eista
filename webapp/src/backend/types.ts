@@ -2,6 +2,7 @@ export type Me = {
   id: string;
   email: string;
   name: string;
+  hasOnboarded: boolean;
 };
 
 export type Session = {
