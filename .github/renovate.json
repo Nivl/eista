@@ -1,8 +1,7 @@
 {
   "extends": [
     ":ignoreModulesAndTests",
-    "group:recommended",
-    "group:monorepos",
+    "group:all",
     "workarounds:all"
   ],
   "dependencyDashboard": true,
