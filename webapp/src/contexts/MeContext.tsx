@@ -22,6 +22,7 @@ const getMe = async () => {
           id
           email
           name
+          hasOnboarded
         }
       }
     `,
