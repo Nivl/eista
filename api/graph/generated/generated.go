@@ -57,9 +57,10 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreateUser func(childComplexity int, newUser mutations.CreateUserInput) int
-		SignIn     func(childComplexity int, credentials mutations.SignInInput) int
-		SignOut    func(childComplexity int) int
+		CreateUser     func(childComplexity int, newUser mutations.CreateUserInput) int
+		SignIn         func(childComplexity int, credentials mutations.SignInInput) int
+		SignOut        func(childComplexity int) int
+		SkipOnboarding func(childComplexity int) int
 	}
 
 	Query struct {
@@ -79,6 +80,7 @@ type ComplexityRoot struct {
 
 type MutationResolver interface {
 	CreateUser(ctx context.Context, newUser mutations.CreateUserInput) (bool, error)
+	SkipOnboarding(ctx context.Context) (*payload.Me, error)
 	SignIn(ctx context.Context, credentials mutations.SignInInput) (*payload.SignedInUser, error)
 	SignOut(ctx context.Context) (bool, error)
 }
@@ -167,6 +169,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.SignOut(childComplexity), true
+
+	case "Mutation.skipOnboarding":
+		if e.complexity.Mutation.SkipOnboarding == nil {
+			break
+		}
+
+		return e.complexity.Mutation.SkipOnboarding(childComplexity), true
 
 	case "Query.health":
 		if e.complexity.Query.Health == nil {
@@ -305,7 +314,8 @@ type SignedInUser {
 
 type Mutation {
   createUser(newUser: NewUser!): Boolean!
-  signIn(credentials: Credentials!): SignedInUser
+  skipOnboarding: Me!
+  signIn(credentials: Credentials!): SignedInUser!
   signOut: Boolean!
 }
 `, BuiltIn: false},
@@ -616,6 +626,41 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Mutation_skipOnboarding(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().SkipOnboarding(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*payload.Me)
+	fc.Result = res
+	return ec.marshalNMe2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐMe(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Mutation_signIn(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -648,11 +693,14 @@ func (ec *executionContext) _Mutation_signIn(ctx context.Context, field graphql.
 		return graphql.Null
 	}
 	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
 	res := resTmp.(*payload.SignedInUser)
 	fc.Result = res
-	return ec.marshalOSignedInUser2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐSignedInUser(ctx, field.Selections, res)
+	return ec.marshalNSignedInUser2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐSignedInUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_signOut(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2254,6 +2302,16 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "skipOnboarding":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_skipOnboarding(ctx, field)
+			}
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "signIn":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_signIn(ctx, field)
@@ -2261,6 +2319,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
 
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "signOut":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_signOut(ctx, field)
@@ -2903,6 +2964,16 @@ func (ec *executionContext) marshalNMe2githubᚗcomᚋNivlᚋeistaᚑapiᚋservi
 	return ec._Me(ctx, sel, &v)
 }
 
+func (ec *executionContext) marshalNMe2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐMe(ctx context.Context, sel ast.SelectionSet, v *payload.Me) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._Me(ctx, sel, v)
+}
+
 func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋmutationsᚐCreateUserInput(ctx context.Context, v interface{}) (mutations.CreateUserInput, error) {
 	res, err := ec.unmarshalInputNewUser(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -2910,6 +2981,20 @@ func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋNivlᚋeistaᚑapi�
 
 func (ec *executionContext) marshalNSession2githubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐSession(ctx context.Context, sel ast.SelectionSet, v payload.Session) graphql.Marshaler {
 	return ec._Session(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNSignedInUser2githubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐSignedInUser(ctx context.Context, sel ast.SelectionSet, v payload.SignedInUser) graphql.Marshaler {
+	return ec._SignedInUser(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNSignedInUser2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐSignedInUser(ctx context.Context, sel ast.SelectionSet, v *payload.SignedInUser) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._SignedInUser(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalNString2string(ctx context.Context, v interface{}) (string, error) {
@@ -3211,13 +3296,6 @@ func (ec *executionContext) marshalOMe2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋse
 		return graphql.Null
 	}
 	return ec._Me(ctx, sel, v)
-}
-
-func (ec *executionContext) marshalOSignedInUser2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐSignedInUser(ctx context.Context, sel ast.SelectionSet, v *payload.SignedInUser) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return ec._SignedInUser(ctx, sel, v)
 }
 
 func (ec *executionContext) unmarshalOString2string(ctx context.Context, v interface{}) (string, error) {

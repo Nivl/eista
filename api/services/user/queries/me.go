@@ -10,9 +10,5 @@ func Me(c *services.Context) (*payload.Me, error) {
 	if c.User == nil {
 		return nil, services.NewAuthenticationError("user not authenticated")
 	}
-	return &payload.Me{
-		ID:    c.User.ID,
-		Name:  c.User.Name,
-		Email: c.User.Email,
-	}, nil
+	return payload.NewMe(c.User), nil
 }

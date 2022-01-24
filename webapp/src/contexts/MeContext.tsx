@@ -41,6 +41,7 @@ export const MeProvider: FC = ({ children }) => {
     retryOnMount: false,
     retry: false,
   });
+
   useEffect(() => {
     if (data) {
       setMe(data);
@@ -48,13 +49,12 @@ export const MeProvider: FC = ({ children }) => {
   }, [data]);
 
   const toProvide: MeContextInterface = {
-    me: data || me,
+    me: me || data || null,
     setMe,
     isLoading,
     isError,
     error,
   };
-
   return <MeContext.Provider value={toProvide}>{children}</MeContext.Provider>;
 };
 

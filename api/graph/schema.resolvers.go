@@ -26,6 +26,18 @@ func (r *mutationResolver) CreateUser(ctx context.Context, newUser mutations.Cre
 	return true, nil
 }
 
+func (r *mutationResolver) SkipOnboarding(ctx context.Context) (*payload.Me, error) {
+	c, err := CreateContext(ctx, r.Resolver)
+	if err != nil {
+		return nil, err
+	}
+	me, err := mutations.SkipOnboarding(c)
+	if err != nil {
+		return nil, fmt.Errorf("could skip onboarding: %w", err)
+	}
+	return me, nil
+}
+
 func (r *mutationResolver) SignIn(ctx context.Context, credentials mutations.SignInInput) (*payload.SignedInUser, error) {
 	c, err := CreateContext(ctx, r.Resolver)
 	if err != nil {

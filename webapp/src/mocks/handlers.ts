@@ -65,6 +65,21 @@ export const handlers = [
     return res(ctx.data({}));
   }),
 
+  graphql.mutation('skipOnboarding', (req, res, ctx) => {
+    const user = userFromToken(localStorage.getItem('user_access_token'));
+    if (!user) {
+      return res(ctx.errors([newAuthenticationError()]));
+    }
+
+    user.me.hasOnboarded = true;
+
+    return res(
+      ctx.data({
+        skipOnboarding: user.me,
+      }),
+    );
+  }),
+
   graphql.query('me', (req, res, ctx) => {
     const user = userFromToken(localStorage.getItem('user_access_token'));
     if (!user) {

@@ -29,6 +29,7 @@ const signIn = async (variables: Payload) => {
             id
             email
             name
+            hasOnboarded
           }
           session {
             token
@@ -51,15 +52,15 @@ const useSignIn = () => {
   >(signIn);
 
   useEffect(() => {
-    if (data) {
-      localStorage.setItem('user_access_token', data.session.token);
+    if (data?.me) {
+      localStorage.setItem('user_access_token', data?.session.token);
       setMe(data.me);
     }
-  }, [data, setMe]);
+  }, [data?.me, data?.session, setMe]);
 
   return {
-    isLoading: isLoading,
-    error: error,
+    isLoading,
+    error,
     isSuccess,
     data: data?.me,
     signIn: async (input: Input) => {

@@ -36,6 +36,7 @@ type SignedInUser {
 
 type Mutation {
   createUser(newUser: NewUser!): Boolean!
-  signIn(credentials: Credentials!): SignedInUser
+  skipOnboarding: Me!
+  signIn(credentials: Credentials!): SignedInUser!
   signOut: Boolean!
 }
