@@ -15,8 +15,9 @@ import (
 // services
 func CreateContext(ctx context.Context, r *Resolver) (*services.Context, error) {
 	c := &services.Context{
-		Ctx: ctx,
-		DB:  r.DB,
+		Ctx:   ctx,
+		DB:    r.DB,
+		Plaid: r.Plaid,
 	}
 
 	authHeader, ok := ctx.Value(ctxKeyHTTPAuth{}).(string)

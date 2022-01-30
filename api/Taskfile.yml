@@ -17,17 +17,21 @@ tasks:
 
   migrate:
     cmds:
-      - docker-compose exec api migrate -database ${EISTA_POSTGRES_URL} -path database/migrations {{.CMD}}
-    vars:
-      CMD: up
-
+      - docker-compose exec api migrate -database ${EISTA_POSTGRES_URL} -path database/migrations {{.CLI_ARGS}}
 
   lint: golangci-lint run ./...
 
   generate:
     cmds:
       - go get github.com/99designs/gqlgen/cmd
+      # hack to avoid a bug in gqlgen generated code
+      - echo "package generated" > graph/generated/_empty.go
+      - echo "package model" > graph/model/_empty.go
+      # end hack
       - go generate ./...
+      # hack cleanup
+      - rm -f graph/generated/_empty.go graph/model/_empty.go
+      # end hack cleanup
       - go mod tidy
 
   deps-upgrade:

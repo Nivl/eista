@@ -9,6 +9,8 @@ import (
 
 	"github.com/Nivl/eista-api/graph/generated"
 	"github.com/Nivl/eista-api/graph/model"
+	bankingMutations "github.com/Nivl/eista-api/services/banking/mutations"
+	bankingPayloads "github.com/Nivl/eista-api/services/banking/payloads"
 	"github.com/Nivl/eista-api/services/user/mutations"
 	"github.com/Nivl/eista-api/services/user/payload"
 	"github.com/Nivl/eista-api/services/user/queries"
@@ -50,6 +52,18 @@ func (r *mutationResolver) SignIn(ctx context.Context, credentials mutations.Sig
 	return resp, nil
 }
 
+func (r *mutationResolver) PersistBankingPublicToken(ctx context.Context, publicToken bankingMutations.PersistPublicTokenInput) (bool, error) {
+	c, err := CreateContext(ctx, r.Resolver)
+	if err != nil {
+		return false, err
+	}
+	err = bankingMutations.PersistPublicToken(c, &publicToken)
+	if err != nil {
+		return false, fmt.Errorf("could not persist public token: %w", err)
+	}
+	return true, nil
+}
+
 func (r *mutationResolver) SignOut(ctx context.Context) (bool, error) {
 	c, err := CreateContext(ctx, r.Resolver)
 	if err != nil {
@@ -62,10 +76,20 @@ func (r *mutationResolver) SignOut(ctx context.Context) (bool, error) {
 	return true, nil
 }
 
+func (r *mutationResolver) GenerateBankingLinkToken(ctx context.Context) (*bankingPayloads.LinkToken, error) {
+	c, err := CreateContext(ctx, r.Resolver)
+	if err != nil {
+		return nil, err
+	}
+	resp, err := bankingMutations.GenerateLinkToken(c)
+	if err != nil {
+		return nil, fmt.Errorf("could not generate link token: %w", err)
+	}
+	return resp, nil
+}
+
 func (r *queryResolver) Health(ctx context.Context) (*model.Health, error) {
-	return &model.Health{
-		Status: "healthy",
-	}, nil
+	panic(fmt.Errorf("not implemented"))
 }
 
 func (r *queryResolver) Me(ctx context.Context) (*payload.Me, error) {

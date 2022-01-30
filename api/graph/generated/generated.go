@@ -13,6 +13,8 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	"github.com/Nivl/eista-api/graph/model"
+	mutations1 "github.com/Nivl/eista-api/services/banking/mutations"
+	payload1 "github.com/Nivl/eista-api/services/banking/payloads"
 	"github.com/Nivl/eista-api/services/user/mutations"
 	"github.com/Nivl/eista-api/services/user/payload"
 	gqlparser "github.com/vektah/gqlparser/v2"
@@ -45,6 +47,10 @@ type DirectiveRoot struct {
 }
 
 type ComplexityRoot struct {
+	BankingLinkToken struct {
+		PlaidLinkToken func(childComplexity int) int
+	}
+
 	Health struct {
 		Status func(childComplexity int) int
 	}
@@ -57,10 +63,12 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreateUser     func(childComplexity int, newUser mutations.CreateUserInput) int
-		SignIn         func(childComplexity int, credentials mutations.SignInInput) int
-		SignOut        func(childComplexity int) int
-		SkipOnboarding func(childComplexity int) int
+		CreateUser                func(childComplexity int, newUser mutations.CreateUserInput) int
+		GenerateBankingLinkToken  func(childComplexity int) int
+		PersistBankingPublicToken func(childComplexity int, publicToken mutations1.PersistPublicTokenInput) int
+		SignIn                    func(childComplexity int, credentials mutations.SignInInput) int
+		SignOut                   func(childComplexity int) int
+		SkipOnboarding            func(childComplexity int) int
 	}
 
 	Query struct {
@@ -82,7 +90,9 @@ type MutationResolver interface {
 	CreateUser(ctx context.Context, newUser mutations.CreateUserInput) (bool, error)
 	SkipOnboarding(ctx context.Context) (*payload.Me, error)
 	SignIn(ctx context.Context, credentials mutations.SignInInput) (*payload.SignedInUser, error)
+	PersistBankingPublicToken(ctx context.Context, publicToken mutations1.PersistPublicTokenInput) (bool, error)
 	SignOut(ctx context.Context) (bool, error)
+	GenerateBankingLinkToken(ctx context.Context) (*payload1.LinkToken, error)
 }
 type QueryResolver interface {
 	Health(ctx context.Context) (*model.Health, error)
@@ -103,6 +113,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	ec := executionContext{nil, e}
 	_ = ec
 	switch typeName + "." + field {
+
+	case "BankingLinkToken.plaidLinkToken":
+		if e.complexity.BankingLinkToken.PlaidLinkToken == nil {
+			break
+		}
+
+		return e.complexity.BankingLinkToken.PlaidLinkToken(childComplexity), true
 
 	case "Health.status":
 		if e.complexity.Health.Status == nil {
@@ -150,6 +167,25 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.CreateUser(childComplexity, args["newUser"].(mutations.CreateUserInput)), true
+
+	case "Mutation.generateBankingLinkToken":
+		if e.complexity.Mutation.GenerateBankingLinkToken == nil {
+			break
+		}
+
+		return e.complexity.Mutation.GenerateBankingLinkToken(childComplexity), true
+
+	case "Mutation.persistBankingPublicToken":
+		if e.complexity.Mutation.PersistBankingPublicToken == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_persistBankingPublicToken_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.PersistBankingPublicToken(childComplexity, args["publicToken"].(mutations1.PersistPublicTokenInput)), true
 
 	case "Mutation.signIn":
 		if e.complexity.Mutation.SignIn == nil {
@@ -312,11 +348,21 @@ type SignedInUser {
   me: Me!
 }
 
+type BankingLinkToken {
+  plaidLinkToken: String!
+}
+
+input BankingPublicToken {
+  plaidPublicToken: String!
+}
+
 type Mutation {
   createUser(newUser: NewUser!): Boolean!
   skipOnboarding: Me!
   signIn(credentials: Credentials!): SignedInUser!
+  persistBankingPublicToken(publicToken: BankingPublicToken!): Boolean!
   signOut: Boolean!
+  generateBankingLinkToken: BankingLinkToken!
 }
 `, BuiltIn: false},
 }
@@ -338,6 +384,21 @@ func (ec *executionContext) field_Mutation_createUser_args(ctx context.Context, 
 		}
 	}
 	args["newUser"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_persistBankingPublicToken_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 mutations1.PersistPublicTokenInput
+	if tmp, ok := rawArgs["publicToken"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("publicToken"))
+		arg0, err = ec.unmarshalNBankingPublicToken2githubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋbankingᚋmutationsᚐPersistPublicTokenInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["publicToken"] = arg0
 	return args, nil
 }
 
@@ -408,6 +469,41 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 // endregion ************************** directives.gotpl **************************
 
 // region    **************************** field.gotpl *****************************
+
+func (ec *executionContext) _BankingLinkToken_plaidLinkToken(ctx context.Context, field graphql.CollectedField, obj *payload1.LinkToken) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "BankingLinkToken",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.PlaidLinkToken, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
 
 func (ec *executionContext) _Health_status(ctx context.Context, field graphql.CollectedField, obj *model.Health) (ret graphql.Marshaler) {
 	defer func() {
@@ -703,6 +799,48 @@ func (ec *executionContext) _Mutation_signIn(ctx context.Context, field graphql.
 	return ec.marshalNSignedInUser2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋuserᚋpayloadᚐSignedInUser(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Mutation_persistBankingPublicToken(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Mutation_persistBankingPublicToken_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().PersistBankingPublicToken(rctx, args["publicToken"].(mutations1.PersistPublicTokenInput))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Mutation_signOut(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -736,6 +874,41 @@ func (ec *executionContext) _Mutation_signOut(ctx context.Context, field graphql
 	res := resTmp.(bool)
 	fc.Result = res
 	return ec.marshalNBoolean2bool(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Mutation_generateBankingLinkToken(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Mutation",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Mutation().GenerateBankingLinkToken(rctx)
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(*payload1.LinkToken)
+	fc.Result = res
+	return ec.marshalNBankingLinkToken2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋbankingᚋpayloadsᚐLinkToken(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_health(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2103,6 +2276,29 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
+func (ec *executionContext) unmarshalInputBankingPublicToken(ctx context.Context, obj interface{}) (mutations1.PersistPublicTokenInput, error) {
+	var it mutations1.PersistPublicTokenInput
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	for k, v := range asMap {
+		switch k {
+		case "plaidPublicToken":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("plaidPublicToken"))
+			it.PlaidPublicToken, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputCredentials(ctx context.Context, obj interface{}) (mutations.SignInInput, error) {
 	var it mutations.SignInInput
 	asMap := map[string]interface{}{}
@@ -2180,6 +2376,37 @@ func (ec *executionContext) unmarshalInputNewUser(ctx context.Context, obj inter
 // endregion ************************** interface.gotpl ***************************
 
 // region    **************************** object.gotpl ****************************
+
+var bankingLinkTokenImplementors = []string{"BankingLinkToken"}
+
+func (ec *executionContext) _BankingLinkToken(ctx context.Context, sel ast.SelectionSet, obj *payload1.LinkToken) graphql.Marshaler {
+	fields := graphql.CollectFields(ec.OperationContext, sel, bankingLinkTokenImplementors)
+	out := graphql.NewFieldSet(fields)
+	var invalids uint32
+	for i, field := range fields {
+		switch field.Name {
+		case "__typename":
+			out.Values[i] = graphql.MarshalString("BankingLinkToken")
+		case "plaidLinkToken":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._BankingLinkToken_plaidLinkToken(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		default:
+			panic("unknown field " + strconv.Quote(field.Name))
+		}
+	}
+	out.Dispatch()
+	if invalids > 0 {
+		return graphql.Null
+	}
+	return out
+}
 
 var healthImplementors = []string{"Health"}
 
@@ -2322,9 +2549,29 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
+		case "persistBankingPublicToken":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_persistBankingPublicToken(ctx, field)
+			}
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
 		case "signOut":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Mutation_signOut(ctx, field)
+			}
+
+			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "generateBankingLinkToken":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Mutation_generateBankingLinkToken(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -2910,6 +3157,25 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 // endregion **************************** object.gotpl ****************************
 
 // region    ***************************** type.gotpl *****************************
+
+func (ec *executionContext) marshalNBankingLinkToken2githubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋbankingᚋpayloadsᚐLinkToken(ctx context.Context, sel ast.SelectionSet, v payload1.LinkToken) graphql.Marshaler {
+	return ec._BankingLinkToken(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalNBankingLinkToken2ᚖgithubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋbankingᚋpayloadsᚐLinkToken(ctx context.Context, sel ast.SelectionSet, v *payload1.LinkToken) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	return ec._BankingLinkToken(ctx, sel, v)
+}
+
+func (ec *executionContext) unmarshalNBankingPublicToken2githubᚗcomᚋNivlᚋeistaᚑapiᚋservicesᚋbankingᚋmutationsᚐPersistPublicTokenInput(ctx context.Context, v interface{}) (mutations1.PersistPublicTokenInput, error) {
+	res, err := ec.unmarshalInputBankingPublicToken(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
 
 func (ec *executionContext) unmarshalNBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
 	res, err := graphql.UnmarshalBoolean(v)

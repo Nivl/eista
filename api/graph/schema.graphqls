@@ -34,9 +34,19 @@ type SignedInUser {
   me: Me!
 }
 
+type BankingLinkToken {
+  plaidLinkToken: String!
+}
+
+input BankingPublicToken {
+  plaidPublicToken: String!
+}
+
 type Mutation {
   createUser(newUser: NewUser!): Boolean!
   skipOnboarding: Me!
   signIn(credentials: Credentials!): SignedInUser!
+  persistBankingPublicToken(publicToken: BankingPublicToken!): Boolean!
   signOut: Boolean!
+  generateBankingLinkToken: BankingLinkToken!
 }

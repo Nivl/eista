@@ -53,6 +53,10 @@ models:
     model: github.com/Nivl/eista-api/services/user/payload.Session
   SignedInUser:
     model: github.com/Nivl/eista-api/services/user/payload.SignedInUser
+  BankingLinkToken:
+    model: github.com/Nivl/eista-api/services/banking/payloads.LinkToken
+  BankingPublicToken:
+    model: github.com/Nivl/eista-api/services/banking/mutations.PersistPublicTokenInput
 
   ID:
     model:
