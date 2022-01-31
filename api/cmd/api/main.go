@@ -32,7 +32,7 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	// set up pliad
+	// set up plaid
 	plaidClientID := os.Getenv("EISTA_PLAID_CLIENT_ID")
 	if plaidClientID == "" {
 		log.Fatalln("EISTA_PLAID_CLIENT_ID not set")
@@ -43,6 +43,8 @@ func main() {
 	}
 	plaidEnv := os.Getenv("EISTA_PLAID_ENV")
 	configuration := plaid.NewConfiguration()
+	configuration.AddDefaultHeader("PLAID-CLIENT-ID", plaidClientID)
+	configuration.AddDefaultHeader("PLAID-SECRET", plaidSecret)
 	switch plaidEnv {
 	case "prod", "production":
 		configuration.UseEnvironment(plaid.Production)

@@ -7734,6 +7734,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     react-hook-form: 7.25.0
+    react-plaid-link: 3.2.2
     react-query: 3.34.12
     typescript: 4.5.5
     utils: "link:./src/utils"
@@ -14287,6 +14288,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-plaid-link@npm:3.2.2":
+  version: 3.2.2
+  resolution: "react-plaid-link@npm:3.2.2"
+  dependencies:
+    prop-types: ^15.7.2
+    react-script-hook: 1.5.0
+  peerDependencies:
+    react: ^16.8.0 || ^17.0.0
+    react-dom: ^16.8.0 || ^17.0.0
+  checksum: 1ad3ce34094eb32da1cb8221fe80eadd1397bbd4bbc8e205304a8e6184c31bb224f0300c3daa259b37c7c20ef0c8e63e4b1e0e6d48147b7196a944fa532d9a82
+  languageName: node
+  linkType: hard
+
 "react-popper-tooltip@npm:^3.1.1":
   version: 3.1.1
   resolution: "react-popper-tooltip@npm:3.1.1"
@@ -14367,6 +14381,16 @@ __metadata:
   peerDependencies:
     react: ">=16.8"
   checksum: 081a89237ab4f32195d1f2173bc4b3d95637cd6942a4d1a9e90d4ac8c80faa95528255ca2ec44c1e88c1b369e712c4ca74cba5ae3acef6fc30a51a62805b95a4
+  languageName: node
+  linkType: hard
+
+"react-script-hook@npm:1.5.0":
+  version: 1.5.0
+  resolution: "react-script-hook@npm:1.5.0"
+  peerDependencies:
+    react: ^16.8.6 || ^17.0.0
+    react-dom: ^16.8.6 || ^17.0.0
+  checksum: f8b451dd11441298a4a46ad27a4993300542cef8c0624c3d11c5d9a5426314e884069f2192a18943af4009a96b861fb1765ada8ca623fb38883f9431563a7146
   languageName: node
   linkType: hard
 
