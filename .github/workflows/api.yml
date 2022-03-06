@@ -19,12 +19,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Go version
         id: gover
         run: echo "::set-output name=value::$(grep 'go 1.' go.mod | cut -d ' ' -f 2)"
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ steps.gover.outputs.value }}
 
@@ -34,12 +34,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Go version
         id: gover
         run: echo "::set-output name=value::$(grep 'go 1.' go.mod | cut -d ' ' -f 2)"
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ steps.gover.outputs.value }}
 
@@ -49,12 +49,12 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Go version
         id: gover
         run: echo "::set-output name=value::$(grep 'go 1.' go.mod | cut -d ' ' -f 2)"
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ steps.gover.outputs.value }}
 
@@ -68,8 +68,8 @@ jobs:
     name: "Golang Vulnerabilities Scan"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
 
       - name: Generate go.list
         run: go list -json -m all > ../go.list
@@ -81,8 +81,8 @@ jobs:
     name: "Unmaintained deps check"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
 
       - name: Generate go.list
         run: go list -json -m all > ../go.list
