@@ -3,7 +3,7 @@ module github.com/Nivl/eista-api
 go 1.16
 
 require (
-	github.com/99designs/gqlgen v0.17.1
+	github.com/99designs/gqlgen v0.17.2
 	github.com/go-chi/chi v1.5.4
 	github.com/google/uuid v1.3.0
 	github.com/jackc/pgconn v1.11.0
@@ -12,6 +12,6 @@ require (
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/rs/cors v1.8.2
 	github.com/vektah/gqlparser/v2 v2.4.1
-	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd
+	golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
