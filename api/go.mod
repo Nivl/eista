@@ -12,6 +12,6 @@ require (
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/rs/cors v1.8.2
 	github.com/vektah/gqlparser/v2 v2.4.1
-	golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064
+	golang.org/x/crypto v0.0.0-20220331220935-ae2d96664a29
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
