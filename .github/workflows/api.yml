@@ -77,15 +77,16 @@ jobs:
       - name: Run Nancy
         uses: sonatype-nexus-community/nancy-github-action@main
 
-  unmaintained-deps-check:
-    name: "Unmaintained deps check"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v3
+  # Disable because not useful for now
+  # unmaintained-deps-check:
+  #   name: "Unmaintained deps check"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-go@v3
 
-      - name: Generate go.list
-        run: go list -json -m all > ../go.list
+  #     - name: Generate go.list
+  #       run: go list -json -m all > ../go.list
 
-      - name: Run Voorhees
-        uses: Nivl/voorhees-github-action@v1
+  #     - name: Run Voorhees
+  #       uses: Nivl/voorhees-github-action@v1
