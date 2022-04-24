@@ -1,5 +1,5 @@
 import ThemeProvider from 'providers/ThemeProvider';
-import { FC } from 'react';
+import { ReactNode } from 'react';
 
 import MeContext, { MeContextInterface } from 'contexts/MeContext';
 
@@ -9,8 +9,8 @@ export const wrapper = ({
   meProvider,
 }: {
   meProvider?: MeContextInterface;
-} = {}): FC =>
-  function testWrapper({ children }) {
+} = {}) =>
+  function testWrapper({ children }: { children: ReactNode }) {
     return (
       <ThemeProvider>
         <MeContext.Provider
