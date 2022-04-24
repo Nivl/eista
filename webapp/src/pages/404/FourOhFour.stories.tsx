@@ -1,11 +1,8 @@
 import { Meta, Story } from '@storybook/react';
-import { PropsWithChildren } from 'react';
 
 import FourOhFour from './FourOhFour';
 
-const Template: Story<
-  PropsWithChildren<unknown> & { theme: 'light' | 'dark' }
-> = args => <FourOhFour {...args} />;
+const Template: Story = args => <FourOhFour {...args} />;
 
 export const Default = Template.bind({});
 

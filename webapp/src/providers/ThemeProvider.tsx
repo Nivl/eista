@@ -1,12 +1,16 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { FC, useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 
 import useLocalStorage from 'hooks/useLocalStorage';
 
-const Theme: FC<{
+const Theme = ({
+  scheme,
+  children,
+}: {
   scheme?: 'dark' | 'light';
-}> = ({ scheme, children }) => {
+  children: ReactNode;
+}) => {
   let prefersLightMode = useMediaQuery('(prefers-color-scheme: light)');
 
   if (scheme) {

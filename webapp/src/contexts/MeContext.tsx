@@ -1,6 +1,6 @@
 import { gql } from 'graphql-request';
 import { createContext } from 'react';
-import { FC, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import request from 'backend/request';
@@ -30,7 +30,7 @@ const getMe = async () => {
   return me as Me;
 };
 
-export const MeProvider: FC = ({ children }) => {
+export const MeProvider = ({ children }: { children: ReactNode }) => {
   const [me, setMe] = useState<Me | null>(null);
 
   const { data, isLoading, isError, error } = useQuery('me', getMe, {
