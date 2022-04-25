@@ -1,9 +1,9 @@
 import { Meta, Story } from '@storybook/react';
 
-import Loader, { Props } from './Loader';
+import { Loading, Props } from './Loading';
 
 const Template: Story<Props & { theme: 'light' | 'dark' }> = args => (
-  <Loader {...args} />
+  <Loading {...args} />
 );
 
 export const Default = Template.bind({});
@@ -24,8 +24,8 @@ Small.args = {
 };
 
 export default {
-  component: Loader,
-  title: 'components/Loader',
+  component: Loading,
+  title: 'components/Loading',
   args: {
     theme: 'light',
     hideText: false,

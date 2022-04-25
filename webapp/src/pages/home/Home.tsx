@@ -5,10 +5,10 @@ import { useContext } from 'react';
 
 import styles from './Home.module.css';
 import logo from './logo.svg';
-import Loading from 'components/Loader';
-import MeContext from 'contexts/MeContext';
+import { Loading } from 'components/Loading';
+import { MeContext } from 'contexts/MeContext';
 
-const Home: NextPage = () => {
+export const Home: NextPage = () => {
   const router = useRouter();
   const { me, isLoading: isPageLoading } = useContext(MeContext);
 
@@ -38,5 +38,3 @@ const Home: NextPage = () => {
     </header>
   );
 };
-
-export default Home;

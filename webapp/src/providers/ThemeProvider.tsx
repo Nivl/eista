@@ -1,10 +1,13 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {
+  createTheme,
+  ThemeProvider as MuiThemeProvider,
+} from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ReactNode, useMemo } from 'react';
 
-import useLocalStorage from 'hooks/useLocalStorage';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
-const Theme = ({
+export const ThemeProvider = ({
   scheme,
   children,
 }: {
@@ -42,7 +45,5 @@ const Theme = ({
     [prefersLightMode],
   );
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
 };
-
-export default Theme;

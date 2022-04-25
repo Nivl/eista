@@ -5,17 +5,17 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { isGraphQLError } from 'backend/types';
-import Link from 'components/Link';
-import Loading from 'components/Loader';
-import Page from 'components/Page';
-import MeContext from 'contexts/MeContext';
-import useSignIn, { Input as SignInInput } from 'hooks/useSignIn';
+import { Link } from 'components/Link';
+import { Loading } from 'components/Loading';
+import { Page } from 'components/Page';
+import { MeContext } from 'contexts/MeContext';
+import { Input as SignInInput, useSignIn } from 'hooks/useSignIn';
 
 type ServerErrors = {
   [key: string]: string[];
 };
 
-const Login = () => {
+export const Login = () => {
   const router = useRouter();
   const { me, isLoading: isPageLoading } = useContext(MeContext);
   const { isLoading: isSigningIn, error: signInError, signIn } = useSignIn();
@@ -177,5 +177,3 @@ const Login = () => {
     </Page>
   );
 };
-
-export default Login;

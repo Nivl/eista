@@ -7,7 +7,7 @@ export type Props = {
   fullPage?: boolean;
 };
 
-const Loading = ({
+export const Loading = ({
   hideText = false,
   text = 'Loading...',
   isSmall = false,
@@ -38,5 +38,3 @@ const Loading = ({
     </Box>
   </Container>
 );
-
-export default Loading;

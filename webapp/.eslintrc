@@ -54,7 +54,8 @@
       {
         "argsIgnorePattern": "^_"
       }
-    ]
+    ],
+    "import/no-default-export": "error"
   },
   "overrides": [
     {
@@ -62,7 +63,18 @@
         "**/*.stories.*"
       ],
       "rules": {
-        "import/no-anonymous-default-export": "off"
+        // Next requires anonymous default export for Stories
+        "import/no-anonymous-default-export": "off",
+        "import/no-default-export": "off"
+      }
+    },
+    {
+      "files": [
+        "pages/**/*.tsx",
+        "cypress/**/*.ts"
+      ],
+      "rules": {
+        "import/no-default-export": "off" // Next requires default export for pages
       }
     }
   ]

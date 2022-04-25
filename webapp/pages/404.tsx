@@ -1,3 +1,3 @@
-import FourOhFour from 'pages/404';
+import { FourOhFour } from 'pages/404';
 
 export default FourOhFour;
