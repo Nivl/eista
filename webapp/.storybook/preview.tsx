@@ -1,5 +1,6 @@
 import CssBaseline from '@mui/material/CssBaseline';
 
+import QueryClientProvider from '../src/providers/QueryClientProvider';
 import ThemeProvider from '../src/providers/ThemeProvider';
 
 export const parameters = {
@@ -14,6 +15,7 @@ export const parameters = {
 
 export const decorators = [
   Story => <CssBaseline>{Story()}</CssBaseline>,
+  Story => <QueryClientProvider>{Story()}</QueryClientProvider>,
   (Story, ctx) => (
     <ThemeProvider scheme={ctx.args.theme || 'light'}>{Story()}</ThemeProvider>
   ),
