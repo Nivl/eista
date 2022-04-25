@@ -2,7 +2,7 @@ import { Link as MuiLink } from '@mui/material';
 import RouterLink from 'next/link';
 import { ReactNode } from 'react';
 
-const Link = ({
+export const Link = ({
   href,
   children,
   underline = 'hover',
@@ -15,5 +15,3 @@ const Link = ({
     <MuiLink underline={underline}>{children}</MuiLink>
   </RouterLink>
 );
-
-export default Link;

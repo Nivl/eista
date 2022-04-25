@@ -3,7 +3,7 @@ import { createContext } from 'react';
 import { ReactNode, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
-import request from 'backend/request';
+import { request } from 'backend/request';
 import { Me } from 'backend/types';
 
 export interface MeContextInterface {
@@ -57,7 +57,7 @@ export const MeProvider = ({ children }: { children: ReactNode }) => {
   return <MeContext.Provider value={toProvide}>{children}</MeContext.Provider>;
 };
 
-const MeContext = createContext<{
+export const MeContext = createContext<{
   me: Me | null;
   setMe: (_: Me | null) => void;
   isLoading: boolean;
@@ -69,5 +69,3 @@ const MeContext = createContext<{
   isLoading: false,
   isError: false,
 });
-
-export default MeContext;

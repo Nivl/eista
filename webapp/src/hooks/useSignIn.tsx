@@ -2,9 +2,9 @@ import { gql } from 'graphql-request';
 import { useContext, useEffect } from 'react';
 import { useMutation } from 'react-query';
 
-import request from 'backend/request';
+import { request } from 'backend/request';
 import { GraphQLError, Me, Session } from 'backend/types';
-import MeContext from 'contexts/MeContext';
+import { MeContext } from 'contexts/MeContext';
 
 export type Input = {
   email: string;
@@ -20,7 +20,7 @@ type Response = {
   session: Session;
 };
 
-const signIn = async (variables: Payload) => {
+export const signIn = async (variables: Payload) => {
   const { signIn } = await request(
     gql`
       mutation signIn($credentials: Credentials!) {
@@ -42,7 +42,7 @@ const signIn = async (variables: Payload) => {
   return signIn as Response;
 };
 
-const useSignIn = () => {
+export const useSignIn = () => {
   const { setMe } = useContext(MeContext);
   const { isLoading, data, isSuccess, mutateAsync, error } = useMutation<
     Response,
@@ -68,5 +68,3 @@ const useSignIn = () => {
     },
   };
 };
-
-export default useSignIn;

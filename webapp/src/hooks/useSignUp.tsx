@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 import { useMutation } from 'react-query';
 
-import request from 'backend/request';
+import { request } from 'backend/request';
 import { GraphQLError } from 'backend/types';
 
 export type Input = {
@@ -25,7 +25,7 @@ const signUp = async (variables: Payload) => {
   );
 };
 
-const useSignUp = () => {
+export const useSignUp = () => {
   const mutation = useMutation<void, Error | GraphQLError, Payload>(signUp);
 
   return {
@@ -35,5 +35,3 @@ const useSignUp = () => {
     signUp: (input: Input) => mutation.mutateAsync({ newUser: input }),
   };
 };
-
-export default useSignUp;

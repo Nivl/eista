@@ -4,7 +4,7 @@ import {
   QueryClientProvider as ExternalQueryClientProvider,
 } from 'react-query';
 
-const QueryClientProvider = ({ children }: { children: ReactNode }) => {
+export const QueryClientProvider = ({ children }: { children: ReactNode }) => {
   const client = new QueryClient();
 
   return (
@@ -13,5 +13,3 @@ const QueryClientProvider = ({ children }: { children: ReactNode }) => {
     </ExternalQueryClientProvider>
   );
 };
-
-export default QueryClientProvider;

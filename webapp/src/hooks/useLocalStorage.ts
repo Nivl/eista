@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useLocalStorage<Type>(
+export function useLocalStorage<Type>(
   key: string,
   defaultValue?: Type,
   opts?: { subscribe?: boolean },
@@ -65,5 +65,3 @@ function useLocalStorage<Type>(
 
   return [data, setData];
 }
-
-export default useLocalStorage;

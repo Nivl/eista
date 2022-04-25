@@ -1,7 +1,7 @@
 import CssBaseline from '@mui/material/CssBaseline';
 
-import QueryClientProvider from '../src/providers/QueryClientProvider';
-import ThemeProvider from '../src/providers/ThemeProvider';
+import { QueryClientProvider } from '../src/providers/QueryClientProvider';
+import { ThemeProvider } from '../src/providers/ThemeProvider';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

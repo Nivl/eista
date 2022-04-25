@@ -5,18 +5,18 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { isGraphQLError } from 'backend/types';
-import Link from 'components/Link';
-import Loading from 'components/Loader';
-import Page from 'components/Page';
-import MeContext from 'contexts/MeContext';
-import useSignIn from 'hooks/useSignIn';
-import useSignUp, { Input as SignUpInput } from 'hooks/useSignUp';
+import { Link } from 'components/Link';
+import { Loading } from 'components/Loading';
+import { Page } from 'components/Page';
+import { MeContext } from 'contexts/MeContext';
+import { useSignIn } from 'hooks/useSignIn';
+import { Input as SignUpInput, useSignUp } from 'hooks/useSignUp';
 
 type ServerErrors = {
   [key: string]: string[];
 };
 
-const SignUp = () => {
+export const SignUp = () => {
   const router = useRouter();
   const { me, isLoading: isPageLoading } = useContext(MeContext);
   const { isLoading: isSigningUp, error: signUpError, signUp } = useSignUp();
@@ -244,5 +244,3 @@ const SignUp = () => {
     </Page>
   );
 };
-
-export default SignUp;

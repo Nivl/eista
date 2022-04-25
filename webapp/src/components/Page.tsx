@@ -28,7 +28,7 @@ const ScreenEdge = ({ position = 'top' }: { position?: 'top' | 'bottom' }) => {
   );
 };
 
-const Page = ({
+export const Page = ({
   children,
   fullWidth = false,
 }: {
@@ -41,5 +41,3 @@ const Page = ({
     <ScreenEdge position="bottom" />
   </Box>
 );
-
-export default Page;

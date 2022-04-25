@@ -1,7 +1,7 @@
-import ThemeProvider from 'providers/ThemeProvider';
+import { ThemeProvider } from 'providers/ThemeProvider';
 import { ReactNode } from 'react';
 
-import MeContext, { MeContextInterface } from 'contexts/MeContext';
+import { MeContext, MeContextInterface } from 'contexts/MeContext';
 
 // wrapper returns a react FC that wraps the component with the all
 // needed contexts

@@ -1,6 +1,6 @@
 /* eslint-disable no-console, @typescript-eslint/no-var-requires */
 
-const enableMSW = () => {
+export const enableMSW = () => {
   if (typeof window === 'undefined') {
     const { server } = require('./server');
     server.listen();
@@ -16,5 +16,3 @@ const enableMSW = () => {
     });
   }
 };
-
-export default enableMSW;

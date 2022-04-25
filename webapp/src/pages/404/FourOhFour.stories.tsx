@@ -1,6 +1,6 @@
 import { Meta, Story } from '@storybook/react';
 
-import FourOhFour from './FourOhFour';
+import { FourOhFour } from './FourOhFour';
 
 const Template: Story = args => <FourOhFour {...args} />;
 
