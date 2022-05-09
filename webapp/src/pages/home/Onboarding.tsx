@@ -8,15 +8,15 @@ import {
 } from 'react-plaid-link';
 
 import { GraphQLError } from 'backend/types';
-import Loading from 'components/Loader';
-import Page from 'components/Page';
-import useGenerateBankingLinkToken from 'hooks/useGenerateBankingLinkToken';
-import usePersistBankingPublicToken from 'hooks/usePersistBankingPublicToken';
-import useSkipOnboarding from 'hooks/useSkipOnboarding';
+import { Loading } from 'components/Loading';
+import { Page } from 'components/Page';
+import { useGenerateBankingLinkToken } from 'hooks/useGenerateBankingLinkToken';
+import { usePersistBankingPublicToken } from 'hooks/usePersistBankingPublicToken';
+import { useSkipOnboarding } from 'hooks/useSkipOnboarding';
 
 // TODO(melvin):
 // - Update the backend to mark the user as onboarded.
-// Mnaually update the user state instead of waiting for a me object
+// Manually update the user state instead of waiting for a me object
 
 const PlaidLinkButton = ({
   plaidLinkToken,
@@ -70,7 +70,7 @@ const PlaidLinkButton = ({
   );
 };
 
-const Onboarding = () => {
+export const Onboarding = () => {
   const {
     skipOnboarding,
     isLoading: isSkippingOnboarding,
@@ -175,5 +175,3 @@ const Onboarding = () => {
     </>
   );
 };
-
-export default Onboarding;

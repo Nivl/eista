@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 import { useMutation } from 'react-query';
 
-import request from 'backend/request';
+import { request } from 'backend/request';
 import { GraphQLError } from 'backend/types';
 
 type Input = {
@@ -23,7 +23,7 @@ const persistBankingPublicToken = async (variables: Payload) => {
   );
 };
 
-const usePersistBankingPublicToken = () => {
+export const usePersistBankingPublicToken = () => {
   const { isLoading, isSuccess, mutateAsync, mutate, error } = useMutation<
     void,
     Error | GraphQLError,
@@ -38,5 +38,3 @@ const usePersistBankingPublicToken = () => {
     persistBankingPublicTokenAsync: mutateAsync,
   };
 };
-
-export default usePersistBankingPublicToken;

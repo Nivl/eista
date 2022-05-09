@@ -4,5 +4,7 @@ module.exports = {
   staticDirs: ['../public'],
   features: {
     postcss: false,
+    // https://github.com/mui/material-ui/issues/24282#issuecomment-967747802
+    emotionAlias: false,
   },
 };

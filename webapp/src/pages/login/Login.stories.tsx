@@ -1,8 +1,8 @@
 import { Meta, Story } from '@storybook/react';
 
-import { FourOhFour } from './FourOhFour';
+import { Login } from './Login';
 
-const Template: Story = args => <FourOhFour {...args} />;
+const Template: Story = args => <Login {...args} />;
 
 export const Default = Template.bind({});
 
@@ -12,8 +12,8 @@ DarkMode.args = {
 };
 
 export default {
-  component: FourOhFour,
-  title: 'pages/FourOhFour',
+  component: Login,
+  title: 'pages/Login',
   args: {
     theme: 'light',
   },

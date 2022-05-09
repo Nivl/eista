@@ -1,9 +1,9 @@
 import { gql } from 'graphql-request';
 import { createContext } from 'react';
-import { FC, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
-import request from 'backend/request';
+import { request } from 'backend/request';
 import { Me } from 'backend/types';
 
 export interface MeContextInterface {
@@ -31,7 +31,7 @@ const getMe = async () => {
   return me as Me;
 };
 
-export const MeProvider: FC = ({ children }) => {
+export const MeProvider = ({ children }: { children: ReactNode }) => {
   const [me, setMe] = useState<Me | null>(null);
 
   const { data, isLoading, isError, error } = useQuery('me', getMe, {
@@ -58,7 +58,7 @@ export const MeProvider: FC = ({ children }) => {
   return <MeContext.Provider value={toProvide}>{children}</MeContext.Provider>;
 };
 
-const MeContext = createContext<{
+export const MeContext = createContext<{
   me: Me | null;
   setMe: (_: Me | null) => void;
   isLoading: boolean;
@@ -70,5 +70,3 @@ const MeContext = createContext<{
   isLoading: false,
   isError: false,
 });
-
-export default MeContext;

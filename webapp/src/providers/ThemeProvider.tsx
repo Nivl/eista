@@ -1,12 +1,19 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {
+  createTheme,
+  ThemeProvider as MuiThemeProvider,
+} from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { FC, useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 
-import useLocalStorage from 'hooks/useLocalStorage';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 
-const Theme: FC<{
+export const ThemeProvider = ({
+  scheme,
+  children,
+}: {
   scheme?: 'dark' | 'light';
-}> = ({ scheme, children }) => {
+  children: ReactNode;
+}) => {
   let prefersLightMode = useMediaQuery('(prefers-color-scheme: light)');
 
   if (scheme) {
@@ -38,7 +45,5 @@ const Theme: FC<{
     [prefersLightMode],
   );
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
 };
-
-export default Theme;

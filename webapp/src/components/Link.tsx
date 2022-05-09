@@ -1,14 +1,17 @@
 import { Link as MuiLink } from '@mui/material';
 import RouterLink from 'next/link';
-import { FC } from 'react';
+import { ReactNode } from 'react';
 
-const Link: FC<{
+export const Link = ({
+  href,
+  children,
+  underline = 'hover',
+}: {
   href: string;
   underline?: 'always' | 'hover' | 'none';
-}> = ({ href, children, underline = 'hover' }) => (
+  children: ReactNode;
+}) => (
   <RouterLink href={href} passHref>
     <MuiLink underline={underline}>{children}</MuiLink>
   </RouterLink>
 );
-
-export default Link;

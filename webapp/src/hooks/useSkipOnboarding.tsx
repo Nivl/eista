@@ -2,10 +2,10 @@ import { gql } from 'graphql-request';
 import { useContext, useEffect } from 'react';
 import { useMutation } from 'react-query';
 
-import request from 'backend/request';
+import { request } from 'backend/request';
 import { GraphQLError } from 'backend/types';
 import { Me } from 'backend/types';
-import MeContext from 'contexts/MeContext';
+import { MeContext } from 'contexts/MeContext';
 
 const skipOnboarding = async () => {
   const { skipOnboarding } = await request(
@@ -23,7 +23,7 @@ const skipOnboarding = async () => {
   return skipOnboarding as Me;
 };
 
-const useSkipOnboarding = () => {
+export const useSkipOnboarding = () => {
   const { setMe } = useContext(MeContext);
   const { data, isLoading, isSuccess, mutateAsync, error } = useMutation<
     Me,
@@ -44,5 +44,3 @@ const useSkipOnboarding = () => {
     skipOnboarding: mutateAsync,
   };
 };
-
-export default useSkipOnboarding;

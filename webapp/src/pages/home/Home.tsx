@@ -2,12 +2,12 @@ import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 
-import Dashboard from './Dashboard';
-import Onboarding from './Onboarding';
-import Loading from 'components/Loader';
-import MeContext from 'contexts/MeContext';
+import { Dashboard } from './Dashboard';
+import { Onboarding } from './Onboarding';
+import { Loading } from 'components/Loading';
+import { MeContext } from 'contexts/MeContext';
 
-const Home: NextPage = () => {
+export const Home: NextPage = () => {
   const router = useRouter();
   const { me, isLoading: isPageLoading } = useContext(MeContext);
 
@@ -26,5 +26,3 @@ const Home: NextPage = () => {
 
   return <Dashboard />;
 };
-
-export default Home;

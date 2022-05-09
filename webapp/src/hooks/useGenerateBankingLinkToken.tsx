@@ -1,7 +1,7 @@
 import { gql } from 'graphql-request';
 import { useMutation } from 'react-query';
 
-import request from 'backend/request';
+import { request } from 'backend/request';
 import { GraphQLError } from 'backend/types';
 
 type LinkToken = {
@@ -21,7 +21,7 @@ const generateBankingLinkToken = async () => {
   return generateBankingLinkToken as LinkToken;
 };
 
-const useGenerateBankingLinkToken = () => {
+export const useGenerateBankingLinkToken = () => {
   const { data, isLoading, isSuccess, mutateAsync, mutate, error } =
     useMutation<LinkToken, Error | GraphQLError, void>(
       generateBankingLinkToken,
@@ -36,5 +36,3 @@ const useGenerateBankingLinkToken = () => {
     generateLinkTokenAsync: mutateAsync,
   };
 };
-
-export default useGenerateBankingLinkToken;

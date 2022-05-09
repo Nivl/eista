@@ -25,15 +25,15 @@ jest.mock('next/router', () => {
   };
 });
 
-import LoadingOriginal from 'components/Loader';
-jest.mock('components/Loader');
+import { Loading as LoadingOriginal } from 'components/Loading';
+jest.mock('components/Loading');
 const Loading = jest.mocked(LoadingOriginal, true);
 
-import useSignInOriginal from 'hooks/useSignIn';
+import { useSignIn as useSignInOriginal } from 'hooks/useSignIn';
 jest.mock('hooks/useSignIn');
 const useSignIn = jest.mocked(useSignInOriginal, true);
 
-import Login from './Login';
+import { Login } from './Login';
 
 describe('Login', () => {
   beforeEach(() => {

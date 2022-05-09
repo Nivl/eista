@@ -1,5 +1,5 @@
 import { Box, Container, useTheme } from '@mui/material';
-import { FC } from 'react';
+import { ReactNode } from 'react';
 
 const ScreenEdge = ({ position = 'top' }: { position?: 'top' | 'bottom' }) => {
   const theme = useTheme();
@@ -28,14 +28,16 @@ const ScreenEdge = ({ position = 'top' }: { position?: 'top' | 'bottom' }) => {
   );
 };
 
-const Page: FC<{
+export const Page = ({
+  children,
+  fullWidth = false,
+}: {
   fullWidth?: boolean;
-}> = ({ children, fullWidth = false }) => (
+  children: ReactNode;
+}) => (
   <Box>
     <ScreenEdge position="top" />
     <Container maxWidth={fullWidth ? 'lg' : 'sm'}>{children}</Container>
     <ScreenEdge position="bottom" />
   </Box>
 );
-
-export default Page;

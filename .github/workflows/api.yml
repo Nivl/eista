@@ -19,12 +19,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Go version
         id: gover
         run: echo "::set-output name=value::$(grep 'go 1.' go.mod | cut -d ' ' -f 2)"
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ steps.gover.outputs.value }}
 
@@ -34,12 +34,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Go version
         id: gover
         run: echo "::set-output name=value::$(grep 'go 1.' go.mod | cut -d ' ' -f 2)"
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ steps.gover.outputs.value }}
 
@@ -49,17 +49,17 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Get Go version
         id: gover
         run: echo "::set-output name=value::$(grep 'go 1.' go.mod | cut -d ' ' -f 2)"
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v3
         with:
           go-version: ${{ steps.gover.outputs.value }}
 
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2
+        uses: golangci/golangci-lint-action@v3
         with:
           version: v1.42.1
           working-directory: ./api
@@ -68,8 +68,8 @@ jobs:
     name: "Golang Vulnerabilities Scan"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-go@v3
 
       - name: Generate go.list
         run: go list -json -m all > ../go.list
@@ -77,15 +77,16 @@ jobs:
       - name: Run Nancy
         uses: sonatype-nexus-community/nancy-github-action@main
 
-  unmaintained-deps-check:
-    name: "Unmaintained deps check"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+  # Disable because not useful for now
+  # unmaintained-deps-check:
+  #   name: "Unmaintained deps check"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-go@v3
 
-      - name: Generate go.list
-        run: go list -json -m all > ../go.list
+  #     - name: Generate go.list
+  #       run: go list -json -m all > ../go.list
 
-      - name: Run Voorhees
-        uses: Nivl/voorhees-github-action@v1
+  #     - name: Run Voorhees
+  #       uses: Nivl/voorhees-github-action@v1

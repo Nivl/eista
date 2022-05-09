@@ -2,7 +2,7 @@ import { Box, Container, Typography } from '@mui/material';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
-const FourOhFour: NextPage = () => (
+export const FourOhFour: NextPage = () => (
   <>
     <Head>
       <title>Page Not Found</title>
@@ -36,5 +36,3 @@ const FourOhFour: NextPage = () => (
     </Container>
   </>
 );
-
-export default FourOhFour;

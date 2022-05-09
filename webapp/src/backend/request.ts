@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 
-const request = (query: string, variables: unknown = {}) => {
+export const request = (query: string, variables: unknown = {}) => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/query`;
   const graphQLClient = new GraphQLClient(url);
 
@@ -11,5 +11,3 @@ const request = (query: string, variables: unknown = {}) => {
 
   return graphQLClient.request(query, variables);
 };
-
-export default request;

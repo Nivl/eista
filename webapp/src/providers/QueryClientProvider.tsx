@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { ReactNode } from 'react';
 import {
   QueryClient,
   QueryClientProvider as ExternalQueryClientProvider,
 } from 'react-query';
 
-const QueryClientProvider: FC = ({ children }) => {
+export const QueryClientProvider = ({ children }: { children: ReactNode }) => {
   const client = new QueryClient();
 
   return (
@@ -13,5 +13,3 @@ const QueryClientProvider: FC = ({ children }) => {
     </ExternalQueryClientProvider>
   );
 };
-
-export default QueryClientProvider;
